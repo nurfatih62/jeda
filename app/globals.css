@@ -1,19 +1,50 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
 @import "tailwindcss";
 
 :root {
-  --primary: #198876;
-  --primary-hover: #187364;
-  --primary-clicked: #18584D;
-  --danger: #EF4444;
+  /* =========================
+     BASE
+     ========================= */
+
   --white: #ffffff;
+  --black: #000000;
+
+  /* =========================
+     PRIMARY
+     ========================= */
+
+  --primary: #167565;
+  --primary-hover: #126354;
+  --primary-clicked: #0e5145;
+
+  /* =========================
+     SUCCESS
+     ========================= */
+
+  --success: #08734f;
+  --success-hover: #066044;
+  --success-clicked: #044b35;
+
+  /* =========================
+     DANGER
+     ========================= */
+
+  --danger: #c62828;
+  --danger-hover: #a91f1f;
+  --danger-clicked: #861818;
 }
+
+/* =========================
+   BASE
+   ========================= */
 
 * {
   box-sizing: border-box;
 }
 
+html,
 body {
   margin: 0;
-  font-family: "Poppins", sans-serif;
+  padding: 0;
+  background: var(--white);
+  color: var(--black);
 }
