@@ -1,36 +1,32 @@
 @import "tailwindcss";
 
 :root {
-  /* =========================
-     BASE
-     ========================= */
-
   --white: #ffffff;
   --black: #000000;
 
-  /* =========================
-     PRIMARY
-     ========================= */
+  /* PRIMARY */
+  --primary: #188170;
+  --primary-hover: #187364;
+  --primary-clicked: #18584d;
 
-  --primary: #167565;
-  --primary-hover: #126354;
-  --primary-clicked: #0e5145;
+  --primary-hover-bg: #19887629;
+  --primary-clicked-bg: #19887652;
 
-  /* =========================
-     SUCCESS
-     ========================= */
+  /* SUCCESS */
+  --success: #10845e;
+  --success-hover: #0c6f4f;
+  --success-clicked: #0e5e43;
 
-  --success: #08734f;
-  --success-hover: #066044;
-  --success-clicked: #044b35;
+  --success-hover-bg: #10845e29;
+  --success-clicked-bg: #10845e52;
 
-  /* =========================
-     DANGER
-     ========================= */
-
+  /* DANGER */
   --danger: #c62828;
-  --danger-hover: #a91f1f;
-  --danger-clicked: #861818;
+  --danger-hover: #b71c1c;
+  --danger-clicked: #991b1b;
+
+  --danger-hover-bg: #c6282829;
+  --danger-clicked-bg: #c6282852;
 }
 
 /* =========================

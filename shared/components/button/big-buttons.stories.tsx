@@ -23,14 +23,19 @@ const meta = {
     },
 
     arrow: {
-    control: "select",
-    options: ["none", "left", "right"],
-    description: "Panah pada tombol",
-    },  
+      control: "select",
+      options: ["none", "left", "right"],
+      description: "Panah pada tombol",
+    },
 
     loading: {
-    control: "boolean",
-    description: "Menampilkan loading pada tombol",
+      control: "boolean",
+      description: "Menampilkan loading pada tombol",
+    },
+
+    disabled: {
+      control: "boolean",
+      description: "Menonaktifkan tombol",
     },
 
     children: {
@@ -38,6 +43,7 @@ const meta = {
       description: "Teks di dalam tombol",
     },
   },
+  
 } satisfies Meta<typeof Button>;
 
 export default meta;
@@ -135,6 +141,31 @@ export const AllButtons: Story = {
           <Button variant="ghost" colorState="danger" arrow="right">Click Me!</Button>
         </div>
       </div>
+
+            {/* DISABLED */}
+      <div className="flex flex-col gap-4">
+        <h3 className="text-[16px] font-semibold">DISABLED</h3>
+        <div className="flex items-center gap-4">
+          <Button variant="primary" disabled> Click Me! </Button>
+          <Button variant="outline" disabled> Click Me! </Button>
+          <Button variant="ghost" disabled> Click Me! </Button>
+        </div>
+      </div>
+
+            {/* DISABLED + ARROW */}
+      <div className="flex flex-col gap-4">
+        <h3 className="text-[16px] font-semibold">DISABLED + ARROW</h3>
+
+        <div className="flex items-center gap-4">
+          <Button variant="primary" arrow="left" disabled> Click Me! </Button>
+          <Button variant="outline" arrow="left" disabled> Click Me! </Button>
+          <Button variant="ghost" arrow="left" disabled> Click Me! </Button>
+          <Button variant="primary" arrow="right" disabled> Click Me! </Button>
+          <Button variant="outline" arrow="right" disabled> Click Me! </Button>
+          <Button variant="ghost" arrow="right" disabled> Click Me! </Button>
+        </div>
+      </div>
+
       {/* LOADING */}
         <div className="flex flex-col gap-4">
         <h3 className="text-[16px] font-semibold"> LOADING </h3>
