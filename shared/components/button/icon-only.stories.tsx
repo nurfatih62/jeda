@@ -3,11 +3,10 @@ import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import {
   Menu,
   Search,
-  Settings,
-  User,
-  Heart,
-  Plus,
-  Trash2,
+  ThumbsUp,
+  MessageSquare,
+  Share2,
+  Flag,
 } from "lucide-react";
 
 import { IconButton } from "./icon-button";
@@ -15,15 +14,14 @@ import { IconButton } from "./icon-button";
 const icons = {
   Menu: <Menu size={24} strokeWidth={2} />,
   Search: <Search size={24} strokeWidth={2} />,
-  Settings: <Settings size={24} strokeWidth={2} />,
-  User: <User size={24} strokeWidth={2} />,
-  Heart: <Heart size={24} strokeWidth={2} />,
-  Plus: <Plus size={24} strokeWidth={2} />,
-  Trash: <Trash2 size={24} strokeWidth={2} />,
+  Like: <ThumbsUp size={24} strokeWidth={2} />,
+  Comment: <MessageSquare size={24} strokeWidth={2} />,
+  Share: <Share2 size={24} strokeWidth={2} />,
+  Flag: <Flag size={24} strokeWidth={2} />,
 };
 
 const meta = {
-  title: "Components/Button/Icon Only",
+  title: "Components/Atom/Button/Icon Only",
   component: IconButton,
 
   tags: ["autodocs"],

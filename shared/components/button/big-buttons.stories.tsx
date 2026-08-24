@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { Button } from "./button";
 
 const meta = {
-  title: "Components/Button/Big Buttons",
+  title: "Components/Atom/Button/Big Buttons",
   component: Button,
   tags: ["autodocs"],
   parameters: {

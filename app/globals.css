@@ -27,6 +27,12 @@
 
   --danger-hover-bg: #c6282829;
   --danger-clicked-bg: #c6282852;
+
+  /* INPUT */
+  --background-disabled: #f3f4f6;
+  --border: #d1d5db;
+  --text-secondary: #6b7280;
+  --text-disabled: #9ca3af;
 }
 
 /* =========================
