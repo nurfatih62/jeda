@@ -1,18 +1,57 @@
 @import "tailwindcss";
 
 :root {
+  /* =========================
+     BRAND & CORE
+  ========================= */
+
+/* PRIMARY - ACCESSIBLE */
+--primary: #187364;
+--primary-hover: #18584d;
+--primary-clicked: #12483f;
+
+--primary-hover-bg: #18736429;
+--primary-clicked-bg: #18736452;
+
+  --secondary: #5ebaa5;
+  --accent: #fcba33;
+  --green: #75bf85;
+
+  /* =========================
+     TEXT
+  ========================= */
+
+  --text-primary: #1b4e46;
+  --text-secondary: #1b4e46bf;
+  --black: #555555;
   --white: #ffffff;
-  --black: #000000;
 
-  /* PRIMARY */
-  --primary: #188170;
-  --primary-hover: #187364;
-  --primary-clicked: #18584d;
+  /* =========================
+     BACKGROUND & SURFACE
+  ========================= */
 
-  --primary-hover-bg: #19887629;
-  --primary-clicked-bg: #19887652;
+  --input-bg: #f3f8fa;
+  --card-bg: #1988760a;
 
-  /* SUCCESS */
+  --background-disabled: #f3f4f6;
+
+  /* =========================
+     BORDER
+  ========================= */
+
+  --border: #d1d5db;
+  --blue-border: #19887680;
+
+  /* =========================
+     ICON
+  ========================= */
+
+  --icon-line: #374151;
+
+  /* =========================
+     SUCCESS
+  ========================= */
+
   --success: #10845e;
   --success-hover: #0c6f4f;
   --success-clicked: #0e5e43;
@@ -20,7 +59,10 @@
   --success-hover-bg: #10845e29;
   --success-clicked-bg: #10845e52;
 
-  /* DANGER */
+  /* =========================
+     DANGER / RED
+  ========================= */
+
   --danger: #c62828;
   --danger-hover: #b71c1c;
   --danger-clicked: #991b1b;
@@ -28,16 +70,25 @@
   --danger-hover-bg: #c6282829;
   --danger-clicked-bg: #c6282852;
 
-  /* INPUT */
-  --background-disabled: #f3f4f6;
-  --border: #d1d5db;
-  --text-secondary: #6b7280;
+  --red: #f08181;
+
+  /* =========================
+     PRIMARY BACKGROUND
+  ========================= */
+
+  --primary-hover-bg: #19887629;
+  --primary-clicked-bg: #19887652;
+
+  /* =========================
+     INPUT
+  ========================= */
+
   --text-disabled: #9ca3af;
 }
 
 /* =========================
    BASE
-   ========================= */
+========================= */
 
 * {
   box-sizing: border-box;
@@ -48,5 +99,5 @@ body {
   margin: 0;
   padding: 0;
   background: var(--white);
-  color: var(--black);
+  color: var(--text-primary);
 }

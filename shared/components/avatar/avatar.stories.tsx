@@ -72,9 +72,9 @@ export const AllAvatar: Story = {
 
       {/* DEFAULT */}
       <div className="flex flex-col gap-4">
-        <h3 className="text-[16px] font-semibold">
+        <p className="text-[16px] font-semibold">
           DEFAULT
-        </h3>
+        </p>
 
         <div className="flex items-center gap-4">
           <Avatar
@@ -88,9 +88,9 @@ export const AllAvatar: Story = {
 
       {/* SIZE */}
       <div className="flex flex-col gap-4">
-        <h3 className="text-[16px] font-semibold">
+        <p className="text-[16px] font-semibold">
           SIZE
-        </h3>
+        </p>
 
         <div className="flex items-center gap-4">
           <Avatar
@@ -118,9 +118,9 @@ export const AllAvatar: Story = {
 
       {/* WITH INITIAL */}
       <div className="flex flex-col gap-4">
-        <h3 className="text-[16px] font-semibold">
+        <p className="text-[16px] font-semibold">
           WITH INITIAL
-        </h3>
+        </p>
 
         <div className="flex items-center gap-4">
           <Avatar
@@ -132,9 +132,9 @@ export const AllAvatar: Story = {
 
       {/* WITH ICON */}
       <div className="flex flex-col gap-4">
-        <h3 className="text-[16px] font-semibold">
+        <p className="text-[16px] font-semibold">
           WITH ICON
-        </h3>
+        </p>
 
         <div className="flex items-center gap-4">
           <Avatar
@@ -146,9 +146,9 @@ export const AllAvatar: Story = {
 
       {/* NO IMAGE */}
       <div className="flex flex-col gap-4">
-        <h3 className="text-[16px] font-semibold">
+        <p className="text-[16px] font-semibold">
           NO IMAGE
-        </h3>
+        </p>
 
         <div className="flex items-center gap-4">
           <Avatar
@@ -160,9 +160,9 @@ export const AllAvatar: Story = {
 
       {/* BROKEN IMAGE */}
       <div className="flex flex-col gap-4">
-        <h3 className="text-[16px] font-semibold">
+        <p className="text-[16px] font-semibold">
           BROKEN IMAGE
-        </h3>
+        </p>
 
         <div className="flex items-center gap-4">
           <Avatar

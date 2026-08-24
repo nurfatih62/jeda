@@ -81,18 +81,18 @@ export const AllInput: Story = {
 
       {/* DEFAULT */}
       <div className="flex flex-col gap-3">
-        <h3 className="text-[16px] font-semibold">
+        <p className="text-[16px] font-semibold">
           DEFAULT
-        </h3>
+        </p>
 
         <Input placeholder="Cari artikel..." />
       </div>
 
       {/* HOVER */}
       <div className="flex flex-col gap-3">
-        <h3 className="text-[16px] font-semibold">
+        <p className="text-[16px] font-semibold">
           HOVER
-        </h3>
+        </p>
 
         <Input
           placeholder="Cari artikel..."
@@ -102,9 +102,9 @@ export const AllInput: Story = {
 
       {/* FOCUS */}
       <div className="flex flex-col gap-3">
-        <h3 className="text-[16px] font-semibold">
+        <p className="text-[16px] font-semibold">
           FOCUS
-        </h3>
+        </p>
 
         <Input
           label="Pencarian"
@@ -115,9 +115,9 @@ export const AllInput: Story = {
 
       {/* FILLED */}
       <div className="flex flex-col gap-3">
-        <h3 className="text-[16px] font-semibold">
+        <p className="text-[16px] font-semibold">
           FILLED
-        </h3>
+        </p>
 
         <Input
           label="Judul artikel"
@@ -128,9 +128,9 @@ export const AllInput: Story = {
 
       {/* DISABLED */}
       <div className="flex flex-col gap-3">
-        <h3 className="text-[16px] font-semibold">
+        <p className="text-[16px] font-semibold">
           DISABLED
-        </h3>
+        </p>
 
         <Input
           label="Pencarian"
@@ -141,9 +141,9 @@ export const AllInput: Story = {
 
       {/* ERROR */}
       <div className="flex flex-col gap-3">
-        <h3 className="text-[16px] font-semibold">
+        <p className="text-[16px] font-semibold">
           ERROR
-        </h3>
+        </p>
 
         <Input
           label="Email"

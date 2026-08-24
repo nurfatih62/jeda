@@ -69,7 +69,7 @@ export const AllButtons: Story = {
     <div className="flex flex-col gap-8">
       {/* DEFAULT */}
       <div className="flex flex-col gap-4">
-        <h3 className="text-[16px] font-semibold">DEFAULT</h3>
+        <p className="text-[16px] font-semibold">DEFAULT</p>
 
         <div className="flex items-center gap-4">
           <Button variant="primary">Click Me!</Button>
@@ -80,7 +80,7 @@ export const AllButtons: Story = {
 
       {/* DEFAULT + ARROW */}
       <div className="flex flex-col gap-4">
-        <h3 className="text-[16px] font-semibold">DEFAULT + ARROW</h3>
+        <p className="text-[16px] font-semibold">DEFAULT + ARROW</p>
 
         <div className="flex items-center gap-4">
           <Button variant="primary" arrow="left">Click Me!</Button>
@@ -94,7 +94,7 @@ export const AllButtons: Story = {
 
       {/* SUCCESS */}
       <div className="flex flex-col gap-4">
-        <h3 className="text-[16px] font-semibold">SUCCESS</h3>
+        <p className="text-[16px] font-semibold">SUCCESS</p>
 
         <div className="flex items-center gap-4">
           <Button variant="primary" colorState="success">Click Me!</Button>
@@ -105,7 +105,7 @@ export const AllButtons: Story = {
 
       {/* SUCCESS + ARROW */}
       <div className="flex flex-col gap-4">
-        <h3 className="text-[16px] font-semibold">SUCCESS + ARROW</h3>
+        <p className="text-[16px] font-semibold">SUCCESS + ARROW</p>
 
         <div className="flex items-center gap-4">
           <Button variant="primary" colorState="success" arrow="left">Click Me!</Button>
@@ -119,7 +119,7 @@ export const AllButtons: Story = {
 
       {/* DANGER */}
       <div className="flex flex-col gap-4">
-        <h3 className="text-[16px] font-semibold">DANGER</h3>
+        <p className="text-[16px] font-semibold">DANGER</p>
 
         <div className="flex items-center gap-4">
           <Button variant="primary" colorState="danger">Click Me!</Button>
@@ -130,7 +130,7 @@ export const AllButtons: Story = {
 
       {/* DANGER + ARROW */}
       <div className="flex flex-col gap-4">
-        <h3 className="text-[16px] font-semibold">DANGER + ARROW</h3>
+        <p className="text-[16px] font-semibold">DANGER + ARROW</p>
 
         <div className="flex items-center gap-4">
           <Button variant="primary" colorState="danger" arrow="left">Click Me!</Button>
@@ -144,7 +144,7 @@ export const AllButtons: Story = {
 
             {/* DISABLED */}
       <div className="flex flex-col gap-4">
-        <h3 className="text-[16px] font-semibold">DISABLED</h3>
+        <p className="text-[16px] font-semibold">DISABLED</p>
         <div className="flex items-center gap-4">
           <Button variant="primary" disabled> Click Me! </Button>
           <Button variant="outline" disabled> Click Me! </Button>
@@ -154,7 +154,7 @@ export const AllButtons: Story = {
 
             {/* DISABLED + ARROW */}
       <div className="flex flex-col gap-4">
-        <h3 className="text-[16px] font-semibold">DISABLED + ARROW</h3>
+        <p className="text-[16px] font-semibold">DISABLED + ARROW</p>
 
         <div className="flex items-center gap-4">
           <Button variant="primary" arrow="left" disabled> Click Me! </Button>
@@ -168,7 +168,7 @@ export const AllButtons: Story = {
 
       {/* LOADING */}
         <div className="flex flex-col gap-4">
-        <h3 className="text-[16px] font-semibold"> LOADING </h3>
+        <p className="text-[16px] font-semibold"> LOADING </p>
 
         <div className="flex items-center gap-4">
             <Button variant="primary" loading > Click Me! </Button>

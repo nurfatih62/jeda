@@ -82,9 +82,9 @@ export const AllButtons: Story = {
 
       {/* DEFAULT */}
       <div className="flex flex-col gap-4">
-        <h3 className="text-[16px] font-semibold">
+        <p className="text-[16px] font-semibold">
           DEFAULT
-        </h3>
+        </p>
 
         <div className="flex items-center gap-4">
           <IconButton
@@ -112,9 +112,9 @@ export const AllButtons: Story = {
 
       {/* DANGER */}
       <div className="flex flex-col gap-4">
-        <h3 className="text-[16px] font-semibold">
+        <p className="text-[16px] font-semibold">
           DANGER
-        </h3>
+        </p>
 
         <div className="flex items-center gap-4">
           <IconButton
@@ -142,9 +142,9 @@ export const AllButtons: Story = {
 
       {/* DISABLED */}
       <div className="flex flex-col gap-4">
-        <h3 className="text-[16px] font-semibold">
+        <p className="text-[16px] font-semibold">
           DISABLED
-        </h3>
+        </p>
 
         <div className="flex items-center gap-4">
           <IconButton
