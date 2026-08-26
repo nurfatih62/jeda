@@ -1,5 +1,5 @@
 import { Flag, Share2 } from "lucide-react";
-import { IconButton } from "../../button/icon-button";
+import { IconButton } from "../../atom/button/icon-button";
 
 export interface ArticleActionsProps {
   onShare?: () => void;

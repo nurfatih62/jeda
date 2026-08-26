@@ -1,4 +1,4 @@
-import { Button } from "../../button/button";
+import { Button } from "../../atom/button/button";
 
 export interface HeroActionsProps {
   onExplore?: () => void;

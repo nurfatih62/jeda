@@ -1,5 +1,5 @@
 import { Search } from "lucide-react";
-import { Input } from "../../input/input";
+import { Input } from "../../atom/input/input";
 
 export interface SearchBarProps {
   placeholder?: string;

@@ -22,13 +22,19 @@ const meta = {
       description: "Tanggal artikel",
     },
 
+    showAvatar: {
+      control: "boolean",
+      description: "Menampilkan foto profil",
+    },
+
     avatar: {
       control: "text",
-      description: "URL avatar penulis",
+      description: "URL foto profil",
     },
   },
 } satisfies Meta<typeof AuthorMeta>;
 
+// CUKUP DI SINI
 export default meta;
 
 type Story = StoryObj<typeof meta>;
@@ -36,7 +42,16 @@ type Story = StoryObj<typeof meta>;
 export const Custom: Story = {
   args: {
     author: "Nufa",
-    date: "15 Agustus 2026",
+    date: "24 Agustus 2026",
+    showAvatar: false,
+  },
+};
+
+export const WithAvatar: Story = {
+  args: {
+    author: "Nufa",
+    date: "24 Agustus 2026",
+    showAvatar: true,
     avatar:
       "https://i.pinimg.com/originals/5d/85/13/5d8513af8546f40b8942e87acf8c283f.jpg",
   },
@@ -45,52 +60,35 @@ export const Custom: Story = {
 export const AllAuthorMeta: Story = {
   args: {
     author: "Nufa",
-    date: "15 Agustus 2026",
-    avatar:
-      "https://i.pinimg.com/originals/5d/85/13/5d8513af8546f40b8942e87acf8c283f.jpg",
+    date: "24 Agustus 2026",
   },
 
   render: () => (
     <div className="flex flex-col gap-8">
-
-      {/* DEFAULT */}
       <div className="flex flex-col gap-2">
-        <h2 className="text-[18px] font-semibold">
-          DEFAULT
+        <h2 className="text-lg font-semibold">
+          WITHOUT AVATAR
         </h2>
 
         <AuthorMeta
           author="Nufa"
-          date="15 Agustus 2026"
+          date="24 Agustus 2026"
+          showAvatar={false}
+        />
+      </div>
+
+      <div className="flex flex-col gap-2">
+        <h2 className="text-lg font-semibold">
+          WITH AVATAR
+        </h2>
+
+        <AuthorMeta
+          author="Nufa"
+          date="24 Agustus 2026"
+          showAvatar={true}
           avatar="https://i.pinimg.com/originals/5d/85/13/5d8513af8546f40b8942e87acf8c283f.jpg"
         />
       </div>
-
-      {/* DIFFERENT AUTHOR */}
-      <div className="flex flex-col gap-2">
-        <h2 className="text-[18px] font-semibold">
-          DIFFERENT AUTHOR
-        </h2>
-
-        <AuthorMeta
-          author="Nur Fatih"
-          date="24 Agustus 2026"
-          avatar="https://i.pravatar.cc/80?img=12"
-        />
-      </div>
-
-      {/* NO IMAGE */}
-      <div className="flex flex-col gap-2">
-        <h2 className="text-[18px] font-semibold">
-          NO IMAGE
-        </h2>
-
-        <AuthorMeta
-          author="JEDA"
-          date="24 Agustus 2026"
-        />
-      </div>
-
     </div>
   ),
 };

@@ -55,7 +55,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Custom: Story = {
   args: {
-    src: "https://i.pravatar.cc/150?img=12",
+    src: "https://i.pinimg.com/originals/5d/85/13/5d8513af8546f40b8942e87acf8c283f.jpg",
     alt: "Avatar user",
     size: "md",
     fallback: fallbacks.Initial,
@@ -78,7 +78,7 @@ export const AllAvatar: Story = {
 
         <div className="flex items-center gap-4">
           <Avatar
-            src="https://i.pravatar.cc/150?img=12"
+            src="https://i.pinimg.com/originals/5d/85/13/5d8513af8546f40b8942e87acf8c283f.jpg"
             alt="Avatar user"
             size="md"
             fallback="U"
@@ -94,21 +94,21 @@ export const AllAvatar: Story = {
 
         <div className="flex items-center gap-4">
           <Avatar
-            src="https://i.pravatar.cc/150?img=12"
+            src="https://i.pinimg.com/originals/5d/85/13/5d8513af8546f40b8942e87acf8c283f.jpg"
             alt="Avatar user"
             size="sm"
             fallback="U"
           />
 
           <Avatar
-            src="https://i.pravatar.cc/150?img=12"
+            src="https://i.pinimg.com/originals/5d/85/13/5d8513af8546f40b8942e87acf8c283f.jpg"
             alt="Avatar user"
             size="md"
             fallback="U"
           />
 
           <Avatar
-            src="https://i.pravatar.cc/150?img=12"
+            src="https://i.pinimg.com/originals/5d/85/13/5d8513af8546f40b8942e87acf8c283f.jpg"
             alt="Avatar user"
             size="lg"
             fallback="U"

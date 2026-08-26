@@ -2,20 +2,25 @@
 
 :root {
   /* =========================
-     BRAND & CORE
+     BRAND / PRIMARY
   ========================= */
 
-/* PRIMARY - ACCESSIBLE */
---primary: #187364;
---primary-hover: #18584d;
---primary-clicked: #12483f;
+  --primary: #198876;
+  --primary-hover: #147364;
+  --primary-clicked: #18584d;
 
---primary-hover-bg: #18736429;
---primary-clicked-bg: #18736452;
+  --primary-hover-bg: #1988760a;
+  --primary-clicked-bg: #19887652;
+
+
+  /* =========================
+     SECONDARY / ACCENT
+  ========================= */
 
   --secondary: #5ebaa5;
   --accent: #fcba33;
   --green: #75bf85;
+
 
   /* =========================
      TEXT
@@ -23,30 +28,40 @@
 
   --text-primary: #1b4e46;
   --text-secondary: #1b4e46bf;
+
   --black: #555555;
   --white: #ffffff;
 
+  --text-disabled: #9ca3af;
+
+
   /* =========================
-     BACKGROUND & SURFACE
+     BACKGROUND / SURFACE
   ========================= */
+
+  --background: #fbf8f2;
 
   --input-bg: #f3f8fa;
   --card-bg: #1988760a;
 
   --background-disabled: #f3f4f6;
 
+
   /* =========================
      BORDER
   ========================= */
 
   --border: #d1d5db;
+  --primary-border: #147364;
   --blue-border: #19887680;
 
+   --card-border: #1b4e4685;
   /* =========================
      ICON
   ========================= */
 
   --icon-line: #374151;
+
 
   /* =========================
      SUCCESS
@@ -59,8 +74,9 @@
   --success-hover-bg: #10845e29;
   --success-clicked-bg: #10845e52;
 
+
   /* =========================
-     DANGER / RED
+     DANGER
   ========================= */
 
   --danger: #c62828;
@@ -71,20 +87,9 @@
   --danger-clicked-bg: #c6282852;
 
   --red: #f08181;
-
-  /* =========================
-     PRIMARY BACKGROUND
-  ========================= */
-
-  --primary-hover-bg: #19887629;
-  --primary-clicked-bg: #19887652;
-
-  /* =========================
-     INPUT
-  ========================= */
-
-  --text-disabled: #9ca3af;
+  
 }
+
 
 /* =========================
    BASE
@@ -98,6 +103,10 @@ html,
 body {
   margin: 0;
   padding: 0;
-  background: var(--white);
+  min-height: 100%;
+}
+
+body {
+  background: var(--background);
   color: var(--text-primary);
 }
