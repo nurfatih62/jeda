@@ -60,10 +60,10 @@ export function Tabs({
             key={item.key}
             type="button"
             onClick={() => handleClick(item.key)}
-            className={`font-sans rounded-md px-4 py-2 text-base font-medium leading-6 transition-opacity ${
+            className={`font-sans rounded-md px-4 py-2 text-base font-medium leading-6 transition-colors ${
               active === item.key
-                ? "text-text-primary opacity-100"
-                : "text-primary opacity-50"
+                ? "text-text-primary"
+                : "text-text-muted"
             }`}
           >
             {item.label}

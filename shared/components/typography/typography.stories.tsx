@@ -5,6 +5,7 @@ const meta: Meta = {
   title: 'Design Tokens/Typography',
   tags: ['autodocs'],
 };
+
 export default meta;
 
 type Story = StoryObj;
@@ -26,8 +27,13 @@ export const AllVariants: Story = {
     <div className="flex flex-col gap-4 bg-background p-6">
       {variants.map((v) => (
         <div key={v}>
-          <p className="mb-1 text-xs uppercase tracking-wide text-[#a49e8f]">{v}</p>
-          <Typography variant={v}>Ambil JEDA dan mulai membaca</Typography>
+          <p className="mb-1 text-xs uppercase tracking-wide text-text-primary">
+            {v}
+          </p>
+
+          <Typography variant={v}>
+            Ambil JEDA dan mulai membaca
+          </Typography>
         </div>
       ))}
     </div>
