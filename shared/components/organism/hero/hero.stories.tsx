@@ -1,40 +1,24 @@
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { Hero } from './hero';
 
-import { Hero } from "./hero";
-
-const meta = {
-  title: "Components/Organism/Hero",
+const meta: Meta<typeof Hero> = {
+  title: 'Organism/Hero',
   component: Hero,
-
-  tags: ["autodocs"],
-
-  parameters: {
-    layout: "fullscreen",
-  },
-
+  tags: ['autodocs'],
+  parameters: { layout: 'fullscreen' },
   argTypes: {
-    title: {
-      control: "text",
-      description: "Judul hero",
-    },
-
-    description: {
-      control: "text",
-      description: "Deskripsi hero",
-    },
+    onExplore: { action: 'explore' },
+    onRegister: { action: 'register' },
   },
-} satisfies Meta<typeof Hero>;
-
+};
 export default meta;
 
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof Hero>;
 
-export const Default: Story = {};
-
-export const Custom: Story = {
-  args: {
-    title: "Ambil JEDA dan mulai membaca",
-    description:
-      "Ayo bergabung untuk mendapatkan pengalaman lebih lengkap dengan JEDA dan mulai bacaanmu",
-  },
+export const Default: Story = {
+  render: (args) => (
+    <div className="bg-background py-6">
+      <Hero {...args} />
+    </div>
+  ),
 };

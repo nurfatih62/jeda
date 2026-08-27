@@ -1,181 +1,122 @@
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import { Button } from "./button";
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { Button, ButtonVariant, ButtonColorState, ButtonArrow } from './button';
 
-const meta = {
-  title: "Components/Atom/Button/Big Buttons",
+const meta: Meta<typeof Button> = {
+  title: 'Atom/Button',
   component: Button,
-  tags: ["autodocs"],
-  parameters: {
-    layout: "centered",
-  },
-
-  argTypes: {
-    variant: {
-      control: "select",
-      options: ["primary", "outline", "ghost"],
-      description: "Gaya tampilan tombol",
-    },
-
-    colorState: {
-      control: "select",
-      options: ["default", "success", "danger"],
-      description: "State warna tombol",
-    },
-
-    arrow: {
-      control: "select",
-      options: ["none", "left", "right"],
-      description: "Panah pada tombol",
-    },
-
-    loading: {
-      control: "boolean",
-      description: "Menampilkan loading pada tombol",
-    },
-
-    disabled: {
-      control: "boolean",
-      description: "Menonaktifkan tombol",
-    },
-
-    children: {
-      control: "text",
-      description: "Teks di dalam tombol",
-    },
-  },
-  
-} satisfies Meta<typeof Button>;
-
-export default meta;
-
-type Story = StoryObj<typeof meta>;
-
-export const Custom: Story = {
+  tags: ['autodocs'],
   args: {
-    children: "Click Me!",
-    variant: "primary",
-    colorState: "default",
-    arrow: "none",
+    children: 'Click Me!',
+    variant: 'primary',
+    colorState: 'default',
+    arrow: 'none',
     loading: false,
   },
-};
-
-export const AllButtons: Story = {
-  args: {
-    children: "Click Me!",
+  argTypes: {
+    children: { control: 'text', description: 'Teks di dalam tombol' },
+    variant: {
+      control: 'select',
+      options: ['primary', 'outline', 'ghost'],
+      description: 'Gaya tampilan tombol',
+    },
+    colorState: {
+      control: 'select',
+      options: ['default', 'success', 'danger'],
+      description: 'State warna tombol',
+    },
+    arrow: {
+      control: 'select',
+      options: ['none', 'left', 'right'],
+      description: 'Panah pada tombol',
+    },
+    loading: { control: 'boolean', description: 'Menampilkan loading pada tombol' },
+    disabled: { control: 'boolean', description: 'Menonaktifkan tombol' },
+    onClick: { action: 'clicked' },
   },
+};
+export default meta;
 
+type Story = StoryObj<typeof Button>;
+
+export const Default: Story = {};
+
+export const Outline: Story = { args: { variant: 'outline' } };
+export const Ghost: Story = { args: { variant: 'ghost' } };
+export const Success: Story = { args: { colorState: 'success' } };
+export const Danger: Story = { args: { colorState: 'danger' } };
+export const WithLeftArrow: Story = { args: { arrow: 'left' } };
+export const WithRightArrow: Story = { args: { arrow: 'right' } };
+export const Loading: Story = { args: { loading: true } };
+export const Disabled: Story = { args: { disabled: true } };
+
+const variants: ButtonVariant[] = ['primary', 'outline', 'ghost'];
+const arrows: { key: ButtonArrow; label: string }[] = [
+  { key: 'left', label: 'ARROW (left)' },
+  { key: 'right', label: 'ARROW (right)' },
+];
+
+function ColorSection({
+  label,
+  colorState,
+  disabled = false,
+  loading = false,
+}: {
+  label: string;
+  colorState: ButtonColorState;
+  disabled?: boolean;
+  loading?: boolean;
+}) {
+  return (
+    <div className="flex flex-col gap-3">
+      <p className="font-sans text-xs font-semibold uppercase tracking-wide text-text-muted">
+        {label}
+      </p>
+      <div className="flex flex-wrap items-center gap-3">
+        {variants.map((variant) => (
+          <Button
+            key={variant}
+            variant={variant}
+            colorState={colorState}
+            disabled={disabled}
+            loading={loading}
+          >
+            Click Me!
+          </Button>
+        ))}
+      </div>
+      {!loading &&
+        arrows.map(({ key, label: arrowLabel }) => (
+          <div key={key} className="flex flex-col gap-2">
+            <p className="font-sans text-2.5 uppercase tracking-wide text-text-muted/70">
+              {label} + {arrowLabel}
+            </p>
+            <div className="flex flex-wrap items-center gap-3">
+              {variants.map((variant) => (
+                <Button
+                  key={variant}
+                  variant={variant}
+                  colorState={colorState}
+                  arrow={key}
+                  disabled={disabled}
+                >
+                  Click Me!
+                </Button>
+              ))}
+            </div>
+          </div>
+        ))}
+    </div>
+  );
+}
+
+export const AllVariants: Story = {
   render: () => (
-    <div className="flex flex-col gap-8">
-      {/* DEFAULT */}
-      <div className="flex flex-col gap-4">
-        <p className="text-[16px] font-semibold">DEFAULT</p>
-
-        <div className="flex items-center gap-4">
-          <Button variant="primary">Click Me!</Button>
-          <Button variant="outline">Click Me!</Button>
-          <Button variant="ghost">Click Me!</Button>
-        </div>
-      </div>
-
-      {/* DEFAULT + ARROW */}
-      <div className="flex flex-col gap-4">
-        <p className="text-[16px] font-semibold">DEFAULT + ARROW</p>
-
-        <div className="flex items-center gap-4">
-          <Button variant="primary" arrow="left">Click Me!</Button>
-          <Button variant="outline" arrow="left">Click Me!</Button>
-          <Button variant="ghost" arrow="left">Click Me!</Button>
-          <Button variant="primary" arrow="right">Click Me!</Button>
-          <Button variant="outline" arrow="right">Click Me!</Button>
-          <Button variant="ghost" arrow="right">Click Me!</Button>
-        </div>
-      </div>
-
-      {/* SUCCESS */}
-      <div className="flex flex-col gap-4">
-        <p className="text-[16px] font-semibold">SUCCESS</p>
-
-        <div className="flex items-center gap-4">
-          <Button variant="primary" colorState="success">Click Me!</Button>
-          <Button variant="outline" colorState="success">Click Me!</Button>
-          <Button variant="ghost" colorState="success">Click Me!</Button>
-        </div>
-      </div>
-
-      {/* SUCCESS + ARROW */}
-      <div className="flex flex-col gap-4">
-        <p className="text-[16px] font-semibold">SUCCESS + ARROW</p>
-
-        <div className="flex items-center gap-4">
-          <Button variant="primary" colorState="success" arrow="left">Click Me!</Button>
-          <Button variant="outline" colorState="success" arrow="left">Click Me!</Button>
-          <Button variant="ghost" colorState="success" arrow="left">Click Me!</Button>
-          <Button variant="primary" colorState="success" arrow="right">Click Me!</Button>
-          <Button variant="outline" colorState="success" arrow="right">Click Me!</Button>
-          <Button variant="ghost" colorState="success" arrow="right">Click Me!</Button>
-        </div>
-      </div>
-
-      {/* DANGER */}
-      <div className="flex flex-col gap-4">
-        <p className="text-[16px] font-semibold">DANGER</p>
-
-        <div className="flex items-center gap-4">
-          <Button variant="primary" colorState="danger">Click Me!</Button>
-          <Button variant="outline" colorState="danger">Click Me!</Button>
-          <Button variant="ghost" colorState="danger">Click Me!</Button>
-        </div>
-      </div>
-
-      {/* DANGER + ARROW */}
-      <div className="flex flex-col gap-4">
-        <p className="text-[16px] font-semibold">DANGER + ARROW</p>
-
-        <div className="flex items-center gap-4">
-          <Button variant="primary" colorState="danger" arrow="left">Click Me!</Button>
-          <Button variant="outline" colorState="danger" arrow="left">Click Me!</Button>
-          <Button variant="ghost" colorState="danger" arrow="left">Click Me!</Button>
-          <Button variant="primary" colorState="danger" arrow="right">Click Me!</Button>
-          <Button variant="outline" colorState="danger" arrow="right">Click Me!</Button>
-          <Button variant="ghost" colorState="danger" arrow="right">Click Me!</Button>
-        </div>
-      </div>
-
-            {/* DISABLED */}
-      <div className="flex flex-col gap-4">
-        <p className="text-[16px] font-semibold">DISABLED</p>
-        <div className="flex items-center gap-4">
-          <Button variant="primary" disabled> Click Me! </Button>
-          <Button variant="outline" disabled> Click Me! </Button>
-          <Button variant="ghost" disabled> Click Me! </Button>
-        </div>
-      </div>
-
-            {/* DISABLED + ARROW */}
-      <div className="flex flex-col gap-4">
-        <p className="text-[16px] font-semibold">DISABLED + ARROW</p>
-
-        <div className="flex items-center gap-4">
-          <Button variant="primary" arrow="left" disabled> Click Me! </Button>
-          <Button variant="outline" arrow="left" disabled> Click Me! </Button>
-          <Button variant="ghost" arrow="left" disabled> Click Me! </Button>
-          <Button variant="primary" arrow="right" disabled> Click Me! </Button>
-          <Button variant="outline" arrow="right" disabled> Click Me! </Button>
-          <Button variant="ghost" arrow="right" disabled> Click Me! </Button>
-        </div>
-      </div>
-
-      {/* LOADING */}
-        <div className="flex flex-col gap-4">
-        <p className="text-[16px] font-semibold"> LOADING </p>
-
-        <div className="flex items-center gap-4">
-            <Button variant="primary" loading > Click Me! </Button>
-            <Button variant="outline" loading > Click Me! </Button>
-            <Button variant="ghost" loading > Click Me! </Button>
-        </div>
-        </div>
+    <div className="flex flex-col gap-8 bg-background p-6">
+      <ColorSection label="Default" colorState="default" />
+      <ColorSection label="Success" colorState="success" />
+      <ColorSection label="Danger" colorState="danger" />
+      <ColorSection label="Disabled" colorState="default" disabled />
+      <ColorSection label="Loading" colorState="default" loading />
     </div>
   ),
 };

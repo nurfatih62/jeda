@@ -1,59 +1,23 @@
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import { HeroActions } from "./hero-actions";
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { HeroActions } from './hero-actions';
 
-const meta = {
-  title: "Components/Molecule/Hero Actions",
+const meta: Meta<typeof HeroActions> = {
+  title: 'Molecule/HeroActions',
   component: HeroActions,
-
-  tags: ["autodocs"],
-
-  parameters: {
-    layout: "centered",
+  tags: ['autodocs'],
+  args: {
+    exploreLabel: 'Jelajahi dulu',
+    registerLabel: 'Daftar',
   },
-
   argTypes: {
-    onExplore: {
-      action: "explore clicked",
-      description: "Aksi tombol Jelajahi dulu",
-    },
-
-    onRegister: {
-      action: "register clicked",
-      description: "Aksi tombol Daftar",
-    },
+    exploreLabel: { control: 'text', description: 'Label tombol outline' },
+    registerLabel: { control: 'text', description: 'Label tombol primary' },
+    onExplore: { action: 'explore' },
+    onRegister: { action: 'register' },
   },
-} satisfies Meta<typeof HeroActions>;
-
+};
 export default meta;
 
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof HeroActions>;
 
-export const Custom: Story = {
-  args: {
-    onExplore: () => {},
-    onRegister: () => {},
-  },
-};
-
-export const AllHeroActions: Story = {
-  args: {
-    onExplore: () => {},
-    onRegister: () => {},
-  },
-
-  render: () => (
-    <div className="flex flex-col gap-8">
-      {/* DEFAULT */}
-      <div className="flex flex-col gap-2">
-        <h2 className="text-[18px] font-semibold">
-          DEFAULT
-        </h2>
-
-        <HeroActions
-          onExplore={() => {}}
-          onRegister={() => {}}
-        />
-      </div>
-    </div>
-  ),
-};
+export const Default: Story = {};

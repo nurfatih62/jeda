@@ -1,179 +1,29 @@
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { Avatar } from './avatar';
 
-import { User } from "lucide-react";
-
-import { Avatar } from "./avatar";
-
-const fallbacks = {
-  Initial: "AM",
-  Icon: <User size={20} strokeWidth={2} />,
-};
-
-const meta = {
-  title: "Components/Atom/Avatar",
+const meta: Meta<typeof Avatar> = {
+  title: 'Atom/Avatar',
   component: Avatar,
-
-  tags: ["autodocs"],
-
-  parameters: {
-    layout: "centered",
+  tags: ['autodocs'],
+  args: {
+    src: 'https://i.pinimg.com/originals/5d/85/13/5d8513af8546f40b8942e87acf8c283f.jpg',
+    alt: 'Nuf',
+    size: 'md',
   },
-
   argTypes: {
-    src: {
-      control: "text",
-      description: "URL gambar avatar",
-    },
-
-    alt: {
-      control: "text",
-      description: "Deskripsi gambar",
-    },
-
+    src: { control: 'text', description: 'URL gambar avatar' },
+    alt: { control: 'text', description: 'Nama/alt text avatar' },
     size: {
-      control: "select",
-      options: ["sm", "md", "lg"],
-      description: "Ukuran avatar",
-    },
-
-    fallback: {
-      control: "select",
-      options: Object.keys(fallbacks),
-      mapping: fallbacks,
-      description: "Tampilan ketika gambar tidak tersedia",
+      control: 'radio',
+      options: ['sm', 'md', 'lg'],
+      description: 'Ukuran avatar',
     },
   },
-} satisfies Meta<typeof Avatar>;
-
+};
 export default meta;
 
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof Avatar>;
 
-/* =========================
-   CUSTOM
-========================= */
-
-export const Custom: Story = {
-  args: {
-    src: "https://i.pinimg.com/originals/5d/85/13/5d8513af8546f40b8942e87acf8c283f.jpg",
-    alt: "Avatar user",
-    size: "md",
-    fallback: fallbacks.Initial,
-  },
-};
-
-/* =========================
-   ALL AVATAR
-========================= */
-
-export const AllAvatar: Story = {
-  render: () => (
-    <div className="flex flex-col gap-8">
-
-      {/* DEFAULT */}
-      <div className="flex flex-col gap-4">
-        <p className="text-[16px] font-semibold">
-          DEFAULT
-        </p>
-
-        <div className="flex items-center gap-4">
-          <Avatar
-            src="https://i.pinimg.com/originals/5d/85/13/5d8513af8546f40b8942e87acf8c283f.jpg"
-            alt="Avatar user"
-            size="md"
-            fallback="U"
-          />
-        </div>
-      </div>
-
-      {/* SIZE */}
-      <div className="flex flex-col gap-4">
-        <p className="text-[16px] font-semibold">
-          SIZE
-        </p>
-
-        <div className="flex items-center gap-4">
-          <Avatar
-            src="https://i.pinimg.com/originals/5d/85/13/5d8513af8546f40b8942e87acf8c283f.jpg"
-            alt="Avatar user"
-            size="sm"
-            fallback="U"
-          />
-
-          <Avatar
-            src="https://i.pinimg.com/originals/5d/85/13/5d8513af8546f40b8942e87acf8c283f.jpg"
-            alt="Avatar user"
-            size="md"
-            fallback="U"
-          />
-
-          <Avatar
-            src="https://i.pinimg.com/originals/5d/85/13/5d8513af8546f40b8942e87acf8c283f.jpg"
-            alt="Avatar user"
-            size="lg"
-            fallback="U"
-          />
-        </div>
-      </div>
-
-      {/* WITH INITIAL */}
-      <div className="flex flex-col gap-4">
-        <p className="text-[16px] font-semibold">
-          WITH INITIAL
-        </p>
-
-        <div className="flex items-center gap-4">
-          <Avatar
-            size="md"
-            fallback={fallbacks.Initial}
-          />
-        </div>
-      </div>
-
-      {/* WITH ICON */}
-      <div className="flex flex-col gap-4">
-        <p className="text-[16px] font-semibold">
-          WITH ICON
-        </p>
-
-        <div className="flex items-center gap-4">
-          <Avatar
-            size="md"
-            fallback={fallbacks.Icon}
-          />
-        </div>
-      </div>
-
-      {/* NO IMAGE */}
-      <div className="flex flex-col gap-4">
-        <p className="text-[16px] font-semibold">
-          NO IMAGE
-        </p>
-
-        <div className="flex items-center gap-4">
-          <Avatar
-            size="md"
-            fallback="AM"
-          />
-        </div>
-      </div>
-
-      {/* BROKEN IMAGE */}
-      <div className="flex flex-col gap-4">
-        <p className="text-[16px] font-semibold">
-          BROKEN IMAGE
-        </p>
-
-        <div className="flex items-center gap-4">
-          <Avatar
-            src="/image-not-found.jpg"
-            alt="Broken avatar"
-            size="md"
-            fallback="AM"
-          />
-        </div>
-      </div>
-
-    </div>
-  ),
-};
+export const Medium: Story = {};
+export const Small: Story = { args: { size: 'sm' } };
+export const Large: Story = { args: { size: 'lg' } };

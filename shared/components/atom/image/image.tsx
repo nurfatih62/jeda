@@ -1,27 +1,15 @@
-import React from "react";
+import type { ImgHTMLAttributes } from 'react';
 
-export interface ImageProps
-  extends React.ImgHTMLAttributes<HTMLImageElement> {
-  src: string;
-  alt: string;
+export interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
+  radius?: number;
 }
 
-export const Image = ({
-  src,
-  alt,
-  className = "",
-  ...props
-}: ImageProps) => {
+export function Image({ radius = 8, className = '', style, ...rest }: ImageProps) {
   return (
     <img
-      src={src}
-      alt={alt}
-      className={`
-        block
-        object-cover
-        ${className}
-      `}
-      {...props}
+      className={`block h-full w-full object-cover ${className}`}
+      style={{ borderRadius: radius, ...style }}
+      {...rest}
     />
   );
-};
+}

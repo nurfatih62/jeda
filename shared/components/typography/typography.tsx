@@ -1,67 +1,71 @@
-import React from "react";
+import type { ReactNode, ElementType } from 'react';
 
 export type TypographyVariant =
-  | "heading1"
-  | "heading2"
-  | "body"
-  | "bodySmall"
-  | "caption"
-  | "button"
-  | "badge";
+  | 'logo'
+  | 'heading'
+  | 'subheading'
+  | 'articleTitle'
+  | 'body'
+  | 'button'
+  | 'metaName'
+  | 'metaDate'
+  | 'caption';
 
-export interface TypographyProps
-  extends React.HTMLAttributes<HTMLElement> {
-  variant?: TypographyVariant;
-  children: React.ReactNode;
+interface VariantStyle {
+  as: ElementType;
+  className: string;
 }
 
-const variantStyles: Record<TypographyVariant, string> = {
-  heading1:
-    "text-[48px] leading-[56px] font-bold text-(--black)",
-
-  heading2:
-    "text-[28px] leading-[36px] font-semibold text-(--black)",
-
-  body:
-    "text-[16px] leading-[24px] font-normal text-(--black)",
-
-  bodySmall:
-    "text-[14px] leading-[20px] font-normal text-(--black)",
-
-  caption:
-    "text-[12px] leading-[16px] font-normal text-(--text-secondary)",
-
-  button:
-    "text-[16px] leading-[24px] font-medium text-(--black)",
-
-  badge:
-    "text-[12px] leading-[16px] font-semibold text-(--black)",
+const variantMap: Record<TypographyVariant, VariantStyle> = {
+  logo: {
+    as: 'span',
+    className: "font-serif text-2xl font-bold leading-7 text-primary",
+  },
+  heading: {
+    as: 'h1',
+    className: "font-sans text-4xl font-bold leading-[1.3] text-text-primary",
+  },
+  subheading: {
+    as: 'p',
+    className:
+      "font-sans text-2xl font-medium leading-7 text-text-muted",
+  },
+  articleTitle: {
+    as: 'h2',
+    className: "font-sans text-2xl font-bold leading-6.5 text-text-primary",
+  },
+  body: {
+    as: 'p',
+    className:
+      "font-sans text-base font-medium leading-6 text-text-muted",
+  },
+  button: {
+    as: 'span',
+    className: "font-sans text-base font-medium leading-6",
+  },
+  metaName: {
+    as: 'span',
+    className:
+      "font-sans text-sm font-bold leading-7 text-text-muted",
+  },
+  metaDate: {
+    as: 'span',
+    className:
+      "font-sans text-sm font-medium leading-7 text-text-muted",
+  },
+  caption: {
+    as: 'span',
+    className: "font-nunito text-sm font-medium leading-5 text-placeholder",
+  },
 };
 
-const defaultElements: Record<TypographyVariant, keyof React.JSX.IntrinsicElements> = {
-  heading1: "h1",
-  heading2: "h2",
-  body: "p",
-  bodySmall: "p",
-  caption: "span",
-  button: "span",
-  badge: "span",
-};
+export interface TypographyProps {
+  variant: TypographyVariant;
+  children: ReactNode;
+  className?: string;
+}
 
-export function Typography({
-  variant = "body",
-  children,
-  className = "",
-  ...props
-}: TypographyProps) {
-  const Component = defaultElements[variant];
-
-  return React.createElement(
-    Component,
-    {
-      ...props,
-      className: `${variantStyles[variant]} ${className}`,
-    },
-    children,
-  );
+export function Typography({ variant, children, className = '' }: TypographyProps) {
+  const { as: Component, className: variantClassName } = variantMap[variant];
+  return <Component className={`${variantClassName} ${className}`}>{children}</Component>;
 }

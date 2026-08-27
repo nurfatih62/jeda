@@ -1,59 +1,23 @@
-import React from "react";
+"use client";
 
-import { Typography } from "../../typography/typography";
-import { HeroActions } from "../../molecule/hero-actions/hero-actions";
+import { HeroActions } from '../../molecule/hero-actions/hero-actions';
 
 export interface HeroProps {
-  title?: string;
-  description?: string;
+  onExplore?: () => void;
+  onRegister?: () => void;
 }
 
-export const Hero = ({
-  title = "Ambil JEDA dan mulai membaca",
-  description = "Ayo bergabung untuk mendapatkan pengalaman lebih lengkap dengan JEDA dan mulai bacaanmu",
-}: HeroProps) => {
+export function Hero({ onExplore, onRegister }: HeroProps) {
   return (
-    <section
-      className="
-        mx-auto
-        max-w-[1036px]
-        px-[21px]
-        pt-[56px]
-        pb-[25px]
-        text-center
-      "
-    >
-      <Typography
-        variant="heading1"
-        className="
-          mb-[22px]
-          text-(--primary-text)
-        "
-      >
-        Ambil{" "}
-        <span className="text-(--primary)">
-          JEDA
-        </span>{" "}
-        dan mulai membaca
-      </Typography>
-
-      <Typography
-        variant="heading2"
-        className="
-          mx-auto
-          mb-[24px]
-          max-w-[1036px]
-          text-(--text-secondary)
-        "
-      >
-        Ayo bergabung untuk mendapatkan pengalaman lebih lengkap dengan{" "}
-        <span className="font-bold text-(--primary-text)">
-          JEDA
-        </span>{" "}
-        dan mulai bacaanmu
-      </Typography>
-
-      <HeroActions />
+    <section className="mx-auto max-w-259 px-5.25 pb-6.25 pt-14 text-center">
+      <h1 className="font-sans mb-5.5 text-4xl font-bold leading-[1.3] text-text-primary">
+        Ambil <span className="text-primary">JEDA</span> dan mulai membaca
+      </h1>
+      <p className="font-sans mb-6 text-2xl font-medium leading-7 text-text-muted">
+        Ayo bergabung untuk mendapatkan pengalaman lebih lengkap dengan{' '}
+        <span className="font-bold text-text-primary">JEDA</span> dan mulai bacaanmu
+      </p>
+      <HeroActions onExplore={onExplore} onRegister={onRegister} />
     </section>
   );
-};
+}

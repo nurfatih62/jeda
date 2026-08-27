@@ -1,43 +1,31 @@
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { Header } from './header';
 
-import { Header } from "./header";
-
-const meta = {
-  title: "Components/Organism/Header",
+const meta: Meta<typeof Header> = {
+  title: 'Organism/Header',
   component: Header,
-
-  tags: ["autodocs"],
-
-  parameters: {
-    layout: "fullscreen",
-  },
-
+  tags: ['autodocs'],
+  parameters: { layout: 'fullscreen' },
   argTypes: {
-    logo: {
-      control: "text",
-      description: "Logo website",
-    },
-
-    onMenuClick: {
-      action: "menu clicked",
-      description: "Aksi ketika menu diklik",
-    },
-
-    onLoginClick: {
-      action: "login clicked",
-      description: "Aksi ketika tombol masuk diklik",
-    },
+    onMenuClick: { action: 'menu-click' },
+    onLoginClick: { action: 'login-click' },
   },
-} satisfies Meta<typeof Header>;
-
+};
 export default meta;
 
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof Header>;
 
 export const Default: Story = {};
 
-export const CustomLogo: Story = {
-  args: {
-    logo: "JEDA",
-  },
+export const StickyOnScroll: Story = {
+  render: (args) => (
+    <div className="h-350 bg-background">
+      <Header {...args} />
+      <div className="p-10">
+        <p className="font-sans text-text-muted">
+          Scroll ke bawah — header ini tetap menempel di atas (sticky).
+        </p>
+      </div>
+    </div>
+  ),
 };

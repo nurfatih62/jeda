@@ -1,31 +1,24 @@
-import { ThumbsUp, MessageSquare } from "lucide-react";
+import { ThumbsUp, MessageSquare } from 'lucide-react';
 
 export interface EngagementProps {
   likes: number;
   comments: number;
 }
 
-export function Engagement({
-  likes,
-  comments,
-}: EngagementProps) {
-  return (
-    <div className="flex items-center gap-4">
-      <div className="flex items-center gap-1.75">
-        <ThumbsUp
-          size={24}
-          strokeWidth={2}
-        />
-        <span>{likes}</span>
-      </div>
+const iconClass = 'h-6 w-6 text-text-muted';
+const countClass = "font-sans text-base font-medium leading-6 text-text-muted";
 
-      <div className="flex items-center gap-1.75">
-        <MessageSquare
-          size={24}
-          strokeWidth={2}
-        />
-        <span>{comments}</span>
-      </div>
+export function Engagement({ likes, comments }: EngagementProps) {
+  return (
+    <div className="flex items-center gap-3">
+      <span className="flex items-center gap-1.5">
+        <ThumbsUp className={iconClass} strokeWidth={2} />
+        <span className={countClass}>{likes}</span>
+      </span>
+      <span className="flex items-center gap-1.5">
+        <MessageSquare className={iconClass} strokeWidth={2} />
+        <span className={countClass}>{comments}</span>
+      </span>
     </div>
   );
 }

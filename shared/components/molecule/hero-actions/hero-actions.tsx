@@ -1,30 +1,27 @@
-import { Button } from "../../atom/button/button";
+"use client";
+
+import { Button } from '../../atom/button/button';
 
 export interface HeroActionsProps {
   onExplore?: () => void;
   onRegister?: () => void;
+  exploreLabel?: string;
+  registerLabel?: string;
 }
 
 export function HeroActions({
   onExplore,
   onRegister,
+  exploreLabel = 'Jelajahi dulu',
+  registerLabel = 'Daftar',
 }: HeroActionsProps) {
   return (
     <div className="flex items-center justify-center gap-2.5">
-      <Button
-        variant="outline"
-        colorState="default"
-        onClick={onExplore}
-      >
-        Jelajahi dulu
+      <Button variant="outline" onClick={onExplore} className="w-35">
+        {exploreLabel}
       </Button>
-
-      <Button
-        variant="primary"
-        colorState="default"
-        onClick={onRegister}
-      >
-        Daftar
+      <Button variant="primary" onClick={onRegister} className="w-26.25">
+        {registerLabel}
       </Button>
     </div>
   );

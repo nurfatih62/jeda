@@ -1,79 +1,33 @@
-import React from "react";
-import { Menu } from "lucide-react";
+"use client";
 
-import { Button } from "../../atom/button/button";
-import { SearchBar } from "../../molecule/search-bar/search-bar";
+import type { InputHTMLAttributes } from 'react';
+import { Logo } from '../../atom/logo/logo';
+import { Button } from '../../atom/button/button';
+import { IconButton } from '../../atom/button/icon-button';
+import { Menu } from 'lucide-react';
+import { SearchBar } from '../../molecule/search-bar/search-bar';
 
 export interface HeaderProps {
-  logo?: string;
   onMenuClick?: () => void;
   onLoginClick?: () => void;
+  searchProps?: InputHTMLAttributes<HTMLInputElement>;
 }
 
-export const Header = ({
-  logo = "JEDA",
-  onMenuClick,
-  onLoginClick,
-}: HeaderProps) => {
+export function Header({ onMenuClick, onLoginClick, searchProps }: HeaderProps) {
   return (
-    <header
-        className="
-        sticky
-        top-0
-        z-50
-        flex
-        items-center
-        gap-7.75
-        h-21
-        px-5.25
-        border
-        border-(--primary-hover)
-        bg-(--primary-hover-bg)
-      "
-    >
-      {/* MENU */}
-      <button
-        type="button"
+    <header className="sticky top-0 z-50 flex h-21 items-center gap-7.75 border border-primary-border bg-header-bg px-5.25">
+      <IconButton
+        icon={<Menu size={24} strokeWidth={2} />}
         aria-label="Menu"
+        variant="ghost"
         onClick={onMenuClick}
-        className="
-          flex
-          w-11.5
-          h-11
-          shrink-0
-          items-center
-          justify-center
-          rounded-md
-          bg-transparent
-          text-(--primary)
-          hover:bg-(--primary-hover-bg)
-        "
-      >
-        <Menu size={24} strokeWidth={2} />
-      </button>
-
-      {/* LOGO */}
-      <div
-        className="
-          shrink-0
-          text-2xl
-          font-bold
-          text-(--primary)
-        "
-      >
-        {logo}
-      </div>
-
-      {/* SEARCH */}
-      <SearchBar />
-
-      {/* LOGIN */}
-      <Button
-        variant="primary"
-        onClick={onLoginClick}
-      >
+        className="h-11 w-11.5 p-0 text-primary hover:bg-transparent active:bg-transparent"
+      />
+      <Logo />
+      <SearchBar {...searchProps} />
+      <Button variant="primary" onClick={onLoginClick} className="w-25 shrink-0">
         Masuk
       </Button>
     </header>
   );
-};
+}

@@ -1,58 +1,29 @@
-"use client";
-
-import React, { useState } from "react";
-import Image from "next/image";
-
 export interface AvatarProps {
   src?: string;
   alt?: string;
-  size?: "sm" | "md" | "lg";
-  fallback?: React.ReactNode;
+  size?: 'sm' | 'md' | 'lg';
 }
 
-export function Avatar({
-  src,
-  alt = "Avatar",
-  size = "md",
-  fallback,
-}: AvatarProps) {
-  const [imageError, setImageError] = useState(false);
+const sizeMap: Record<NonNullable<AvatarProps['size']>, number> = {
+  sm: 32,
+  md: 40,
+  lg: 48,
+};
 
-  const sizeClass = {
-    sm: "w-8 h-8",
-    md: "w-10 h-10",
-    lg: "w-12 h-12",
-  };
+const DEFAULT_AVATAR_SRC =
+  'https://i.pinimg.com/originals/5d/85/13/5d8513af8546f40b8942e87acf8c283f.jpg';
+const DEFAULT_AVATAR_ALT = 'Nuf';
 
-  const showFallback = !src || imageError;
-
+export function Avatar({ src = DEFAULT_AVATAR_SRC, alt = DEFAULT_AVATAR_ALT, size = 'md' }: AvatarProps) {
+  const px = sizeMap[size];
   return (
-    <div
-        className={`
-        ${sizeClass[size]}
-        relative
-        flex
-        shrink-0
-        items-center
-        justify-center
-        overflow-hidden
-        rounded-full
-        bg-(--primary-hover-bg)
-        text-(--primary-clicked)
-        font-medium
-        `}
-    >
-      {showFallback ? (
-        fallback
-      ) : (
-        <Image
-          src={src}
-          alt={alt}
-          fill
-          className="object-cover"
-          onError={() => setImageError(true)}
-        />
-      )}
-    </div>
+    <img
+      src={src}
+      alt={alt}
+      width={px}
+      height={px}
+      className="shrink-0 rounded-full object-cover"
+      style={{ width: px, height: px }}
+    />
   );
 }

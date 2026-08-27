@@ -1,54 +1,18 @@
-import React from "react";
-import { Avatar } from "../../atom/avatar/avatar";
-
 export interface AuthorMetaProps {
   author: string;
   date: string;
-  showAvatar?: boolean;
-  avatar?: string;
 }
 
-export const AuthorMeta = ({
-  author,
-  date,
-  showAvatar = false,
-  avatar,
-}: AuthorMetaProps) => {
+export function AuthorMeta({ author, date }: AuthorMetaProps) {
   return (
-    <div
-      className="
-        flex
-        items-center
-        gap-1.5
-        text-sm
-        font-bold
-        leading-7
-        text-(--text-secondary)
-      "
-    >
-      {showAvatar && (
-        <Avatar
-          src={avatar}
-          alt={author}
-        />
-      )}
-
-      <span>{author}</span>
-
-      <span
-        aria-hidden="true"
-        className="
-          h-1
-          w-1
-          shrink-0
-          rounded-full
-          bg-(--primary)
-        "
-      />
-
-      <span className="font-medium">
+    <div className="flex items-center gap-1.5">
+      <span className="font-sans text-sm font-bold leading-7 text-text-muted">
+        {author}
+      </span>
+      <span className="h-1 w-1 shrink-0 rounded-full bg-primary" />
+      <span className="font-sans text-sm font-medium leading-7 text-text-muted">
         {date}
       </span>
     </div>
   );
-};
+}

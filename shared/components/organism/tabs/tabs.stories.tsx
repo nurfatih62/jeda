@@ -1,84 +1,23 @@
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import { Tabs } from "./tabs";
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { Tabs } from './tabs';
 
-const meta = {
-  title: "Components/Organism/Tabs",
+const meta: Meta<typeof Tabs> = {
+  title: 'Organism/Tabs',
   component: Tabs,
-
-  tags: ["autodocs"],
-
-  parameters: {
-    layout: "centered",
-  },
-
+  tags: ['autodocs'],
+  parameters: { layout: 'padded' },
   argTypes: {
-    items: {
-      control: "object",
-      description: "Daftar tab yang ditampilkan",
+    defaultActiveKey: {
+      control: 'select',
+      options: ['populer', 'terbaru'],
+      description: 'Tab yang aktif di awal',
     },
-
-    activeTab: {
-      control: "text",
-      description: "ID tab yang sedang aktif",
-    },
-
-    defaultTab: {
-      control: "text",
-      description: "Tab aktif secara default",
-    },
-
-    onChange: {
-      action: "tab changed",
-      description: "Dipanggil ketika tab berubah",
-    },
+    onChange: { action: 'tab-change' },
   },
-} satisfies Meta<typeof Tabs>;
-
+};
 export default meta;
 
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof Tabs>;
 
-const tabs = [
-  {
-    id: "populer",
-    label: "Populer",
-  },
-  {
-    id: "terbaru",
-    label: "Terbaru",
-  },
-];
-
-export const Default: Story = {
-  args: {
-    items: tabs,
-    defaultTab: "populer",
-  },
-};
-
-export const Terbaru: Story = {
-  args: {
-    items: tabs,
-    defaultTab: "terbaru",
-  },
-};
-
-export const Custom: Story = {
-  args: {
-    items: [
-      {
-        id: "populer",
-        label: "Populer",
-      },
-      {
-        id: "terbaru",
-        label: "Terbaru",
-      },
-      {
-        id: "rekomendasi",
-        label: "Rekomendasi",
-      },
-    ],
-    defaultTab: "populer",
-  },
-};
+export const Default: Story = {};
+export const TerbaruActive: Story = { args: { defaultActiveKey: 'terbaru' } };

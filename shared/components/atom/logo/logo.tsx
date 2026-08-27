@@ -1,26 +1,14 @@
-import React from "react";
-
 export interface LogoProps {
-  text?: string;
-  className?: string;
+  size?: number;
 }
 
-export const Logo = ({
-  text = "JEDA",
-  className = "",
-}: LogoProps) => {
+export function Logo({ size = 24 }: LogoProps) {
   return (
     <span
-      className={`
-        font-serif
-        text-2xl
-        font-bold
-        leading-7
-        text-(--primary)
-        ${className}
-      `}
+      className="font-serif shrink-0 font-bold text-primary"
+      style={{ fontSize: size, lineHeight: `${size + 4}px` }}
     >
-      {text}
+      JEDA
     </span>
   );
-};
+}

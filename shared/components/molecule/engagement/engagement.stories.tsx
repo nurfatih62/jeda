@@ -1,91 +1,18 @@
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { Engagement } from './engagement';
 
-import { Engagement } from "./engagement";
-
-const meta = {
-  title: "Components/Molecule/Engagement",
+const meta: Meta<typeof Engagement> = {
+  title: 'Molecule/Engagement',
   component: Engagement,
-
-  tags: ["autodocs"],
-
-  parameters: {
-    layout: "centered",
-  },
-
+  tags: ['autodocs'],
+  args: { likes: 237, comments: 12 },
   argTypes: {
-    likes: {
-      control: "number",
-      description: "Jumlah suka",
-    },
-
-    comments: {
-      control: "number",
-      description: "Jumlah komentar",
-    },
+    likes: { control: 'number', description: 'Jumlah like' },
+    comments: { control: 'number', description: 'Jumlah komentar' },
   },
-} satisfies Meta<typeof Engagement>;
-
+};
 export default meta;
 
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof Engagement>;
 
-/* =========================
-   CUSTOM
-========================= */
-
-export const Custom: Story = {
-  args: {
-    likes: 237,
-    comments: 12,
-  },
-};
-
-/* =========================
-   ALL ENGAGEMENT
-========================= */
-
-export const AllEngagement: Story = {
-  args: {
-    likes: 237,
-    comments: 12,
-  },
-
-  render: () => (
-    <div className="flex flex-col gap-8">
-
-      <div className="flex flex-col gap-2">
-        <p className="text-[18px] font-semibold">
-          DEFAULT
-        </p>
-
-        <Engagement
-          likes={237}
-          comments={12}
-        />
-      </div>
-
-      <div className="flex flex-col gap-2">
-        <p className="text-[18px] font-semibold">
-          HIGH ENGAGEMENT
-        </p>
-
-        <Engagement
-          likes={1250}
-          comments={86}
-        />
-      </div>
-
-      <div className="flex flex-col gap-2">
-        <p className="text-[18px] font-semibold">
-          NO ENGAGEMENT
-        </p>
-
-        <Engagement
-          likes={0}
-          comments={0}
-        />
-      </div>
-
-    </div>
-  ),
-};
+export const Default: Story = {};

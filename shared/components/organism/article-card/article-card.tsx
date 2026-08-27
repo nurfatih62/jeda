@@ -1,124 +1,84 @@
-import React from "react";
-import Image from "next/image";
+"use client";
+
+import { useState } from "react";
 
 import { Avatar } from "../../atom/avatar/avatar";
-import { Typography } from "../../typography/typography";
+import { Image } from "../../atom/image/image";
 import { AuthorMeta } from "../../molecule/author-meta/author-meta";
-import { Engagement } from "../../molecule/engagement/engagement";
 import { ArticleActions } from "../../molecule/article-actions/article-actions";
 
-export interface ArticleCardProps {
+export interface ArticleCardData {
+  id: string;
   author: string;
   date: string;
   title: string;
   description: string;
-
   likes: number;
   comments: number;
-
-  avatar?: string;
-  image?: string;
+  avatarUrl: string;
+  imageUrl: string;
 }
 
-export const ArticleCard = ({
-  author,
-  date,
-  title,
-  description,
-  likes,
-  comments,
-  avatar,
-  image,
-}: ArticleCardProps) => {
+export interface ArticleCardProps {
+  article: ArticleCardData;
+  onShare?: (id: string) => void;
+  onReport?: (id: string) => void;
+}
+
+export function ArticleCard({
+  article,
+  onShare,
+  onReport,
+}: ArticleCardProps) {
+  const [likes, setLikes] = useState(article.likes);
+
   return (
-    <article
-      className="
-        relative
-        flex
-        min-h-49.25
-        gap-2
-        border
-        border-(--card-border)
-        rounded-lg
-        p-4.5
-      "
-    >
+    <article className="relative flex min-h-49.25 gap-2 rounded-lg border border-card-border bg-background p-4">
       {/* AVATAR */}
       <Avatar
-        src={avatar}
-        alt={author}
+        src={article.avatarUrl}
+        alt={article.author}
+        size="md"
       />
 
       {/* CONTENT */}
-      <div
-        className="
-          flex
-          min-w-0
-          flex-1
-          flex-col
-          gap-3.5
-          pr-79
-        "
-      >
-        <div
-          className="
-            flex
-            flex-col
-            gap-2.25
-          "
-        >
+      <div className="flex flex-1 flex-col gap-3.5 pr-78.75 max-[900px]:pr-0">
+        {/* AUTHOR + ARTICLE */}
+        <div className="flex flex-col gap-2">
           <AuthorMeta
-            author={author}
-            date={date}
+            author={article.author}
+            date={article.date}
           />
 
-          <Typography variant="heading2">
-            {title}
-          </Typography>
+          {/* TITLE */}
+          <h2 className="font-sans text-2xl font-bold leading-6.5 text-text-primary">
+            {article.title}
+          </h2>
 
-          <Typography variant="body">
-            {description}
-          </Typography>
+          {/* DESCRIPTION */}
+          <p className="font-sans max-w-178 text-base font-medium leading-6 text-text-muted">
+            {article.description}
+          </p>
         </div>
 
-        {/* ENGAGEMENT + ACTION */}
-        <div className="flex items-center">
-          <Engagement
-            likes={likes}
-            comments={comments}
-          />
-
-          <div className="flex-1" />
-
-          <ArticleActions />
-        </div>
+        {/* ACTIONS */}
+        <ArticleActions
+          likes={likes}
+          comments={article.comments}
+          onLike={() => setLikes((current) => current + 1)}
+          onShare={() => onShare?.(article.id)}
+          onReport={() => onReport?.(article.id)}
+        />
       </div>
 
-      {/* IMAGE */}
-      {image && (
-        <div
-          className="
-            absolute
-            top-4
-            right-4.5
-            h-41.25
-            w-74.75
-            overflow-hidden
-            rounded-lg
-          "
-        >
-          <Image
-            src={image}
-            alt={title}
-            fill
-            className="
-              h-full
-              w-full
-              object-cover
-            "
-          />
-        </div>
-      )}
+      {/* COVER IMAGE */}
+      <div className="absolute right-4.5 top-4 h-41.25 w-74.75 max-[900px]:static max-[900px]:h-50 max-[900px]:w-full">
+        <Image
+          src={article.imageUrl}
+          alt={article.title}
+          radius={8}
+        />
+      </div>
     </article>
   );
-};
+}

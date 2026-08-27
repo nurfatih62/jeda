@@ -1,36 +1,29 @@
-import React from "react";
+"use client";
 
-import {
-  ArticleCard,
-  type ArticleCardProps,
-} from "../article-card/article-card";
+import { ArticleCard } from "../article-card/article-card";
+import type { ArticleCardData } from "../article-card/article-card";
 
 export interface ArticleListProps {
-  articles: ArticleCardProps[];
+  articles: ArticleCardData[];
+  onShare?: (id: string) => void;
+  onReport?: (id: string) => void;
 }
 
-export const ArticleList = ({
+export function ArticleList({
   articles,
-}: ArticleListProps) => {
+  onShare,
+  onReport,
+}: ArticleListProps) {
   return (
-    <section
-      className="
-        mx-auto
-        flex
-        w-full
-        max-w-[1154px]
-        flex-col
-        gap-6
-        pb-[60px]
-      "
-      aria-label="Daftar artikel"
-    >
-      {articles.map((article, index) => (
+    <div className="flex flex-col gap-6 pb-15">
+      {articles.map((article) => (
         <ArticleCard
-          key={`${article.title}-${index}`}
-          {...article}
+          key={article.id}
+          article={article}
+          onShare={onShare}
+          onReport={onReport}
         />
       ))}
-    </section>
+    </div>
   );
-};
+}

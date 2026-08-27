@@ -1,36 +1,18 @@
-import { Search } from "lucide-react";
-import { Input } from "../../atom/input/input";
+"use client";
 
-export interface SearchBarProps {
-  placeholder?: string;
-  value?: string;
-  onChange?: React.ChangeEventHandler<HTMLInputElement>;
-  disabled?: boolean;
-}
+import type { InputHTMLAttributes } from 'react';
+import { Search } from 'lucide-react';
+import { Input } from '../../atom/input/input';
 
-export function SearchBar({
-  placeholder = "Cari",
-  value,
-  onChange,
-  disabled = false,
-}: SearchBarProps) {
+export type SearchBarProps = InputHTMLAttributes<HTMLInputElement>;
+
+export function SearchBar({ className = '', ...rest }: SearchBarProps) {
   return (
-    <div className="flex h-10 w-full max-w-265.5 items-center gap-2.5 rounded-lg border border-(--primary) bg-(--white) px-4">
-      <Search
-        size={20}
-        strokeWidth={1.7}
-        className="shrink-0 text-(--primary)"
-        aria-hidden="true"
-      />
-
-      <Input
-        value={value}
-        onChange={onChange}
-        placeholder={placeholder}
-        disabled={disabled}
-        aria-label="Cari"
-        className="h-auto flex-1 border-0 bg-transparent p-0 focus:ring-0"
-      />
+    <div
+      className={`flex h-10 max-w-265.5 flex-1 items-center gap-2.5 rounded-lg border border-primary bg-white px-4 ${className}`}
+    >
+      <Search className="h-5 w-5 shrink-0 text-primary" strokeWidth={1.7} />
+      <Input placeholder="Cari" {...rest} />
     </div>
   );
 }

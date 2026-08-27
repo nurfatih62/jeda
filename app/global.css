@@ -1,0 +1,46 @@
+/* ===== Tailwind v4 (CSS-first config) ===== */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@700&family=Poppins:wght@400;500;600;700&family=Nunito:wght@400;500;700&display=swap');
+@import "tailwindcss";
+
+/* =====================================================================
+   Design tokens Jeda.
+   Setiap `--color-*` dan `--font-*` di sini OTOMATIS jadi utility class
+   Tailwind (v4 CSS-first theming) — tidak perlu tailwind.config.js.
+   Contoh: --color-primary  -> bg-primary, text-primary, border-primary
+           --color-text-muted -> text-text-muted
+           --font-sans      -> font-sans
+   ===================================================================== */
+@theme {
+  --color-background: #FBF8F2;
+  --color-header-bg: rgb(242,243,237);
+  --color-primary: #198876;
+  --color-primary-border: #147364;
+  --color-text-primary: #1B4E46;
+  --color-text-muted: rgba(27, 78, 70, 0.75);
+  --color-placeholder: #C2C7D0;
+  --color-card-border: rgba(27, 78, 70, 0.52);
+
+  --font-sans: 'Poppins', sans-serif;
+  --font-serif: 'IBM Plex Serif', serif;
+  --font-nunito: 'Nunito', sans-serif;
+}
+
+/* ===== Base ===== */
+@layer base {
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+}

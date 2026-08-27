@@ -1,48 +1,17 @@
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import { Logo } from "./logo";
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { Logo } from './logo';
 
-const meta = {
-  title: "Components/Atom/Logo",
+const meta: Meta<typeof Logo> = {
+  title: 'Atom/Logo',
   component: Logo,
-
-  tags: ["autodocs"],
-
-  parameters: {
-    layout: "centered",
-  },
-
+  tags: ['autodocs'],
   argTypes: {
-    text: {
-      control: "text",
-      description: "Teks yang ditampilkan pada logo",
-    },
-
-    className: {
-      control: "text",
-      description: "Class tambahan untuk mengatur tampilan logo",
-    },
+    size: { control: 'number', description: 'Ukuran font logo (px)' },
   },
-
-  args: {
-    text: "JEDA",
-  },
-} satisfies Meta<typeof Logo>;
-
+};
 export default meta;
 
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof Logo>;
 
-export const Default: Story = {};
-
-export const CustomText: Story = {
-  args: {
-    text: "JEDA BLOG",
-  },
-};
-
-export const Large: Story = {
-  args: {
-    text: "JEDA",
-    className: "text-4xl",
-  },
-};
+export const Default: Story = { args: { size: 24 } };
+export const Large: Story = { args: { size: 36 } };
