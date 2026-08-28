@@ -59,7 +59,9 @@ export function Sidebar({ active = 'home', expanded = false, onToggle }: Sidebar
             aria-label={label}
             aria-current={isActive ? 'page' : undefined}
             className={`flex items-center rounded-md transition-colors ${
-              isActive ? 'text-primary' : 'text-text-muted hover:text-primary'
+              isActive
+                ? 'bg-primary-overlay-hover text-primary'
+                : 'text-text-muted hover:bg-primary-overlay-hover hover:text-primary active:bg-primary-overlay-active'
             } ${expanded ? 'h-14 gap-3 px-6' : 'h-14 w-19 justify-center'}`}
           >
             <Icon size={24} strokeWidth={2} className="shrink-0" />
