@@ -1,23 +1,40 @@
+"use client";
+
 import { ThumbsUp, MessageSquare } from 'lucide-react';
 
 export interface EngagementProps {
   likes: number;
   comments: number;
+  /** Status sudah di-like atau belum. Kalau true, icon like terisi warna. */
+  liked?: boolean;
+  /** Dipanggil saat tombol like diklik. */
+  onLikeClick?: () => void;
 }
 
-const iconClass = 'h-6 w-6 text-text-muted';
-const countClass = "font-sans text-base font-medium leading-6 text-text-muted";
+const iconBase = 'h-6 w-6 transition-colors';
+const countClass = "font-sans text-base font-medium leading-6";
 
-export function Engagement({ likes, comments }: EngagementProps) {
+export function Engagement({ likes, comments, liked = false, onLikeClick }: EngagementProps) {
   return (
     <div className="flex items-center gap-3">
+      <button
+        type="button"
+        onClick={onLikeClick}
+        aria-pressed={liked}
+        aria-label={liked ? 'Batalkan suka artikel ini' : 'Suka artikel ini'}
+        className="flex items-center gap-1.5 rounded-md"
+      >
+        <ThumbsUp
+          className={`${iconBase} ${liked ? 'fill-[#147364] text-[#147364]' : 'fill-none text-text-muted'}`}
+          strokeWidth={2}
+        />
+        <span className={`${countClass} ${liked ? 'text-[#147364]' : 'text-text-muted'}`}>
+          {likes}
+        </span>
+      </button>
       <span className="flex items-center gap-1.5">
-        <ThumbsUp className={iconClass} strokeWidth={2} />
-        <span className={countClass}>{likes}</span>
-      </span>
-      <span className="flex items-center gap-1.5">
-        <MessageSquare className={iconClass} strokeWidth={2} />
-        <span className={countClass}>{comments}</span>
+        <MessageSquare className="h-6 w-6 text-text-muted" strokeWidth={2} />
+        <span className={`${countClass} text-text-muted`}>{comments}</span>
       </span>
     </div>
   );

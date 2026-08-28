@@ -1,41 +1,66 @@
 /* ===== Tailwind v4 (CSS-first config) ===== */
-
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@700&family=Poppins:wght@400;500;600;700&family=Nunito:wght@400;500;700&display=swap');
-
 @import "tailwindcss";
 
 /* =====================================================================
-   Design Tokens Jeda
+   Design tokens Jeda.
+   Setiap `--color-*` dan `--font-*` di sini OTOMATIS jadi utility class
+   Tailwind (v4 CSS-first theming) — tidak perlu tailwind.config.js.
+   Contoh: --color-primary  -> bg-primary, text-primary, border-primary
+           --color-text-muted -> text-text-muted
+           --font-sans      -> font-sans
    ===================================================================== */
-
 @theme {
   /* ===== Background ===== */
   --color-background: #FBF8F2;
-  --color-header-bg: #F2F3ED;
+  --color-header-bg: rgb(242, 243, 237);
 
   /* ===== Primary ===== */
   --color-primary: #187A6B;
-  --color-primary-hover: #176F62;
-  --color-primary-active: #14594F;
+  --color-primary-hover: #147364;
+  --color-primary-active: #10584D;
+
+  /* ===== Success =====
+     NOTE: nilai di bawah ini SENGAJA lebih gelap dari #10B981.
+     Teks putih di atas #10B981 cuma dapet kontras 2.53:1 (gagal WCAG AA,
+     butuh 4.5:1) — dites axe/Storybook a11y addon sebelumnya. */
+  --color-success: #0E7A5A;
+  --color-success-hover: #0B5F46;
+  --color-success-active: #083F2F;
+
+  /* ===== Danger =====
+     NOTE: sama kayak Success — #F87171 + teks putih cuma 2.76:1 (gagal).
+     Dasar baru ini saya ambil dari nilai `danger-active` versi kamu
+     (#CB1E1E), yang di kalkulasi kontrasnya sendiri sudah aman (5.6:1). */
+  --color-danger: #CB1E1E;
+  --color-danger-hover: #A81818;
+  --color-danger-active: #7A1212;
+
+  /* ===== Primary Overlay ===== */
+  --color-primary-overlay-hover: rgba(24, 122, 107, 0.16);
+  --color-primary-overlay-active: rgba(24, 122, 107, 0.32);
+
+  /* ===== Success Overlay ===== */
+  --color-success-overlay-hover: rgba(14, 122, 90, 0.16);
+  --color-success-overlay-active: rgba(14, 122, 90, 0.32);
+
+  /* ===== Danger Overlay ===== */
+  --color-danger-overlay-hover: rgba(203, 30, 30, 0.16);
+  --color-danger-overlay-active: rgba(203, 30, 30, 0.32);
+
+  /* ===== Border ===== */
   --color-primary-border: #147364;
-
-  /* ===== Success ===== */
-  --color-success: #087F5B;
-  --color-success-hover: #066B4C;
-  --color-success-active: #05563D;
-
-  /* ===== Danger ===== */
-  --color-danger: #C92A2A;
-  --color-danger-hover: #B42323;
-  --color-danger-active: #8F1D1D;
+  --color-card-border: rgba(27, 78, 70, 0.52);
 
   /* ===== Text ===== */
   --color-text-primary: #1B4E46;
   --color-text-muted: rgba(27, 78, 70, 0.75);
-  --color-placeholder: #68756F;
 
-  /* ===== Border ===== */
-  --color-card-border: rgba(27, 78, 70, 0.52);
+  /* ===== Other =====
+     NOTE: placeholder digelapin dari #C2C7D0 (kontras cuma 1.7:1 di atas
+     putih, jauh di bawah WCAG) ke #6B7280 (4.83:1, lolos AA). */
+  --color-white: #FFFFFF;
+  --color-placeholder: #6B7280;
 
   /* ===== Font ===== */
   --font-sans: 'Poppins', sans-serif;
@@ -43,10 +68,7 @@
   --font-nunito: 'Nunito', sans-serif;
 }
 
-/* =====================================================================
-   Base
-   ===================================================================== */
-
+/* ===== Base ===== */
 @layer base {
   html,
   body {

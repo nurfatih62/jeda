@@ -1,16 +1,14 @@
 "use client";
 
-import {
-  Heart,
-  MessageCircle,
-  Share2,
-  Flag,
-} from "lucide-react";
+import { Engagement } from '../engagement/engagement';
+import { IconButton } from '../../atom/button/icon-button';
+import { Share2, Flag } from 'lucide-react';
 
 export interface ArticleActionsProps {
   likes: number;
   comments: number;
-  onLike?: () => void;
+  liked?: boolean;
+  onLikeClick?: () => void;
   onShare?: () => void;
   onReport?: () => void;
 }
@@ -18,68 +16,29 @@ export interface ArticleActionsProps {
 export function ArticleActions({
   likes,
   comments,
-  onLike,
+  liked,
+  onLikeClick,
   onShare,
   onReport,
 }: ArticleActionsProps) {
   return (
-    <div className="flex items-center gap-5">
-      {/* LIKE */}
-      <button
-        type="button"
-        onClick={onLike}
-        aria-label={`Suka, ${likes} suka`}
-        className="flex items-center gap-1 text-text-muted"
-      >
-        <Heart
-          size={18}
-          strokeWidth={2}
-          aria-hidden="true"
-        />
-        <span aria-hidden="true">{likes}</span>
-      </button>
-
-      {/* COMMENT */}
-      <button
-        type="button"
-        aria-label={`Komentar, ${comments} komentar`}
-        className="flex items-center gap-1 text-text-muted"
-      >
-        <MessageCircle
-          size={18}
-          strokeWidth={2}
-          aria-hidden="true"
-        />
-        <span aria-hidden="true">{comments}</span>
-      </button>
-
-      {/* SHARE */}
-      <button
-        type="button"
+    <div className="flex items-center gap-3">
+      <Engagement likes={likes} comments={comments} liked={liked} onLikeClick={onLikeClick} />
+      <span className="flex-1" />
+      <IconButton
+        icon={<Share2 size={24} strokeWidth={2} />}
+        aria-label="Bagikan"
+        variant="ghost"
+        className="p-0 text-text-muted hover:bg-transparent hover:text-primary active:bg-transparent active:text-primary-border"
         onClick={onShare}
-        aria-label="Bagikan artikel"
-        className="text-text-muted"
-      >
-        <Share2
-          size={18}
-          strokeWidth={2}
-          aria-hidden="true"
-        />
-      </button>
-
-      {/* REPORT */}
-      <button
-        type="button"
+      />
+      <IconButton
+        icon={<Flag size={24} strokeWidth={2} />}
+        aria-label="Laporkan"
+        variant="ghost"
+        className="p-0 text-text-muted hover:bg-transparent hover:text-primary active:bg-transparent active:text-primary-border"
         onClick={onReport}
-        aria-label="Laporkan artikel"
-        className="text-text-muted"
-      >
-        <Flag
-          size={18}
-          strokeWidth={2}
-          aria-hidden="true"
-        />
-      </button>
+      />
     </div>
   );
 }

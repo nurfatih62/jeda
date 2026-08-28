@@ -11,35 +11,40 @@ import { generateMockArticles } from "@/lib/mock-data";
 const TAB_STORAGE_KEY = "article-active-tab";
 
 export function Homepage() {
+  // Tab aktif
   const [activeTab, setActiveTab] = useState("populer");
 
+  // Data artikel
   const [articles, setArticles] = useState<
     ReturnType<typeof generateMockArticles>
   >([]);
 
-  // Ambil tab terakhir setelah halaman berjalan di browser
+  // Ambil tab terakhir dan generate data
   useEffect(() => {
+    // Ambil tab terakhir dari localStorage
     const savedTab = localStorage.getItem(TAB_STORAGE_KEY);
 
     if (savedTab === "populer" || savedTab === "terbaru") {
       setActiveTab(savedTab);
     }
-  }, []);
 
-  // Generate mock data
-  useEffect(() => {
+    // Generate artikel
     setArticles(generateMockArticles());
   }, []);
 
-  // Simpan tab setiap kali berubah
+  // Ketika tab berubah
   const handleTabChange = (key: string) => {
     setActiveTab(key);
+
+    // Simpan tab agar ketika refresh tetap di tab tersebut
     localStorage.setItem(TAB_STORAGE_KEY, key);
   };
 
-  // Sorting artikel
+  // Sorting artikel berdasarkan tab
   const sortedArticles = [...articles].sort((a, b) => {
+    // =========================
     // POPULER
+    // =========================
     if (activeTab === "populer") {
       const scoreA = a.likes + a.comments;
       const scoreB = b.likes + b.comments;
@@ -47,7 +52,9 @@ export function Homepage() {
       return scoreB - scoreA;
     }
 
+    // =========================
     // TERBARU
+    // =========================
     if (activeTab === "terbaru") {
       return (
         new Date(b.date).getTime() -
