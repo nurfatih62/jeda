@@ -22,20 +22,20 @@ const baseClass =
 
 const colorClass: Record<IconButtonVariant, Record<IconButtonColorState, string>> = {
   primary: {
-    default: 'bg-[#147364] text-white hover:bg-[#0F5A4E] active:bg-[#0B4038]',
-    danger: 'bg-[#CB1E1E] text-white hover:bg-[#A81818] active:bg-[#7A1212]',
+    default: 'bg-primary text-white hover:bg-primary-hover active:bg-primary-active',
+    danger: 'bg-danger text-white hover:bg-danger-hover active:bg-danger-active',
   },
   outline: {
     default:
-      'border border-[#147364] bg-transparent text-[#147364] hover:bg-[rgba(20,115,100,0.12)] active:bg-[rgba(20,115,100,0.24)]',
+      'border border-primary bg-transparent text-primary hover:bg-primary-overlay-hover active:bg-primary-overlay-active',
     danger:
-      'border border-[#CB1E1E] bg-transparent text-[#CB1E1E] hover:bg-[rgba(203,30,30,0.12)] active:bg-[rgba(203,30,30,0.24)]',
+      'border border-danger bg-transparent text-danger hover:bg-danger-overlay-hover active:bg-danger-overlay-active',
   },
   ghost: {
     default:
-      'bg-transparent text-[#147364] hover:bg-[rgba(20,115,100,0.12)] active:bg-[rgba(20,115,100,0.24)]',
+      'bg-transparent text-primary hover:bg-primary-overlay-hover active:bg-primary-overlay-active',
     danger:
-      'bg-transparent text-[#CB1E1E] hover:bg-[rgba(203,30,30,0.12)] active:bg-[rgba(203,30,30,0.24)]',
+      'bg-transparent text-danger hover:bg-danger-overlay-hover active:bg-danger-overlay-active',
   },
 };
 

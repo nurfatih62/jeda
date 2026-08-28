@@ -1,16 +1,17 @@
 "use client";
 
 import Link from 'next/link';
-import { Home, Search, BookCopy, User, PanelLeftClose } from 'lucide-react';
+import { Home, Search, BookCopy, User, Menu, ArrowLeft } from 'lucide-react';
 import { Logo } from '../../atom/logo/logo';
+import { IconButton } from '../../atom/button/icon-button';
 
 export type SidebarActiveKey = 'home' | 'search' | 'library' | 'profile';
 
 export interface SidebarProps {
   active?: SidebarActiveKey;
-  /** Kalau true, sidebar melebar + label teks + logo + tombol tutup muncul. */
+  /** Kalau true, sidebar melebar + label teks + logo muncul, toggle icon jadi panah. */
   expanded?: boolean;
-  /** Dipanggil saat tombol tutup (di dalam sidebar, cuma muncul pas expanded) diklik. */
+  /** Dipanggil saat tombol toggle (hamburger/panah) diklik. */
   onToggle?: () => void;
 }
 
@@ -22,34 +23,32 @@ const items: { key: SidebarActiveKey; href: string; icon: typeof Home; label: st
 ];
 
 /**
- * Sidebar navigasi kiri.
- * - Collapsed: 108px, cuma icon, dibedain aktif/nonaktif lewat opacity
- *   (bukan background fill — sesuai spec Figma, gak ada bg solid di item aktif).
- * - Expanded: 256px, ada logo JEDA + tombol tutup di atas, icon+label di tiap item.
+ * Sidebar navigasi kiri, full-height (sibling dari kolom Header+main, BUKAN
+ * di bawah Header — lihat AppShell).
+ * - Collapsed: 108px, cuma tombol hamburger + icon nav.
+ * - Expanded: 256px, logo JEDA + tombol panah-kembali muncul di atas,
+ *   tiap item nav dapat label teks.
  */
 export function Sidebar({ active = 'home', expanded = false, onToggle }: SidebarProps) {
   return (
     <nav
       aria-label="Navigasi utama"
-      className={`sticky top-21 flex h-[calc(100vh-84px)] shrink-0 flex-col bg-[#F2F4ED] transition-[width] duration-200 ease-in-out ${
-        expanded ? 'm-5 w-64 items-stretch gap-2.5 rounded-lg p-3' : 'w-27 items-center gap-2.5 pt-8'
+      className={`sticky top-0 flex h-screen shrink-0 flex-col bg-header-bg transition-[width] duration-200 ease-in-out ${
+        expanded ? 'w-64 items-stretch gap-2.5 px-3 pt-6' : 'w-27 items-center gap-2.5 pt-6'
       }`}
     >
-      {expanded && (
-        <div className="mb-6 flex items-center justify-between px-1 pt-1">
-          <Logo size={28} />
-          {onToggle && (
-            <button
-              type="button"
-              onClick={onToggle}
-              aria-label="Tutup sidebar"
-              className="flex h-9 w-9 items-center justify-center rounded-md text-primary hover:bg-primary-overlay-hover"
-            >
-              <PanelLeftClose size={20} strokeWidth={2} />
-            </button>
-          )}
-        </div>
-      )}
+      <div className={`mb-6 flex items-center ${expanded ? 'justify-between px-1' : 'justify-center'}`}>
+        {expanded && <Logo size={28} />}
+        {onToggle && (
+          <IconButton
+            variant="ghost"
+            onClick={onToggle}
+            aria-label={expanded ? 'Tutup sidebar' : 'Buka sidebar'}
+            className="h-9 w-9 p-2"
+            icon={expanded ? <ArrowLeft size={20} strokeWidth={2} /> : <Menu size={20} strokeWidth={2} />}
+          />
+        )}
+      </div>
 
       {items.map(({ key, href, icon: Icon, label }) => {
         const isActive = key === active;
@@ -59,8 +58,8 @@ export function Sidebar({ active = 'home', expanded = false, onToggle }: Sidebar
             href={href}
             aria-label={label}
             aria-current={isActive ? 'page' : undefined}
-            className={`flex items-center rounded-md text-primary transition-opacity ${
-              isActive ? 'opacity-100' : 'opacity-50 hover:opacity-100'
+            className={`flex items-center rounded-md transition-colors ${
+              isActive ? 'text-primary' : 'text-text-muted hover:text-primary'
             } ${expanded ? 'h-14 gap-3 px-6' : 'h-14 w-19 justify-center'}`}
           >
             <Icon size={24} strokeWidth={2} className="shrink-0" />

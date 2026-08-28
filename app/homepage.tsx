@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-import { Header } from "@/shared/components/organism/header/header";
+import { AppShell } from "@/shared/components/organism/app-shell/app-shell";
 import { Hero } from "@/shared/components/organism/hero/hero";
 import { Tabs } from "@/shared/components/organism/tabs/tabs";
 import { ArticleList } from "@/shared/components/organism/article-list/article-list";
@@ -66,15 +66,12 @@ export function Homepage() {
   });
 
   return (
-    <main className="min-h-screen bg-(--background)">
-      {/* HEADER */}
-      <Header />
-
+    <AppShell activeSidebarKey="home">
       {/* HERO */}
       <Hero />
 
       {/* CONTENT */}
-      <section className="mx-auto max-w-341 px-5 md:px-11.5">
+      <section className="mx-auto w-full max-w-341 px-5 md:px-11.5">
         {/* TABS */}
         <Tabs
           defaultActiveKey={activeTab}
@@ -94,6 +91,6 @@ export function Homepage() {
         {/* ARTICLE LIST */}
         <ArticleList articles={sortedArticles} />
       </section>
-    </main>
+    </AppShell>
   );
 }

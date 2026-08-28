@@ -75,16 +75,3 @@ export function generateLatestArticles(count = 6): ArticleCardData[] {
       date: formatDateID(dateObj),
     }));
 }
-
-/**
- * Pool artikel umum (belum disortir) — dipakai homepage yang
- * melakukan sorting sendiri berdasarkan tab aktif.
- */
-export function generateMockArticles(count = 12): ArticleCardData[] {
-  const raw = Array.from({ length: count }, () => baseArticle());
-
-  return raw.map(({ dateObj, ...rest }) => ({
-    ...rest,
-    date: formatDateID(dateObj),
-  }));
-}

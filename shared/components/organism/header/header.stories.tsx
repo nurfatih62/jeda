@@ -7,8 +7,8 @@ const meta: Meta<typeof Header> = {
   tags: ['autodocs'],
   parameters: { layout: 'fullscreen' },
   argTypes: {
-    onMenuClick: { action: 'menu-click' },
     onLoginClick: { action: 'login-click' },
+    showLogo: { control: 'boolean' },
   },
 };
 export default meta;
@@ -16,6 +16,10 @@ export default meta;
 type Story = StoryObj<typeof Header>;
 
 export const Default: Story = {};
+
+export const WithoutLogo: Story = {
+  args: { showLogo: false },
+};
 
 export const StickyOnScroll: Story = {
   render: (args) => (

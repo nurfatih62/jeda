@@ -62,6 +62,13 @@
   --color-white: #FFFFFF;
   --color-placeholder: #6B7280;
 
+  /* ===== Badge Tren =====
+     Dipakai badge "+X%" di ArticleCard (tab Populer). Bukan token danger
+     karena secara makna ini bukan status error, cuma indikator tren.
+     Teks #B71C1C di atas bg #FEEAEA = kontras 5.69:1 (lolos AA teks kecil). */
+  --color-badge-trend-bg: #FEEAEA;
+  --color-badge-trend-text: #B71C1C;
+
   /* ===== Font ===== */
   --font-sans: 'Poppins', sans-serif;
   --font-serif: 'IBM Plex Serif', serif;

@@ -27,25 +27,25 @@ const baseClass =
 
 const colorClass: Record<ButtonVariant, Record<ButtonColorState, string>> = {
   primary: {
-    default: 'bg-[#147364] text-white hover:bg-[#0F5A4E] active:bg-[#0B4038]',
-    success: 'bg-[#0E7A5A] text-white hover:bg-[#0B5F46] active:bg-[#083F2F]',
-    danger: 'bg-[#CB1E1E] text-white hover:bg-[#A81818] active:bg-[#7A1212]',
+    default: 'bg-primary text-white hover:bg-primary-hover active:bg-primary-active',
+    success: 'bg-success text-white hover:bg-success-hover active:bg-success-active',
+    danger: 'bg-danger text-white hover:bg-danger-hover active:bg-danger-active',
   },
   outline: {
     default:
-      'border border-[#147364] bg-transparent text-[#147364] hover:bg-[rgba(20,115,100,0.12)] active:bg-[rgba(20,115,100,0.24)]',
+      'border border-primary bg-transparent text-primary hover:bg-primary-overlay-hover active:bg-primary-overlay-active',
     success:
-      'border border-[#0E7A5A] bg-transparent text-[#0E7A5A] hover:bg-[rgba(14,122,90,0.12)] active:bg-[rgba(14,122,90,0.24)]',
+      'border border-success bg-transparent text-success hover:bg-success-overlay-hover active:bg-success-overlay-active',
     danger:
-      'border border-[#CB1E1E] bg-transparent text-[#CB1E1E] hover:bg-[rgba(203,30,30,0.12)] active:bg-[rgba(203,30,30,0.24)]',
+      'border border-danger bg-transparent text-danger hover:bg-danger-overlay-hover active:bg-danger-overlay-active',
   },
   ghost: {
     default:
-      'bg-transparent text-[#147364] hover:bg-[rgba(20,115,100,0.12)] active:bg-[rgba(20,115,100,0.24)]',
+      'bg-transparent text-primary hover:bg-primary-overlay-hover active:bg-primary-overlay-active',
     success:
-      'bg-transparent text-[#0E7A5A] hover:bg-[rgba(14,122,90,0.12)] active:bg-[rgba(14,122,90,0.24)]',
+      'bg-transparent text-success hover:bg-success-overlay-hover active:bg-success-overlay-active',
     danger:
-      'bg-transparent text-[#CB1E1E] hover:bg-[rgba(203,30,30,0.12)] active:bg-[rgba(203,30,30,0.24)]',
+      'bg-transparent text-danger hover:bg-danger-overlay-hover active:bg-danger-overlay-active',
   },
 };
 
