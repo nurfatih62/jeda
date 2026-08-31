@@ -1,0 +1,14 @@
+﻿node.exe : $ storybook dev -p 6006
+At C:\Users\HYPE AMD\AppData\Roaming\npm\pnpm.ps1:24 char:5
++     & "node$exe"  "$basedir/node_modules/pnpm/bin/pnpm.mjs" $args
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ($ storybook dev -p 6006:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+[90mΓöî[39m  storybook v10.5.9
+[?25l[90mΓöé[39m
+[36mΓùå[39m  Port 6006 is not available.
+[0m[36mΓöé[39m[0m  [2mWould you like to run Storybook on port 6007 instead?[22m
+[36mΓöé[39m  [32mΓùÅ[39m Yes [2m/[22m [2mΓùï[22m [2mNo[22m
+[36mΓöö[39m

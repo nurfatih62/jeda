@@ -1,27 +1,29 @@
-import { vi } from 'vitest';
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { SortSelect } from './sort-select';
-
-vi.mock('next/navigation', () => ({
-  useRouter: vi.fn(() => ({
-    push: vi.fn(),
-    replace: vi.fn(),
-    refresh: vi.fn(),
-    back: vi.fn(),
-    forward: vi.fn(),
-    prefetch: vi.fn(),
-  })),
-  usePathname: vi.fn(() => '/'),
-  useSearchParams: vi.fn(() => new URLSearchParams()),
-}));
 
 const meta: Meta<typeof SortSelect> = {
   title: 'Molecule/SortSelect',
   component: SortSelect,
   tags: ['autodocs'],
-  args: { options: ['Populer', 'Terbaru'] },
-  parameters: { layout: 'padded' },
+  args: { 
+    options: ['Populer', 'Terbaru'],
+    paramName: 'sort',
+    defaultValue: 'Populer',
+    label: 'Urutkan artikel'
+  },
+  parameters: { 
+    layout: 'padded',
+    // Konfigurasi router Next.js untuk Storybook agar tidak error "app router to be mounted"
+    nextjs: {
+      appDirectory: true,
+      navigation: {
+        pathname: '/explore',
+        query: { sort: 'Populer' },
+      },
+    },
+  },
 };
+
 export default meta;
 
 type Story = StoryObj<typeof SortSelect>;

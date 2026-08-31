@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useRef, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { TopicTag } from "../../molecule/topic-tag/topic-tag";
 
 export interface TopicTagsProps {
@@ -12,9 +13,24 @@ export interface TopicTagsProps {
 
 export function TopicTags({ topics, activeTopic, basePath = "/explore" }: TopicTagsProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const searchParams = useSearchParams();
   const [isDragging, setIsDragging] = useState(false);
   const [dragStartX, setDragStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
+
+  // Fungsi pembantu untuk membangun URL dengan pengaman searchParams null
+  const createHref = (topicName: string) => {
+    const params = new URLSearchParams(searchParams ? searchParams.toString() : "");
+    
+    if (topicName === "Semua") {
+      params.delete("topic"); // Hapus parameter topic jika "Semua"
+    } else {
+      params.set("topic", topicName);
+    }
+
+    const queryString = params.toString();
+    return queryString ? `${basePath}?${queryString}` : basePath;
+  };
 
   const onWheel = useCallback((e: React.WheelEvent<HTMLDivElement>) => {
     const el = scrollRef.current;
@@ -56,12 +72,12 @@ export function TopicTags({ topics, activeTopic, basePath = "/explore" }: TopicT
       onMouseUp={onMouseUp}
       onMouseLeave={onMouseUp}
     >
-      <TopicTag label="Semua" href={basePath} active={activeTopic === "Semua"} />
+      <TopicTag label="Semua" href={createHref("Semua")} active={activeTopic === "Semua"} />
       {topics.map((topic) => (
         <TopicTag
           key={topic}
           label={topic}
-          href={`${basePath}?topic=${encodeURIComponent(topic)}`}
+          href={createHref(topic)}
           active={activeTopic === topic}
         />
       ))}

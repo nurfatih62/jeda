@@ -37,7 +37,7 @@ export default async function Homepage({ searchParams }: HomepageProps) {
         <div className="mb-8">
           <TabsLink
             activeTab={activeTab}
-            basePath=""
+            basePath="/homepage"
           />
         </div>
 

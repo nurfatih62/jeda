@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from 'react';
 import { Avatar } from '../../atom/avatar/avatar';
 import { Image } from '../../atom/image/image';
 import { AuthorMeta } from '../../molecule/author-meta/author-meta';
@@ -22,30 +21,27 @@ export interface ArticleCardData {
 
 export interface ArticleCardProps {
   article: ArticleCardData;
+  liked?: boolean;
+  onLikeClick?: (id: string) => void;
   onShare?: (id: string) => void;
   onReport?: (id: string) => void;
 }
 
-export function ArticleCard({ article, onShare, onReport }: ArticleCardProps) {
-  const [liked, setLiked] = useState(false);
-  const [likeCount, setLikeCount] = useState(article.likes);
-
-  const handleLikeClick = () => {
-    setLiked((prevLiked) => {
-      const nextLiked = !prevLiked;
-      setLikeCount((prevCount) => (nextLiked ? prevCount + 1 : prevCount - 1));
-      return nextLiked;
-    });
-  };
-
+export function ArticleCard({ 
+  article, 
+  liked = false, 
+  onLikeClick, 
+  onShare, 
+  onReport 
+}: ArticleCardProps) {
   return (
     <article className="relative flex min-h-49.25 gap-2 rounded-lg border border-card-border bg-background p-4">
       <Avatar src={article.avatarUrl} alt={article.author} size="md" />
       <div className="flex flex-1 flex-col gap-3.5 pr-78.75 max-[900px]:pr-0">
         <div className="flex flex-col gap-2">
           {article.trendPercent !== undefined && (
-            <span className="inline-flex w-fit items-center rounded-sm bg-[#FEEAEA] px-1 py-0.5">
-              <span className="font-nunito text-xs font-medium leading-4 text-[#B71C1C]">
+            <span className="inline-flex w-fit items-center rounded-sm bg-badge-trend-bg px-1 py-0.5">
+              <span className="font-nunito text-xs font-medium leading-4 text-badge-trend-text">
                 +{article.trendPercent}%
               </span>
             </span>
@@ -59,15 +55,15 @@ export function ArticleCard({ article, onShare, onReport }: ArticleCardProps) {
           </p>
         </div>
         <ArticleActions
-          likes={likeCount}
+          likes={article.likes}
           comments={article.comments}
           liked={liked}
-          onLikeClick={handleLikeClick}
+          onLikeClick={() => onLikeClick?.(article.id)}
           onShare={() => onShare?.(article.id)}
           onReport={() => onReport?.(article.id)}
         />
       </div>
-      <div className="absolute right-4.5 top-4 h-41.25 w-74.75 max-[900px]:static max-[900px]:h-50 max-[900px]:w-full">
+      <div className="absolute right-gap top-4 h-41.25 w-74.75 max-[900px]:static max-[900px]:h-50 max-[900px]:w-full">
         <Image src={article.imageUrl} alt={article.title} radius={8} />
       </div>
     </article>

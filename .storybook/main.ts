@@ -2,8 +2,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { StorybookConfig } from '@storybook/nextjs-vite';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const mockPath = path.resolve(__dirname, '../__mocks__/next/navigation.ts');
+const mockPath = fileURLToPath(new URL('../__mocks__/next/navigation.ts', import.meta.url));
 
 const config: StorybookConfig = {
   stories: ['../shared/**/*.stories.@(ts|tsx)'],

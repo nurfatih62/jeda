@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { AppShell } from '../../shared/components/organism/app-shell/app-shell';
 
 const FILTER_TABS = ['Terakhir dibaca', 'Artikel disimpan', 'Riwayat suka', 'Komentar'];
@@ -30,10 +31,13 @@ export default async function LibraryPage({ searchParams }: LibraryPageProps) {
             <div className="flex flex-row items-center gap-gap-lg overflow-x-auto scrollbar-hide w-full">
               {FILTER_TABS.map((filterName) => {
                 const isActive = activeTab === filterName;
+                
+                // Gunakan Link dari Next.js agar mengubah searchParams di URL saat diklik
                 return (
-                  <button
+                  <Link
                     key={filterName}
-                    className={`box-border flex flex-row justify-center items-center px-10 py-2 gap-2.5 rounded-3xl cursor-pointer whitespace-nowrap transition-colors ${
+                    href={`/library?tab=${encodeURIComponent(filterName)}`}
+                    className={`box-border flex flex-row justify-center items-center px-10 py-2 gap-2.5 rounded-3xl cursor-pointer whitespace-nowrap transition-colors no-underline ${
                       isActive
                         ? 'bg-primary border border-primary text-white'
                         : 'bg-transparent border border-primary text-primary hover:bg-primary-overlay-hover'
@@ -42,7 +46,7 @@ export default async function LibraryPage({ searchParams }: LibraryPageProps) {
                     <span className="font-sans font-medium text-base leading-6 text-center">
                       {filterName}
                     </span>
-                  </button>
+                  </Link>
                 );
               })}
             </div>

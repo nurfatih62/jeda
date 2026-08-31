@@ -14,10 +14,11 @@ interface ExplorePageProps {
 export default async function ExplorePage({ searchParams }: ExplorePageProps) {
   const { topic, sort } = await searchParams;
   const activeTopic = topic ?? 'Semua';
+  
+  // Ambil sort dari URL, jika tidak ada, default ke 'Populer'
   const activeSort = sort === 'Terbaru' ? 'Terbaru' : 'Populer';
 
   // Simulasi delay jaringan biar loading.tsx kelihatan efeknya.
-  // Hapus baris ini kalau nanti sudah connect ke API/database asli.
   await new Promise((resolve) => setTimeout(resolve, 400));
 
   const articles =
@@ -29,10 +30,19 @@ export default async function ExplorePage({ searchParams }: ExplorePageProps) {
         <h1 className="font-sans mb-11 text-4xl font-bold leading-8 text-text-primary">
           Eksplor topik
         </h1>
+        
+        {/* Jika komponen TopicTags mendukung penggabungan query param, pastikan terbawa. 
+            Atau jika TopicTags mereset URL, pastikan ia menangani query yang ada. */}
         <TopicTags topics={TOPICS} activeTopic={activeTopic} basePath="/explore" />
+        
         <div className="mt-6">
-          <SortSelect options={SORT_OPTIONS} defaultValue="Populer" />
+          {/* Kirim activeSort ke defaultValue/value SortSelect agar ikut sinkron dengan URL */}
+          <SortSelect 
+            options={SORT_OPTIONS} 
+            defaultValue={activeSort} 
+          />
         </div>
+
         <div className="mt-11">
           <ArticleList articles={articles} />
         </div>
