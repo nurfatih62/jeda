@@ -4,7 +4,7 @@ import { SortSelect } from '../../shared/components/molecule/sort-select/sort-se
 import { ArticleList } from '../../shared/components/organism/article-list/article-list';
 import { generatePopularArticles, generateLatestArticles } from '../../lib/mock-data';
 
-const TOPICS = ['Teknologi', 'Wisata', 'Makanan', 'Perkerjaan', 'Pengembangan diri', 'Kehidupan'];
+const TOPICS = ['Semua', 'Teknologi', 'Wisata', 'Makanan', 'Pekerjaan', 'Pengembangan diri', 'Kehidupan'];
 const SORT_OPTIONS = ['Populer', 'Terbaru'];
 
 interface ExplorePageProps {
@@ -14,37 +14,51 @@ interface ExplorePageProps {
 export default async function ExplorePage({ searchParams }: ExplorePageProps) {
   const { topic, sort } = await searchParams;
   const activeTopic = topic ?? 'Semua';
-  
-  // Ambil sort dari URL, jika tidak ada, default ke 'Populer'
   const activeSort = sort === 'Terbaru' ? 'Terbaru' : 'Populer';
 
-  // Simulasi delay jaringan biar loading.tsx kelihatan efeknya.
-  await new Promise((resolve) => setTimeout(resolve, 400));
+  // Simulasi jeda jaringan
+  await new Promise((resolve) => setTimeout(resolve, 300));
 
   const articles =
     activeSort === 'Populer' ? generatePopularArticles(3) : generateLatestArticles(3);
 
   return (
     <AppShell activeSidebarKey="search">
-      <div className="px-11.5 py-11">
-        <h1 className="font-sans mb-11 text-4xl font-bold leading-8 text-text-primary">
-          Eksplor topik
-        </h1>
+      {/* Menggunakan kelas kanonik Tailwind untuk padding */}
+      <div className="bg-background w-full px-17.5 pt-top pb-12.5">
         
-        {/* Jika komponen TopicTags mendukung penggabungan query param, pastikan terbawa. 
-            Atau jika TopicTags mereset URL, pastikan ia menangani query yang ada. */}
-        <TopicTags topics={TOPICS} activeTopic={activeTopic} basePath="/explore" />
-        
-        <div className="mt-6">
-          {/* Kirim activeSort ke defaultValue/value SortSelect agar ikut sinkron dengan URL */}
-          <SortSelect 
-            options={SORT_OPTIONS} 
-            defaultValue={activeSort} 
-          />
-        </div>
+        {/* max-width dan gap menggunakan rekomendasi kanonik */}
+        <div className="flex max-w-288.75 flex-col items-start gap-4.25">
+          
+          {/* Frame 95: gap disesuaikan */}
+          <div className="flex w-full flex-col gap-7.25">
+            
+            {/* Judul: Eksplor topik menggunakan token warna tema */}
+            <h1 className="font-['Poppins'] text-[36px] font-bold leading-[32px] text-text-primary m-0 p-0">
+              Eksplor topik
+            </h1>
+            
+            {/* Frame 94 & Frame 83 (Filter Topic & Sort Select) */}
+            <div className="flex w-full flex-col gap-6">
+              <div className="w-full">
+                <TopicTags topics={TOPICS} activeTopic={activeTopic} basePath="/explore" />
+              </div>
+              
+              <div className="flex justify-start">
+                <SortSelect 
+                  options={SORT_OPTIONS} 
+                  defaultValue={activeSort} 
+                />
+              </div>
+            </div>
 
-        <div className="mt-11">
-          <ArticleList articles={articles} />
+          </div>
+
+          {/* Daftar Artikel dengan gap kanonik */}
+          <div className="flex w-full flex-col gap-10.5 mt-2.5">
+            <ArticleList articles={articles} />
+          </div>
+
         </div>
       </div>
     </AppShell>

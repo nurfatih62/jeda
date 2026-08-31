@@ -12,36 +12,51 @@ export interface HomepageProps {
 const ARTICLE_COUNT = 6;
 
 /**
- * Isi asli homepage — dipindah ke sini dari app/page.tsx supaya page.tsx
- * bisa jadi wrapper tipis (dibutuhkan untuk alur/fitur selanjutnya).
- * Tetap async Server Component, tetap SSR penuh (searchParams -> faker).
+ * Komponen utama Homepage — selaras dengan token Figma & Tailwind v4.
+ * Menggunakan struktur full-width fleksibel di dalam AppShell.
  */
 export default async function Homepage({ searchParams }: HomepageProps) {
   const { tab } = await searchParams;
   const activeTab: TabsLinkKey = tab === 'terbaru' ? 'terbaru' : 'populer';
 
-  // Simulasi delay jaringan biar loading.tsx kelihatan efeknya.
-  // Hapus baris ini kalau nanti sudah connect ke API/database asli.
+  // Simulasi delay jaringan untuk efek loading.tsx
   await new Promise((resolve) => setTimeout(resolve, 400));
 
-  const articles =
+  let articles =
     activeTab === 'populer'
       ? generatePopularArticles(ARTICLE_COUNT)
       : generateLatestArticles(ARTICLE_COUNT);
 
+  // Jika tab populer, hanya artikel pertama (index 0) yang diberi nilai trendPercent agar badge muncul
+  if (activeTab === 'populer' && articles.length > 0) {
+    articles = articles.map((article, index) => ({
+      ...article,
+      trendPercent: index === 0 ? 15 : undefined, 
+    }));
+  }
+
   return (
     <AppShell activeSidebarKey="home">
+      {/* Hero Section */}
       <Hero />
 
-      <div className="mx-auto max-w-341 px-11.5">
-        <div className="mb-8">
+      {/* Konten Utama (Disesuaikan dengan padding dan jarak spasi Figma) */}
+      <div className="flex flex-col w-full px-11.5 py-11 gap-8">
+        
+        {/* Navigasi Tab (Populer / Terbaru) */}
+        <div className="w-full">
           <TabsLink
             activeTab={activeTab}
             basePath="/homepage"
           />
         </div>
 
-        <ArticleList articles={articles} />
+        {/* Daftar Artikel dengan struktur card yang presisi */}
+        <ArticleList 
+          articles={articles} 
+          showTrendBadge={activeTab === 'populer'} 
+        />
+        
       </div>
     </AppShell>
   );

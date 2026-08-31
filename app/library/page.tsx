@@ -14,36 +14,40 @@ export default async function LibraryPage({ searchParams }: LibraryPageProps) {
 
   return (
     <AppShell activeSidebarKey="library">
-      <div className="flex flex-col items-start px-3 py-3 gap-12 w-full max-w-326 min-h-192">
+      {/* Sesuai Frame 102 */}
+      <div className="flex flex-col w-full max-w-326.25 px-xs py-sm gap-banner">
         
-        {/* Frame 101: Header & Filter Tags */}
-        <div className="flex flex-col items-start gap-gap w-full max-w-214">
+        {/* Sesuai Frame 101 */}
+        <div className="flex flex-col items-start gap-gap max-w-214.5 w-full">
           
-          {/* Frame 100: Judul Library */}
-          <div className="flex flex-row justify-center items-center p-2.5 gap-2.5">
-            <h1 className="font-sans font-bold text-4xl leading-8 text-text-primary">
+          {/* Frame 100 (Judul Library) */}
+          <div className="flex items-center px-2.5 py-2.5 h-13">
+            <h1 className="font-sans font-bold text-[36px] leading-[32px] text-text-primary">
               Library
             </h1>
           </div>
 
-          {/* Frame 100 & 99: Tags Filter */}
-          <div className="flex flex-col items-start p-2.5 gap-2.5 w-full">
+          {/* Frame 100 & Frame 99 (Filter Tags Container) */}
+          <div className="flex flex-col items-start px-2.5 py-2.5 w-full">
             <div className="flex flex-row items-center gap-gap-lg overflow-x-auto scrollbar-hide w-full">
-              {FILTER_TABS.map((filterName) => {
+              {FILTER_TABS.map((filterName, index) => {
                 const isActive = activeTab === filterName;
                 
-                // Gunakan Link dari Next.js agar mengubah searchParams di URL saat diklik
                 return (
                   <Link
                     key={filterName}
                     href={`/library?tab=${encodeURIComponent(filterName)}`}
-                    className={`box-border flex flex-row justify-center items-center px-10 py-2 gap-2.5 rounded-3xl cursor-pointer whitespace-nowrap transition-colors no-underline ${
+                    className={`flex flex-row justify-center items-center rounded-[24px] cursor-pointer whitespace-nowrap transition-all no-underline ${
                       isActive
-                        ? 'bg-primary border border-primary text-white'
-                        : 'bg-transparent border border-primary text-primary hover:bg-primary-overlay-hover'
+                        ? 'bg-[#198876] text-white'
+                        : 'bg-transparent border border-[#198876] text-[#198876]'
                     }`}
+                    style={{
+                      padding: '8px 39px',
+                      height: index === 0 ? '40px' : '42px',
+                    }}
                   >
-                    <span className="font-sans font-medium text-base leading-6 text-center">
+                    <span className="font-sans font-medium text-[16px] leading-[24px] text-center">
                       {filterName}
                     </span>
                   </Link>
@@ -53,36 +57,44 @@ export default async function LibraryPage({ searchParams }: LibraryPageProps) {
           </div>
         </div>
 
-        {/* Frame 42: Section Kartu Ajakan Bergabung */}
-        <div className="flex flex-col items-center pt-9 pr-0 pb-0 pl-0 gap-3 w-full max-w-7xl opacity-80 self-stretch">
+        {/* Frame 42 (Section Ajakan Bergabung) */}
+        <div className="flex flex-col items-center pt-top pb-0 gap-3 max-w-320.75 w-full opacity-80">
           
-          {/* Frame 13: Teks Informasi */}
-          <div className="flex flex-col items-start gap-gap-lg w-full max-w-259">
-            <h2 className="font-sans font-bold text-4xl leading-8 text-center text-text-primary w-full">
+          {/* Frame 13 */}
+          <div className="flex flex-col items-start gap-gap-lg max-w-259 w-full">
+            <h2 className="font-sans font-bold text-[36px] leading-[32px] text-center w-full text-text-primary">
               Bergabung untuk mendapat pengalaman lebih
             </h2>
-            <p className="font-sans font-medium text-2xl leading-7 text-center text-text-muted w-full">
+            <p className="font-sans font-medium text-[24px] leading-[28px] text-center w-full text-text-muted">
               Ayo bergabung untuk dapat menyimpan riwayat baca, simpan artikel, suka dan komentar
             </p>
           </div>
 
-          {/* Frame 50: Tombol Aksi (Daftar & Masuk) */}
-          <div className="flex flex-row justify-center items-center gap-3 mt-4">
-            {/* Tombol Daftar (Outline) */}
-            <div className="flex flex-row items-center gap-2.5">
-              <button className="box-border flex flex-row justify-center items-center px-4 py-2 gap-2.5 h-10 border border-primary rounded-md bg-transparent cursor-pointer hover:bg-primary-overlay-hover transition-colors">
-                <span className="font-sans font-medium text-base leading-6 text-primary">
+          {/* Frame 50 (Button Container) */}
+          <div className="flex flex-row justify-center items-center gap-3 w-50 h-17.5">
+            
+            {/* Frame 41 (Tombol Daftar - Outline) */}
+            <div className="flex flex-row items-center">
+              <button 
+                className="flex flex-row justify-center items-center h-[40px] border border-[#146C5D] rounded-[6px] bg-transparent cursor-pointer hover:bg-[#146C5D]/10 transition-all"
+                style={{ padding: '8px 16px' }}
+              >
+                <span className="font-sans font-medium text-[16px] leading-[24px] text-[#146C5D]">
                   Daftar
                 </span>
               </button>
             </div>
 
             {/* Tombol Masuk (Solid Primary) */}
-            <button className="flex flex-row justify-center items-center px-5 py-2 h-10 bg-primary rounded-md border-none cursor-pointer hover:bg-primary-hover transition-colors">
-              <span className="font-sans font-medium text-base leading-6 text-white">
+            <button 
+              className="flex flex-row justify-center items-center h-[40px] bg-[#146C5D] rounded-[6px] border-none cursor-pointer hover:bg-[#115a4e] transition-all shadow-sm"
+              style={{ width: '105px', padding: '8px 16px' }}
+            >
+              <span className="font-sans font-medium text-[16px] leading-[24px] text-white">
                 Masuk
               </span>
             </button>
+
           </div>
 
         </div>

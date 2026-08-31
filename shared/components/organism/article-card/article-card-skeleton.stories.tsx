@@ -13,7 +13,7 @@ type Story = StoryObj<typeof ArticleCardSkeleton>;
 
 export const Default: Story = {
   render: () => (
-    <div className="w-[1154px] max-w-full">
+    <div className="w-288.5 max-w-full">
       <ArticleCardSkeleton />
     </div>
   ),
@@ -21,7 +21,7 @@ export const Default: Story = {
 
 export const ListOfThree: Story = {
   render: () => (
-    <div className="flex w-[1154px] max-w-full flex-col gap-6">
+    <div className="flex w-288.5 max-w-full flex-col gap-6">
       <ArticleCardSkeleton />
       <ArticleCardSkeleton />
       <ArticleCardSkeleton />

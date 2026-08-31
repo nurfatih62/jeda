@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useRef, useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { TopicTag } from "../../molecule/topic-tag/topic-tag";
 
@@ -32,10 +32,24 @@ export function TopicTags({ topics, activeTopic, basePath = "/explore" }: TopicT
     return queryString ? `${basePath}?${queryString}` : basePath;
   };
 
-  const onWheel = useCallback((e: React.WheelEvent<HTMLDivElement>) => {
+  // Menggunakan native addEventListener dengan { passive: false } 
+  // agar e.preventDefault() tidak diabaikan oleh browser modern.
+  useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
-    el.scrollLeft += e.deltaY;
+
+    const handleWheel = (e: WheelEvent) => {
+      if (e.deltaY !== 0) {
+        e.preventDefault(); // Mencegah halaman utama ikut scroll ke atas/bawah
+        el.scrollLeft += e.deltaY;
+      }
+    };
+
+    el.addEventListener("wheel", handleWheel, { passive: false });
+
+    return () => {
+      el.removeEventListener("wheel", handleWheel);
+    };
   }, []);
 
   const onMouseDown = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
@@ -65,14 +79,12 @@ export function TopicTags({ topics, activeTopic, basePath = "/explore" }: TopicT
   return (
     <div
       ref={scrollRef}
-      className="flex gap-2.5 overflow-x-auto pb-2 scrollbar-hide select-none cursor-grab active:cursor-grabbing"
-      onWheel={onWheel}
+      className="flex items-center h-10.5 w-full gap-[10px] overflow-x-auto scrollbar-hide select-none cursor-grab active:cursor-grabbing"
       onMouseDown={onMouseDown}
       onMouseMove={onMouseMove}
       onMouseUp={onMouseUp}
       onMouseLeave={onMouseUp}
     >
-      <TopicTag label="Semua" href={createHref("Semua")} active={activeTopic === "Semua"} />
       {topics.map((topic) => (
         <TopicTag
           key={topic}

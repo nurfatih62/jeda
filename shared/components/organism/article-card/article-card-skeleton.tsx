@@ -33,7 +33,7 @@ export function ArticleCardSkeleton() {
         </div>
       </div>
 
-      <div className="absolute right-4.5 top-4 h-41.25 w-74.75 max-[900px]:static max-[900px]:h-50 max-[900px]:w-full">
+      <div className="absolute right-gap top-4 h-41.25 w-74.75 max-[900px]:static max-[900px]:h-50 max-[900px]:w-full">
         <Skeleton className="h-full w-full rounded-lg" />
       </div>
     </div>

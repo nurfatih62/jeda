@@ -15,13 +15,14 @@ export interface ArticleCardData {
   comments: number;
   avatarUrl: string;
   imageUrl: string;
-  /** Persentase tren (opsional). Diisi -> muncul badge "+X%" (dipakai tab Populer). */
   trendPercent?: number;
 }
 
 export interface ArticleCardProps {
   article: ArticleCardData;
   liked?: boolean;
+  /** Tambahan properti untuk mengontrol kemunculan badge tren */
+  showTrendBadge?: boolean;
   onLikeClick?: (id: string) => void;
   onShare?: (id: string) => void;
   onReport?: (id: string) => void;
@@ -30,6 +31,7 @@ export interface ArticleCardProps {
 export function ArticleCard({ 
   article, 
   liked = false, 
+  showTrendBadge = false, // Default false agar di halaman lain/Explore tidak muncul
   onLikeClick, 
   onShare, 
   onReport 
@@ -39,10 +41,11 @@ export function ArticleCard({
       <Avatar src={article.avatarUrl} alt={article.author} size="md" />
       <div className="flex flex-1 flex-col gap-3.5 pr-78.75 max-[900px]:pr-0">
         <div className="flex flex-col gap-2">
-          {article.trendPercent !== undefined && (
-            <span className="inline-flex w-fit items-center rounded-sm bg-badge-trend-bg px-1 py-0.5">
-              <span className="font-nunito text-xs font-medium leading-4 text-badge-trend-text">
-                +{article.trendPercent}%
+          {/* Badge hanya muncul jika showTrendBadge bernilai true DAN article.trendPercent ada */}
+          {showTrendBadge && article.trendPercent !== undefined && (
+            <span className="inline-flex w-fit items-center rounded-md bg-red-100 px-2.5 py-1">
+              <span className="font-nunito text-xs font-bold leading-4 text-red-700">
+                Paling banyak dibaca
               </span>
             </span>
           )}
