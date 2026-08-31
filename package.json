@@ -18,6 +18,7 @@
     "react-dom": "19.2.8"
   },
   "devDependencies": {
+    "@changesets/changelog-github": "^1.0.0",
     "@changesets/cli": "2.29.7",
     "@chromatic-com/storybook": "latest",
     "@storybook/addon-a11y": "10.5.9",
