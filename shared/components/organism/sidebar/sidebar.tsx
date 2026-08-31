@@ -43,7 +43,7 @@ export function Sidebar({ active = 'home', expanded = false, onToggle }: Sidebar
             type="button"
             onClick={onToggle}
             aria-label={expanded ? 'Tutup sidebar' : 'Buka sidebar'}
-            className="flex h-9 w-9 items-center justify-center rounded-md text-primary hover:bg-primary-overlay-hover"
+            className="flex h-9 w-9 items-center justify-center rounded-md text-primary transition-transform active:scale-95 hover:bg-primary-overlay-hover active:bg-primary/20"
           >
             {expanded ? <ArrowLeft size={20} strokeWidth={2} /> : <Menu size={20} strokeWidth={2} />}
           </button>
@@ -58,8 +58,8 @@ export function Sidebar({ active = 'home', expanded = false, onToggle }: Sidebar
             href={href}
             aria-label={label}
             aria-current={isActive ? 'page' : undefined}
-            className={`flex items-center rounded-md transition-colors hover:bg-primary-overlay-hover ${
-              isActive ? 'text-primary' : 'text-text-muted hover:text-primary'
+            className={`flex items-center rounded-md transition-colors hover:bg-primary-overlay-hover active:scale-[0.98] active:bg-primary/20 ${
+              isActive ? 'text-primary bg-primary-overlay-hover' : 'text-text-muted hover:text-primary'
             } ${expanded ? 'h-14 gap-3 px-6' : 'h-14 w-19 justify-center'}`}
           >
             <Icon size={24} strokeWidth={2} className="shrink-0" />
