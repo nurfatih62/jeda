@@ -29,7 +29,7 @@ export function TabsLink({ activeTab, basePath = '/' }: TabsLinkProps) {
             key={item.key}
             href={`${basePath}${item.query}`}
             aria-current={item.key === activeTab ? 'page' : undefined}
-            className={`font-sans rounded-md px-4 py-2 text-base font-medium leading-6 transition-colors ${
+            className={`font-sans rounded-md px-4 py-2 text-base font-medium leading-6 transition-colors hover:bg-primary-overlay-hover ${
               item.key === activeTab ? 'text-text-primary' : 'text-text-muted hover:text-text-primary'
             }`}
           >

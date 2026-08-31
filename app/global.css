@@ -73,9 +73,49 @@
   --font-sans: 'Poppins', sans-serif;
   --font-serif: 'IBM Plex Serif', serif;
   --font-nunito: 'Nunito', sans-serif;
+
+  /* ===== Spacing ===== */
+  --spacing-xs: 11px;
+  --spacing-sm: 13px;
+  --spacing-md: 10px;
+  --spacing-px-btn: 16px;
+  --spacing-tab-x: 39px;
+  --spacing-tab-y: 8px;
+  --spacing-gap: 18px;
+  --spacing-gap-lg: 22px;
+  --spacing-top: 35px;
+  --spacing-banner: 47px;
+  --spacing-btn-h: 40px;
+
+  /* ===== Font Size ===== */
+  --font-size-btn: 16px;
+  --font-size-desc: 24px;
+  --font-size-title: 36px;
+
+  /* ===== Line Height ===== */
+  --leading-tight: 32px;
+  --leading-normal: 28px;
+  --leading-loose: 24px;
+
+  /* ===== Radius ===== */
+  --radius-pill: 24px;
+  --radius-sm: 6px;
+
+  /* ===== Max Width ===== */
+  --max-w-page: 1305px;
+  --max-w-section: 858px;
+  --max-w-card: 1283px;
+  --max-w-content: 1036px;
 }
 
-/* ===== Base ===== */
+/* ===== Scrollbar Hide ===== */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
 @layer base {
   html,
   body {

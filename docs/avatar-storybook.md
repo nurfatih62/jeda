@@ -1,0 +1,1 @@
+di sini ada avatar yg bisa di gunakan untuk componen avatar, di avatr ini ada beberapa ukuran dari yg kecil sedang dan besar yg nanti dapat dipilih oleh devloper 

@@ -3,6 +3,107 @@ import type { ArticleCardData } from '../shared/components/organism/article-card
 
 const COVER_TOPICS = ['nature', 'business', 'technology', 'people', 'city', 'fitness'] as const;
 
+/**
+ * Bank judul + deskripsi Bahasa Indonesia (tema reflektif/wellness sesuai
+ * brand Jeda). `faker.lorem` SENGAJA tidak dipakai untuk judul/deskripsi
+ * karena dia selalu generate teks Latin acak ("Solvo cribro terra..."),
+ * gak peduli locale di-set apa — hasilnya gak pernah kebaca Bahasa
+ * Indonesia yang masuk akal. Jadi title+description di-pair manual di
+ * sini, dan faker cuma dipakai buat MILIH salah satu secara acak
+ * (faker.helpers.arrayElement), bukan buat generate teks-nya sendiri.
+ */
+const ARTICLE_TOPICS: { title: string; description: string }[] = [
+  {
+    title: 'Pengaruh nikotin',
+    description:
+      'Nikotin memengaruhi suasana hati dan pola tidur lebih dari yang kita sadari. Simak dampaknya bagi kesehatan mental sehari-hari.',
+  },
+  {
+    title: 'Tips olahraga di pagi hari',
+    description:
+      'Olahraga pagi terbukti meningkatkan fokus dan energi sepanjang hari. Berikut rutinitas sederhana yang bisa kamu coba mulai besok.',
+  },
+  {
+    title: 'Mengelola stres di tempat kerja',
+    description:
+      'Tekanan kerja yang menumpuk bisa memengaruhi kesehatan mental. Kenali tanda-tandanya dan cara mengatasinya sebelum terlambat.',
+  },
+  {
+    title: 'Kebiasaan tidur yang lebih sehat',
+    description:
+      'Kualitas tidur memengaruhi produktivitas dan mood harian. Ini beberapa kebiasaan kecil yang bisa memperbaiki kualitas tidurmu.',
+  },
+  {
+    title: 'Belajar menerima diri sendiri',
+    description:
+      'Penerimaan diri adalah langkah pertama menuju ketenangan batin. Yuk mulai perjalanan self-love dari hal-hal kecil.',
+  },
+  {
+    title: 'Manfaat journaling setiap hari',
+    description:
+      'Menulis jurnal membantu memproses emosi dan menjernihkan pikiran. Simak cara memulai kebiasaan journaling yang konsisten.',
+  },
+  {
+    title: 'Cara mengatur waktu dengan efektif',
+    description:
+      'Manajemen waktu yang baik bisa mengurangi rasa kewalahan. Berikut teknik sederhana untuk mengatur prioritas harianmu.',
+  },
+  {
+    title: 'Pentingnya me time bagi kesehatan mental',
+    description:
+      'Meluangkan waktu untuk diri sendiri bukan tindakan egois. Ini alasan kenapa me time penting untuk keseimbangan hidup.',
+  },
+  {
+    title: 'Tips menjaga pola makan sehat',
+    description:
+      'Pola makan yang seimbang berpengaruh besar pada energi dan mood. Simak tips praktis menjaga asupan gizi harianmu.',
+  },
+  {
+    title: 'Membangun hubungan yang lebih sehat',
+    description:
+      'Komunikasi yang jujur jadi kunci hubungan yang langgeng. Pelajari cara membangun batasan yang sehat dengan orang terdekat.',
+  },
+  {
+    title: 'Mengenal tanda-tanda burnout',
+    description:
+      'Burnout sering datang tanpa disadari hingga berdampak serius. Kenali gejalanya sejak dini agar bisa segera diatasi.',
+  },
+  {
+    title: 'Manfaat meditasi bagi pikiran',
+    description:
+      'Meditasi singkat setiap hari bisa menenangkan pikiran yang penuh. Ini panduan sederhana untuk pemula yang ingin mencoba.',
+  },
+  {
+    title: 'Cara mengatasi rasa cemas berlebih',
+    description:
+      'Rasa cemas yang berlarut bisa mengganggu keseharian. Berikut beberapa cara praktis untuk meredakannya secara mandiri.',
+  },
+  {
+    title: 'Pentingnya istirahat dari media sosial',
+    description:
+      'Terlalu sering scrolling bisa memengaruhi kesehatan mental. Coba digital detox dan rasakan perbedaannya pada dirimu.',
+  },
+  {
+    title: 'Menemukan makna dalam rutinitas harian',
+    description:
+      'Rutinitas yang monoton bisa terasa lebih bermakna dengan sedikit refleksi. Simak cara menemukan makna di balik hal-hal kecil.',
+  },
+  {
+    title: 'Tips healing tanpa harus jauh-jauh',
+    description: 'Healing tidak selalu harus liburan panjang. Berikut cara sederhana menenangkan pikiran dari rumah.',
+  },
+  {
+    title: 'Belajar mengatakan tidak dengan tenang',
+    description:
+      'Menetapkan batasan adalah bentuk self-respect. Ini cara mengatakan tidak tanpa rasa bersalah berlebihan.',
+  },
+  {
+    title: 'Manfaat menulis rasa syukur',
+    description:
+      'Mencatat hal-hal kecil yang disyukuri bisa memperbaiki mood harian. Coba mulai gratitude journal mulai hari ini.',
+  },
+];
+
 function formatDateID(date: Date): string {
   return date.toLocaleDateString('id-ID', {
     day: 'numeric',
@@ -29,13 +130,14 @@ interface RawArticle extends Omit<ArticleCardData, 'date' | 'trendPercent'> {
 }
 
 function baseArticle(): RawArticle {
+  const topic = faker.helpers.arrayElement(ARTICLE_TOPICS);
   return {
     id: faker.string.uuid(),
     author: faker.person.fullName(),
     avatarUrl: randomAvatar(),
     dateObj: faker.date.recent({ days: 60 }),
-    title: faker.lorem.sentence({ min: 4, max: 8 }).replace(/\.$/, ''),
-    description: faker.lorem.sentences({ min: 1, max: 2 }),
+    title: topic.title,
+    description: topic.description,
     imageUrl: randomCover(),
     likes: faker.number.int({ min: 5, max: 500 }),
     comments: faker.number.int({ min: 0, max: 60 }),

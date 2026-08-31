@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { Home, Search, BookCopy, User, Menu, ArrowLeft } from 'lucide-react';
 import { Logo } from '../../atom/logo/logo';
-import { IconButton } from '../../atom/button/icon-button';
 
 export type SidebarActiveKey = 'home' | 'search' | 'library' | 'profile';
 
@@ -19,7 +18,7 @@ const items: { key: SidebarActiveKey; href: string; icon: typeof Home; label: st
   { key: 'home', href: '/', icon: Home, label: 'Beranda' },
   { key: 'search', href: '/explore', icon: Search, label: 'Eksplor' },
   { key: 'library', href: '/library', icon: BookCopy, label: 'Library' },
-  { key: 'profile', href: '/login', icon: User, label: 'Profil' },
+  { key: 'profile', href: '/profile', icon: User, label: 'Profil' },
 ];
 
 /**
@@ -40,13 +39,14 @@ export function Sidebar({ active = 'home', expanded = false, onToggle }: Sidebar
       <div className={`mb-6 flex items-center ${expanded ? 'justify-between px-1' : 'justify-center'}`}>
         {expanded && <Logo size={28} />}
         {onToggle && (
-          <IconButton
-            variant="ghost"
+          <button
+            type="button"
             onClick={onToggle}
             aria-label={expanded ? 'Tutup sidebar' : 'Buka sidebar'}
-            className="h-9 w-9 p-2"
-            icon={expanded ? <ArrowLeft size={20} strokeWidth={2} /> : <Menu size={20} strokeWidth={2} />}
-          />
+            className="flex h-9 w-9 items-center justify-center rounded-md text-primary hover:bg-primary-overlay-hover"
+          >
+            {expanded ? <ArrowLeft size={20} strokeWidth={2} /> : <Menu size={20} strokeWidth={2} />}
+          </button>
         )}
       </div>
 
@@ -58,10 +58,8 @@ export function Sidebar({ active = 'home', expanded = false, onToggle }: Sidebar
             href={href}
             aria-label={label}
             aria-current={isActive ? 'page' : undefined}
-            className={`flex items-center rounded-md transition-colors ${
-              isActive
-                ? 'bg-primary-overlay-hover text-primary'
-                : 'text-text-muted hover:bg-primary-overlay-hover hover:text-primary active:bg-primary-overlay-active'
+            className={`flex items-center rounded-md transition-colors hover:bg-primary-overlay-hover ${
+              isActive ? 'text-primary' : 'text-text-muted hover:text-primary'
             } ${expanded ? 'h-14 gap-3 px-6' : 'h-14 w-19 justify-center'}`}
           >
             <Icon size={24} strokeWidth={2} className="shrink-0" />
