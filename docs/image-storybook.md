@@ -1,1 +1,0 @@
-di sini ada image bisa ubah gambar saat di storybukk dan dapat mengubah alt di sini juga radius sebuah gambar di storybook 

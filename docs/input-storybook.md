@@ -1,1 +1,0 @@
-di input ini dapat mebgunnah beberapa di storybook nya yaitu ada pakceholder dan celas
