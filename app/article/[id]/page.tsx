@@ -1,53 +1,68 @@
-"use client";
-
-import React, { useState } from 'react';
+import React from 'react';
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
 import { AppShell } from '../../../shared/components/organism/app-shell/app-shell';
 import { Avatar } from '../../../shared/components/atom/avatar/avatar';
 import { AuthorMeta } from '../../../shared/components/molecule/author-meta/author-meta';
-import { ArticleActions as ArticleFooterActions } from '../../../shared/components/molecule/article-actions/article-actions';
+import { ArticleFooterWrapper } from './article-footer-wrapper';
+import { ArticleCommentsWrapper } from './article-comments-wrapper';
 import { JoinCallout } from '../../../shared/components/molecule/join-callout/join-callout';
-import { ArticleCommentItem } from '../../../shared/components/molecule/article-comment-item/article-comment-item';
-import { Pagination } from '../../../shared/components/molecule/pagination/pagination';
+import { ArticlePagination } from './article-pagination';
 import { IconButton } from '../../../shared/components/atom/button/icon-button';
 import { Typography } from '../../../shared/components/typography/typography';
 import { Button } from '../../../shared/components/atom/button/button';
-import { getArticleById, getCommentsByArticleId } from '../../../lib/mock-data';
+import { fetchArticleById, fetchCommentsByArticleId } from '../../../lib/api';
 
-export default function ArticleDetailPage() {
-  const params = useParams();
-  const id = Array.isArray(params?.id) ? params.id[0] : params?.id || '';
+export interface ArticleDetailPageProps {
+  params: Promise<{ id: string }>;
+  searchParams: Promise<{ page?: string }>;
+}
 
-  const [currentPage, setCurrentPage] = useState(1);
+export default async function ArticleDetailPage({ params, searchParams }: ArticleDetailPageProps) {
+  const resolvedParams = await params;
+  const resolvedSearch = await searchParams;
+  
+  const id = resolvedParams?.id || '';
+  const currentPage = Math.max(1, parseInt(resolvedSearch?.page || '1', 10));
 
-  // Ambil data artikel dan daftar komentar berdasarkan ID unik artikel tersebut
-  const article = getArticleById(id, currentPage);
-  const comments = getCommentsByArticleId(id);
+  const article = await fetchArticleById(id);
+  const comments = await fetchCommentsByArticleId(id);
+
+  if (!article) {
+    return (
+      <AppShell activeSidebarKey="home">
+        <div className="flex flex-col items-center justify-center h-96 gap-4">
+          <Typography variant="heading">Artikel tidak ditemukan.</Typography>
+          <Link href="/homepage"><Button variant="primary">Kembali ke Beranda</Button></Link>
+        </div>
+      </AppShell>
+    );
+  }
 
   return (
     <AppShell activeSidebarKey="home">
       <div className="bg-background w-full px-17-5 pt-top pb-12-5 text-text-primary">
         <div className="flex max-w-288.75 flex-col items-start gap-banner p-xs mx-auto">
           
-          {/* Tombol Kembali ke Homepage */}
+          {/* Tombol Kembali */}
           <div>
             <Link href="/homepage">
               <IconButton
                 variant="ghost"
                 aria-label="Kembali"
                 icon={<ArrowLeft size={24} strokeWidth={2} />}
-                className="p-0 text-text-muted hover:text-primary"
               />
             </Link>
           </div>
 
-          {/* Bagian Header Penulis & Judul Artikel */}
+          {/* Header Artikel */}
           <div className="flex flex-col gap-4 w-full">
             <div className="flex items-center gap-3">
               <Avatar src={article.avatarUrl} size="md" />
-              <AuthorMeta author={article.author} date={article.date} />
+              <AuthorMeta 
+                author={article.author} 
+                date={new Date(article.createdAt).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })} 
+              />
             </div>
 
             <div className="flex flex-col gap-2">
@@ -60,7 +75,7 @@ export default function ArticleDetailPage() {
             </div>
           </div>
 
-          {/* Gambar / Ilustrasi Utama Artikel */}
+          {/* Gambar Artikel */}
           <div className="w-full overflow-hidden rounded-xl border border-swatch-border">
             <img
               src={article.imageUrl}
@@ -69,77 +84,54 @@ export default function ArticleDetailPage() {
             />
           </div>
 
-          {/* Paragraf Isi Artikel Dinamis */}
+          {/* Paragraf Isi Artikel */}
           <div className="flex flex-col gap-6 text-text-muted text-base leading-7 font-medium">
-            {article.contentParagraphs?.map((paragraph, index) => (
-              <p key={index}>{paragraph}</p>
-            ))}
+            {article.contentParagraphs && article.contentParagraphs.length > 0 ? (
+              article.contentParagraphs.map((paragraf: string, index: number) => (
+                <p key={index}>{paragraf}</p>
+              ))
+            ) : (
+              <p>{article.description}</p>
+            )}
           </div>
 
-          {/* Komponen Pagination Halaman Artikel */}
-          <div className="flex justify-center my-4 w-full">
-            <Pagination
-              currentPage={currentPage}
-              totalPages={3}
-              onPageChange={(page: number) => {
-                setCurrentPage(page);
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
-            />
-          </div>
+          {/* Pagination */}
+          <ArticlePagination currentPage={currentPage} totalPages={3} />
 
-          {/* Callout Gabung (JoinCallout) */}
+          {/* Join Callout */}
           <div className="w-full">
-            <JoinCallout
-              onRegister={() => console.log('Daftar diklik')}
-              onLogin={() => console.log('Masuk diklik')}
-            />
+            <JoinCallout />
           </div>
 
-          {/* Toolbar Footer Actions Utama Artikel */}
-          <div className="w-full">
-            <ArticleFooterActions
+          {/* Footer Actions */}
+          <div className="w-full my-4">
+            <ArticleFooterWrapper
               likes={article.likes}
-              comments={comments.length} // Menyesuaikan jumlah komentar dengan data dinamis
-              onLikeClick={() => console.log('Like artikel')}
-              onBookmarkClick={() => console.log('Bookmark artikel')}
-              onShare={() => console.log('Share artikel')}
-              onReport={() => console.log('Report artikel')}
+              comments={comments.length}
             />
           </div>
 
-          {/* Daftar Komentar Dinamis Berdasarkan ID Artikel */}
+          {/* Komentar (Dibatasi hanya 2 item teratas) */}
           <div className="flex flex-col gap-4 mt-4 w-full">
             <Typography variant="heading" className="text-xl font-bold">
               Komentar ({comments.length})
             </Typography>
-            {comments.map((comment) => (
-              <ArticleCommentItem
-                key={comment.id}
-                author={comment.author}
-                date={comment.date}
-                content={comment.content}
-                likes={comment.likes}
-                comments={comment.comments}
-                onLikeClick={() => console.log('Like komentar', comment.id)}
-                onBookmarkClick={() => console.log('Bookmark komentar', comment.id)}
-                onShare={() => console.log('Share komentar', comment.id)}
-                onReport={() => console.log('Report komentar', comment.id)}
-              />
-            ))}
+            
+            <ArticleCommentsWrapper comments={comments.slice(0, 2)} />
           </div>
 
-          {/* Tombol Lihat Lebih Banyak Komentar */}
-          <div className="flex justify-center pb-12 w-full pt-4">
-            <Button
-              variant="primary"
-              colorState="default"
-              onClick={() => console.log('Muat lebih banyak komentar')}
-              className="w-full md:w-auto px-6 py-2.5"
-            >
-              Lihat lebih banyak komentar
-            </Button>
-          </div>
+          {/* Tombol Lihat Lebih Komentar (Hanya muncul jika komentar > 2) */}
+          {comments.length > 2 && (
+            <div className="flex justify-center pb-12 w-full pt-4">
+              <Button
+                variant="primary"
+                colorState="default"
+                className="w-full md:w-auto px-6 py-2.5 cursor-pointer"
+              >
+                Lihat lebih banyak komentar
+              </Button>
+            </div>
+          )}
 
         </div>
       </div>

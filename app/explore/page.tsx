@@ -2,7 +2,7 @@ import { AppShell } from '../../shared/components/organism/app-shell/app-shell';
 import { TopicTags } from '../../shared/components/organism/topic-tags/topic-tags';
 import { SortSelect } from '../../shared/components/molecule/sort-select/sort-select';
 import { ArticleList } from '../../shared/components/organism/article-list/article-list';
-import { generatePopularArticles, generateLatestArticles } from '../../lib/mock-data';
+import { fetchArticles } from '../../lib/api';
 
 const TOPICS = ['Semua', 'Teknologi', 'Wisata', 'Makanan', 'Pekerjaan', 'Pengembangan diri', 'Kehidupan'];
 const SORT_OPTIONS = ['Populer', 'Terbaru'];
@@ -16,29 +16,50 @@ export default async function ExplorePage({ searchParams }: ExplorePageProps) {
   const activeTopic = topic ?? 'Semua';
   const activeSort = sort === 'Terbaru' ? 'Terbaru' : 'Populer';
 
-  // Simulasi jeda jaringan
-  await new Promise((resolve) => setTimeout(resolve, 300));
+  // 1. Ambil data asli langsung dari MockAPI
+  const rawArticles = await fetchArticles();
 
-  const articles =
-    activeSort === 'Populer' ? generatePopularArticles(3) : generateLatestArticles(3);
+  // 2. Mapping data dari API (trendPercent sengaja dikosongkan/undefined agar badge tidak muncul)
+  let articles = rawArticles.map((art) => ({
+    id: art.id,
+    author: art.author,
+    avatarUrl: art.avatarUrl,
+    date: new Date(art.createdAt).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }),
+    title: art.title,
+    description: art.description,
+    imageUrl: art.imageUrl,
+    likes: art.likes,
+    comments: art.commentsCount,
+    trendPercent: undefined, // <-- DIKOSONGKAN AGAR TIDAK ADA BADGE POPULER DI EXPLORE
+    category: (art as any).category || 'Pengembangan diri', 
+  }));
+
+  // 3. Filter berdasarkan Topik yang dipilih (jika bukan 'Semua')
+  if (activeTopic !== 'Semua') {
+    articles = articles.filter((art) => 
+      art.category.toLowerCase() === activeTopic.toLowerCase() ||
+      art.title.toLowerCase().includes(activeTopic.toLowerCase()) ||
+      art.description.toLowerCase().includes(activeTopic.toLowerCase())
+    );
+  }
+
+  // 4. Urutkan berdasarkan Sort (Populer atau Terbaru)
+  if (activeSort === 'Populer') {
+    articles = articles.sort((a, b) => b.likes - a.likes);
+  } else {
+    articles = articles.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  }
 
   return (
     <AppShell activeSidebarKey="search">
-      {/* Menggunakan token langsung tanpa [var(--...)] */}
       <div className="bg-background w-full px-17-5 pt-top pb-12-5">
-        
-        {/* max-width menggunakan format arbitrary value Tailwind v4, spacing langsung */}
         <div className="flex max-w-(--max-w-explore) flex-col items-start gap-4-25">
           
-          {/* Frame 95: gap menggunakan token langsung */}
           <div className="flex w-full flex-col gap-7-25">
-            
-            {/* Judul: Menggunakan font-sans dan ukuran token langsung */}
             <h1 className="font-sans text-(length:--font-size-title) font-bold leading-(--leading-tight) text-text-primary m-0 p-0">
               Eksplor topik
             </h1>
             
-            {/* Frame 94 & Frame 83 (Filter Topic & Sort Select) */}
             <div className="flex w-full flex-col gap-6">
               <div className="w-full">
                 <TopicTags topics={TOPICS} activeTopic={activeTopic} basePath="/explore" />
@@ -51,12 +72,11 @@ export default async function ExplorePage({ searchParams }: ExplorePageProps) {
                 />
               </div>
             </div>
-
           </div>
 
-          {/* Daftar Artikel dengan gap & margin menggunakan token */}
+          {/* Daftar Artikel (showTrendBadge diset false agar bersih tanpa badge populer) */}
           <div className="flex w-full flex-col gap-(--spacing-10-5) mt-(--spacing-2-5)">
-            <ArticleList articles={articles} />
+            <ArticleList articles={articles} showTrendBadge={false} />
           </div>
 
         </div>
