@@ -1,4 +1,3 @@
-// lib/api.ts
 export interface ArticleFromAPI {
   id: string;
   author: string;
@@ -11,7 +10,7 @@ export interface ArticleFromAPI {
   trendPercent?: number;
   isPopular?: boolean;
   contentParagraphs: string[];
-  createdAt: string;
+  createdAt: number; // Unix timestamp dalam detik
 }
 
 export interface CommentFromAPI {
@@ -22,7 +21,7 @@ export interface CommentFromAPI {
   content: string;
   likes: number;
   comments: number;
-  createdAt: string;
+  createdAt: number; // Unix timestamp dalam detik
 }
 
 const BASE_URL = 'https://6a9659bafa33b37f821b2961.mockapi.io';
@@ -51,10 +50,7 @@ export async function fetchArticleById(id: string): Promise<ArticleFromAPI | nul
   }
 }
 
-// lib/api.ts
-
-// ... (kode fetchArticles dan fetchArticleById biarkan tetap sama)
-
+// Mengambil komentar berdasarkan article ID
 export async function fetchCommentsByArticleId(articleId: string): Promise<CommentFromAPI[]> {
   try {
     // 1. Coba ambil dari endpoint nested standard MockAPI (/articles/:articleId/comments)

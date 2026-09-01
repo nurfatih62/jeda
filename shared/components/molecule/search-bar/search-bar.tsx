@@ -24,11 +24,10 @@ export function SearchBar({ className = '', basePath = '/homepage', ...rest }: S
     // Aman untuk Storybook jika router tidak tersedia
   }
 
-  // Simpan nilai input dalam state lokal agar bisa diproses saat Enter ditekan
   const [keyword, setKeyword] = useState(initialKeyword);
 
   const handleSubmit = (e: FormEvent) => {
-    e.preventDefault(); // Mencegah reload halaman secara default
+    e.preventDefault();
 
     if (router && searchParams) {
       const params = new URLSearchParams(searchParams.toString());
@@ -37,7 +36,6 @@ export function SearchBar({ className = '', basePath = '/homepage', ...rest }: S
       } else {
         params.delete('keyword');
       }
-      // Reset ke halaman 1 setiap kali melakukan pencarian baru
       params.delete('page');
 
       router.push(`${basePath}?${params.toString()}`);
@@ -49,12 +47,12 @@ export function SearchBar({ className = '', basePath = '/homepage', ...rest }: S
   return (
     <form
       onSubmit={handleSubmit}
-      className={`flex h-(--spacing-btn-h) max-w-(--max-w-search) flex-1 items-center gap-(--spacing-hero-gap) rounded-(--radius-search) border border-primary bg-white px-(--spacing-px-btn) ${className}`}
+      className={`flex h-(--spacing-btn-h) max-w-(--max-w-search) flex-1 items-center gap-(--spacing-hero-gap) rounded-(--radius-search) bg-white px-(--spacing-px-btn) transition-colors duration-200 border border-primary hover:border-text-primary focus-within:border-text-primary focus-within:bg-[#F7F7F7] ${className}`}
     >
       <button
         type="submit"
         aria-label="Cari"
-        className="flex shrink-0 items-center text-primary transition-colors hover:text-primary-hover bg-transparent border-none cursor-pointer"
+        className="flex shrink-0 items-center text-primary transition-colors hover:text-text-primary bg-transparent border-none cursor-pointer"
       >
         <Search className="h-(--icon-size-search) w-(--icon-size-search)" strokeWidth={1.7} />
       </button>

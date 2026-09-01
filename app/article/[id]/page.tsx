@@ -18,6 +18,55 @@ export interface ArticleDetailPageProps {
   searchParams: Promise<{ page?: string }>;
 }
 
+// Fungsi helper untuk menentukan batas kata berdasarkan halaman (Kelipatan 150)
+function getWordLimitForPage(page: number) {
+  const maxWords = page * 150;
+  const minWords = (page - 1) * 150;
+  return { min: minWords, max: maxWords };
+}
+
+// Fungsi helper untuk memecah paragraf artikel berdasarkan target kelipatan kata
+function getParagraphsForPage(paragraphs: string[], page: number) {
+  if (!paragraphs || paragraphs.length === 0) return [];
+
+  const targetLimit = getWordLimitForPage(page);
+  const selectedParagraphs: string[] = [];
+  let currentWordCount = 0;
+
+  // Tentukan indeks awal paragraf berdasarkan halaman-halaman sebelumnya
+  let startIndex = 0;
+  for (let p = 1; p < page; p++) {
+    const limit = getWordLimitForPage(p);
+    let tempCount = 0;
+    while (startIndex < paragraphs.length) {
+      const wordsInPara = paragraphs[startIndex].split(/\s+/).length;
+      if (tempCount + wordsInPara > limit.max && tempCount > 0) break;
+      tempCount += wordsInPara;
+      startIndex++;
+    }
+  }
+
+  // Ambil paragraf untuk halaman aktif saat ini
+  for (let i = startIndex; i < paragraphs.length; i++) {
+    const para = paragraphs[i];
+    const wordsInPara = para.split(/\s+/).length;
+
+    if (currentWordCount + wordsInPara <= targetLimit.max || currentWordCount < targetLimit.min) {
+      selectedParagraphs.push(para);
+      currentWordCount += wordsInPara;
+    } else {
+      break;
+    }
+  }
+
+  // Fallback jika halaman kosong tapi masih ada sisa paragraf
+  if (selectedParagraphs.length === 0 && startIndex < paragraphs.length) {
+    selectedParagraphs.push(paragraphs[startIndex]);
+  }
+
+  return selectedParagraphs;
+}
+
 export default async function ArticleDetailPage({ params, searchParams }: ArticleDetailPageProps) {
   const resolvedParams = await params;
   const resolvedSearch = await searchParams;
@@ -38,6 +87,21 @@ export default async function ArticleDetailPage({ params, searchParams }: Articl
       </AppShell>
     );
   }
+
+  const allParagraphs = article.contentParagraphs || [];
+  const paginatedParagraphs = getParagraphsForPage(allParagraphs, currentPage);
+
+  // Hitung total halaman secara dinamis agar berhenti di halaman terakhir yang memiliki isi
+  let calculatedPages = 1;
+  while (calculatedPages < allParagraphs.length) {
+    const paragraphsForThisPage = getParagraphsForPage(allParagraphs, calculatedPages + 1);
+    if (paragraphsForThisPage.length > 0) {
+      calculatedPages++;
+    } else {
+      break;
+    }
+  }
+  const totalPages = calculatedPages;
 
   return (
     <AppShell activeSidebarKey="home">
@@ -61,7 +125,7 @@ export default async function ArticleDetailPage({ params, searchParams }: Articl
               <Avatar src={article.avatarUrl} size="md" />
               <AuthorMeta 
                 author={article.author} 
-                date={new Date(article.createdAt).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })} 
+                date={new Date(article.createdAt * 1000).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })} 
               />
             </div>
 
@@ -84,19 +148,16 @@ export default async function ArticleDetailPage({ params, searchParams }: Articl
             />
           </div>
 
-          {/* Paragraf Isi Artikel */}
-          <div className="flex flex-col gap-6 text-text-muted text-base leading-7 font-medium">
-            {article.contentParagraphs && article.contentParagraphs.length > 0 ? (
-              article.contentParagraphs.map((paragraf: string, index: number) => (
+          {/* Paragraf Isi Artikel Sesuai Halaman */}
+          <div className="flex flex-col gap-6 text-text-muted text-base leading-7 font-medium w-full">
+            {paginatedParagraphs.length > 0 &&
+              paginatedParagraphs.map((paragraf: string, index: number) => (
                 <p key={index}>{paragraf}</p>
-              ))
-            ) : (
-              <p>{article.description}</p>
-            )}
+              ))}
           </div>
 
           {/* Pagination */}
-          <ArticlePagination currentPage={currentPage} totalPages={3} />
+          <ArticlePagination currentPage={currentPage} totalPages={totalPages} />
 
           {/* Join Callout */}
           <div className="w-full">
@@ -111,16 +172,14 @@ export default async function ArticleDetailPage({ params, searchParams }: Articl
             />
           </div>
 
-          {/* Komentar (Dibatasi hanya 2 item teratas) */}
+          {/* Komentar */}
           <div className="flex flex-col gap-4 mt-4 w-full">
             <Typography variant="heading" className="text-xl font-bold">
               Komentar ({comments.length})
             </Typography>
-            
             <ArticleCommentsWrapper comments={comments.slice(0, 2)} />
           </div>
 
-          {/* Tombol Lihat Lebih Komentar (Hanya muncul jika komentar > 2) */}
           {comments.length > 2 && (
             <div className="flex justify-center pb-12 w-full pt-4">
               <Button

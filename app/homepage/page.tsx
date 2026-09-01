@@ -23,12 +23,14 @@ export default async function Homepage({ searchParams }: HomepageProps) {
   // Ambil data asli dari MockAPI
   const rawArticles = await fetchArticles();
 
-  // Mapping data dasar dari API
+  // Mapping data dasar dari API dengan mengalikan createdAt * 1000 agar menjadi milidetik yang valid
   let articles = rawArticles.map((art) => ({
     id: art.id,
     author: art.author,
     avatarUrl: art.avatarUrl,
-    date: new Date(art.createdAt).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }),
+    // ✅ Diperbaiki: Kalikan dengan 1000 agar timestamp detik dari MockAPI terbaca benar oleh JavaScript
+    date: new Date(art.createdAt * 1000).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }),
+    rawTimestamp: art.createdAt, // Disimpan untuk kebutuhan sorting agar lebih akurat
     title: art.title,
     description: art.description,
     imageUrl: art.imageUrl,
@@ -58,8 +60,9 @@ export default async function Homepage({ searchParams }: HomepageProps) {
       trendPercent: index === 0 ? (article.trendPercent || 15) : undefined,
     }));
   } else {
+    // ✅ Diperbaiki: Urutkan berdasarkan rawTimestamp terbesar (terbaru ke terlama)
     articles = articles
-      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+      .sort((a, b) => b.rawTimestamp - a.rawTimestamp)
       .map((article) => ({
         ...article,
         trendPercent: undefined,
