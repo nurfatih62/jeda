@@ -2,6 +2,10 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { StorybookConfig } from '@storybook/nextjs-vite';
 
+// Definisikan __dirname secara manual untuk mendukung ES Modules di Vercel/Node
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const mockPath = fileURLToPath(new URL('../__mocks__/next/navigation.ts', import.meta.url));
 
 const config: StorybookConfig = {
