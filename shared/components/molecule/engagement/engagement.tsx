@@ -25,10 +25,10 @@ export function Engagement({ likes, comments, liked = false, onLikeClick }: Enga
         className="flex items-center gap-1.5 rounded-md"
       >
         <ThumbsUp
-          className={`${iconBase} ${liked ? 'fill-[#147364] text-[#147364]' : 'fill-none text-text-muted'}`}
+          className={`${iconBase} ${liked ? 'fill-primary-hover text-primary-hover' : 'fill-none text-text-muted'}`}
           strokeWidth={2}
         />
-        <span className={`${countClass} ${liked ? 'text-[#147364]' : 'text-text-muted'}`}>
+        <span className={`${countClass} ${liked ? 'text-primary-hover' : 'text-text-muted'}`}>
           {likes}
         </span>
       </button>

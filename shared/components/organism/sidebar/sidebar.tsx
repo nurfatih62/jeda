@@ -30,8 +30,8 @@ export function Sidebar({ active = 'home', expanded = false, onToggle }: Sidebar
   return (
     <nav
       aria-label="Navigasi utama"
-      className={`sticky top-0 flex h-screen shrink-0 flex-col bg-header-bg border-r border-text-primary transition-[width] duration-200 ease-in-out ${
-        expanded ? 'w-64 items-stretch gap-2.5 px-3 pt-6' : 'w-21.75 items-center gap-2.5 pt-6'
+      className={`sticky top-0 flex h-screen shrink-0 flex-col bg-header-bg border-r border-sidebar-border transition-[width] duration-200 ease-in-out ${
+        expanded ? 'w-64 items-stretch gap-2.5 px-3 pt-6' : 'w-sidebar-collapsed items-center gap-2.5 pt-6'
       }`}
     >
       {/* Bagian Header Sidebar (Logo & Toggle Button) */}
@@ -42,7 +42,7 @@ export function Sidebar({ active = 'home', expanded = false, onToggle }: Sidebar
             type="button"
             onClick={onToggle}
             aria-label={expanded ? 'Tutup sidebar' : 'Buka sidebar'}
-            className="flex h-10 w-10 items-center justify-center rounded-[6px] text-primary transition-all active:scale-95 hover:bg-primary-overlay-hover active:bg-primary-overlay-active"
+            className="flex h-10 w-10 items-center justify-center rounded-sm text-primary transition-all active:scale-95 hover:bg-primary-overlay-hover active:bg-primary-overlay-active"
           >
             {expanded ? <ArrowLeft size={20} strokeWidth={2} /> : <Menu size={20} strokeWidth={2} />}
           </button>
@@ -58,7 +58,7 @@ export function Sidebar({ active = 'home', expanded = false, onToggle }: Sidebar
             href={href}
             aria-label={label}
             aria-current={isActive ? 'page' : undefined}
-            className={`flex items-center rounded-[6px] transition-all no-underline ${
+            className={`flex items-center rounded-sm transition-all no-underline ${
               isActive 
                 ? 'text-white bg-primary shadow-sm' 
                 : 'text-text-muted hover:bg-primary-overlay-hover hover:text-primary'

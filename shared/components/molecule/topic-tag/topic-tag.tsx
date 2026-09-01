@@ -11,7 +11,7 @@ export function TopicTag({ label, href, active = false }: TopicTagProps) {
   return (
     <Link
       href={href}
-      className={`font-sans inline-flex shrink-0 items-center justify-center whitespace-nowrap rounded-full px-9.75 py-2 text-base font-medium transition-colors ${
+      className={`font-sans inline-flex shrink-0 items-center justify-center whitespace-nowrap rounded-full px-tab-x py-2 text-base font-medium transition-colors ${
         active
           ? 'bg-primary text-white hover:bg-primary-hover'
           : 'border border-primary text-primary hover:bg-primary-overlay-hover'

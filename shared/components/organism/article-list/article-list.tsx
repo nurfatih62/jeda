@@ -18,7 +18,7 @@ export function ArticleList({
   onReport 
 }: ArticleListProps) {
   return (
-    <div className="flex flex-col gap-6 pb-15">
+    <div className="flex flex-col gap-6 pb-16">
       {articles.map((article) => (
         <ArticleCard 
           key={article.id} 

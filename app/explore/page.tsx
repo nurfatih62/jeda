@@ -24,17 +24,17 @@ export default async function ExplorePage({ searchParams }: ExplorePageProps) {
 
   return (
     <AppShell activeSidebarKey="search">
-      {/* Menggunakan kelas kanonik Tailwind untuk padding */}
-      <div className="bg-background w-full px-17.5 pt-top pb-12.5">
+      {/* Menggunakan token langsung tanpa [var(--...)] */}
+      <div className="bg-background w-full px-17-5 pt-top pb-12-5">
         
-        {/* max-width dan gap menggunakan rekomendasi kanonik */}
-        <div className="flex max-w-288.75 flex-col items-start gap-4.25">
+        {/* max-width menggunakan format arbitrary value Tailwind v4, spacing langsung */}
+        <div className="flex max-w-(--max-w-explore) flex-col items-start gap-4-25">
           
-          {/* Frame 95: gap disesuaikan */}
-          <div className="flex w-full flex-col gap-7.25">
+          {/* Frame 95: gap menggunakan token langsung */}
+          <div className="flex w-full flex-col gap-7-25">
             
-            {/* Judul: Eksplor topik menggunakan token warna tema */}
-            <h1 className="font-['Poppins'] text-[36px] font-bold leading-[32px] text-text-primary m-0 p-0">
+            {/* Judul: Menggunakan font-sans dan ukuran token langsung */}
+            <h1 className="font-sans text-(length:--font-size-title) font-bold leading-(--leading-tight) text-text-primary m-0 p-0">
               Eksplor topik
             </h1>
             
@@ -54,8 +54,8 @@ export default async function ExplorePage({ searchParams }: ExplorePageProps) {
 
           </div>
 
-          {/* Daftar Artikel dengan gap kanonik */}
-          <div className="flex w-full flex-col gap-10.5 mt-2.5">
+          {/* Daftar Artikel dengan gap & margin menggunakan token */}
+          <div className="flex w-full flex-col gap-(--spacing-10-5) mt-(--spacing-2-5)">
             <ArticleList articles={articles} />
           </div>
 

@@ -14,3 +14,4 @@ type Story = StoryObj<typeof TabsLink>;
 
 export const Populer: Story = { args: { activeTab: 'populer' } };
 export const Terbaru: Story = { args: { activeTab: 'terbaru' } };
+ 

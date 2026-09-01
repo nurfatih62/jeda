@@ -17,7 +17,7 @@ type Story = StoryObj<typeof Hero>;
 
 export const Default: Story = {
   render: (args) => (
-    <div className="bg-background py-6">
+    <div className="bg-background py-py-story">
       <Hero {...args} />
     </div>
   ),

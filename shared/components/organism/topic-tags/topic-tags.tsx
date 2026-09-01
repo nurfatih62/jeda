@@ -79,7 +79,7 @@ export function TopicTags({ topics, activeTopic, basePath = "/explore" }: TopicT
   return (
     <div
       ref={scrollRef}
-      className="flex items-center h-10.5 w-full gap-[10px] overflow-x-auto scrollbar-hide select-none cursor-grab active:cursor-grabbing"
+      className="flex items-center h-tag-container w-full gap-md overflow-x-auto scrollbar-hide select-none cursor-grab active:cursor-grabbing"
       onMouseDown={onMouseDown}
       onMouseMove={onMouseMove}
       onMouseUp={onMouseUp}

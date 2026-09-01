@@ -19,7 +19,8 @@ type Story = StoryObj<typeof ArticleActions>;
 
 export const Default: Story = {
   render: (args) => (
-    <div className="w-100">
+    // Menggunakan w-full dengan max-w dari token global.css atau kelas standar Tailwind (w-full)
+    <div className="w-full">
       <ArticleActions {...args} />
     </div>
   ),

@@ -16,11 +16,11 @@ export function HeroActions({
   registerLabel = 'Daftar',
 }: HeroActionsProps) {
   return (
-    <div className="flex items-center justify-center gap-2.5">
-      <Button variant="outline" onClick={onExplore} className="w-35">
+    <div className="flex items-center justify-center gap-(--spacing-hero-gap)">
+      <Button variant="outline" onClick={onExplore} className="w-explore-btn">
         {exploreLabel}
       </Button>
-      <Button variant="primary" onClick={onRegister} className="w-26.25">
+      <Button variant="primary" onClick={onRegister} className="w-register-btn">
         {registerLabel}
       </Button>
     </div>

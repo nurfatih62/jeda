@@ -40,8 +40,8 @@ export default async function Homepage({ searchParams }: HomepageProps) {
       {/* Hero Section */}
       <Hero />
 
-      {/* Konten Utama (Disesuaikan dengan padding dan jarak spasi Figma) */}
-      <div className="flex flex-col w-full px-11.5 py-11 gap-8">
+      {/* Konten Utama (Menggunakan token spacing global.css) */}
+      <div className="flex flex-col w-full px-(--spacing-container-x) py-(--spacing-container-y) gap-gap">
         
         {/* Navigasi Tab (Populer / Terbaru) */}
         <div className="w-full">

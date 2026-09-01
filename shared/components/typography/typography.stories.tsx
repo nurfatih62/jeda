@@ -23,10 +23,10 @@ const variants: TypographyVariant[] = [
 
 export const AllVariants: Story = {
   render: () => (
-    <div className="flex flex-col gap-4 bg-background p-6">
+    <div className="flex flex-col gap-md bg-background p-6">
       {variants.map((v) => (
         <div key={v}>
-          <p className="mb-1 text-xs uppercase tracking-wide text-[#6B6459]">{v}</p>
+          <p className="mb-1 text-xs uppercase tracking-wide text-placeholder">{v}</p>
           <Typography variant={v}>Ambil JEDA dan mulai membaca</Typography>
         </div>
       ))}

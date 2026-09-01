@@ -87,7 +87,8 @@ function ColorSection({
       {!loading &&
         arrows.map(({ key, label: arrowLabel }) => (
           <div key={key} className="flex flex-col gap-2">
-            <p className="font-sans text-2.5 uppercase tracking-wide text-text-muted/70">
+            {/* Diubah dari text-2.5 (tidak valid) ke text-xs agar konsisten dengan token global */}
+            <p className="font-sans text-xs uppercase tracking-wide text-text-muted/70">
               {label} + {arrowLabel}
             </p>
             <div className="flex flex-wrap items-center gap-3">

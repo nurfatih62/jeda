@@ -29,7 +29,7 @@ export function ArticleActions({
   onReport,
 }: ArticleActionsProps) {
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex items-center gap-gap">
       <Engagement likes={likes} comments={comments} liked={liked} onLikeClick={onLikeClick} />
       <span className="flex-1" />
       <IconButton

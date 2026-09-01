@@ -21,12 +21,12 @@ export function ColorSwatch({ name, value }: ColorSwatchProps) {
   return (
     <div className="flex items-center gap-3">
       <div
-        className="h-12 w-12 shrink-0 rounded-lg border border-[#E5E1D5]"
+        className="h-12 w-12 shrink-0 rounded-lg border border-swatch-border"
         style={{ background: value }}
       />
       <div>
         <p className="font-sans text-sm font-semibold text-text-primary">{name}</p>
-        <p className="font-sans text-xs text-[#6f6a5e]">{value}</p>
+        <p className="font-sans text-xs text-text-subtle">{value}</p>
       </div>
     </div>
   );

@@ -6,9 +6,9 @@ const meta: Meta<typeof Image> = {
   component: Image,
   tags: ['autodocs'],
   args: {
-    src: 'https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=600&h=400&fit=crop',
+    src: 'https://i.pinimg.com/originals/ba/fa/94/bafa94912ae5eda45e564154bd223847.jpg?nii=t',
     alt: 'Cover artikel',
-    radius: 8,
+    radius: 8, // Menggunakan angka 8 yang merepresentasikan --radius-md (8px)
   },
   argTypes: {
     src: { control: 'text', description: 'URL gambar' },

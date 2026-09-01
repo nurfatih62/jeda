@@ -12,7 +12,7 @@ const sampleArticle: ArticleCardData = {
   likes: 237,
   comments: 12,
   avatarUrl: 'https://i.pinimg.com/originals/5d/85/13/5d8513af8546f40b8942e87acf8c283f.jpg',
-  imageUrl: 'https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=600&h=400&fit=crop',
+  imageUrl: 'https://i.pinimg.com/originals/53/d7/7c/53d77c843960b023b36b9bac4cd3f80a.png',
 };
 
 const meta: Meta<typeof ArticleList> = {
@@ -39,7 +39,7 @@ type Story = StoryObj<typeof ArticleList>;
 
 export const Default: Story = {
   render: (args) => (
-    <div className="w-288.5 max-w-full bg-background">
+    <div className="w-full max-w-(--max-w-card) bg-background">
       <ArticleList {...args} />
     </div>
   ),

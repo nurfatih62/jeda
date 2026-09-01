@@ -16,7 +16,7 @@ type Story = StoryObj<typeof SearchBar>;
 
 export const Default: Story = {
   render: (args) => (
-    <div className="w-125">
+    <div className="w-search-wrapper">
       <SearchBar {...args} />
     </div>
   ),

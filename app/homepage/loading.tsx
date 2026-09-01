@@ -5,17 +5,17 @@ export default function Loading() {
   return (
     <AppShell activeSidebarKey="home">
       {/* 1. Skeleton untuk Hero Section (Meniru ukuran box Hero asli) */}
-      <div className="mb-12 h-80 w-full animate-pulse bg-card-border/20" />
+      <div className="mb-(--spacing-section-mb) h-80 w-full animate-pulse bg-card-border/20" />
 
-      <div className="mx-auto max-w-341 px-11.5">
+      <div className="mx-auto max-w-(--max-w-loading) px-(--spacing-loading-px)">
         {/* 2. Skeleton untuk TabsLink (Populer & Terbaru) */}
-        <div className="mb-8 pt-7.75">
+        <div className="mb-8 pt-(--spacing-tabs-pt)">
           <div className="flex items-center gap-2.5">
             <div className="h-6 w-20 animate-pulse rounded-md bg-card-border/40" />
             <div className="h-6 w-20 animate-pulse rounded-md bg-card-border/40" />
           </div>
           <div className="relative mt-2 h-px bg-card-border/40">
-            <div className="absolute -top-px h-0.75 w-20 animate-pulse bg-card-border/60" />
+            <div className="absolute -top-px h-(--height-indicator-line) w-20 animate-pulse bg-card-border/60" />
           </div>
         </div>
 

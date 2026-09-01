@@ -14,7 +14,7 @@ type Story = StoryObj<typeof AppShell>;
 export const Default: Story = {
   render: (args) => (
     <AppShell {...args}>
-      <div className="p-11.5">
+      <div className="p-content">
         <p className="font-sans text-text-muted">
           Klik icon hamburger di header untuk buka/tutup sidebar.
         </p>

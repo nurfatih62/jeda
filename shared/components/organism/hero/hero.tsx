@@ -9,11 +9,11 @@ export interface HeroProps {
 
 export function Hero({ onExplore, onRegister }: HeroProps) {
   return (
-    <section className="mx-auto max-w-259 px-5.25 pb-6.25 pt-14 text-center">
-      <h1 className="font-sans mb-5.5 text-4xl font-bold leading-[1.3] text-text-primary">
+    <section className="mx-auto max-w-content px-hero-px pb-hero-pb pt-hero-pt text-center">
+      <h1 className="font-sans mb-hero-mb-title text-title font-bold leading-hero-title text-text-primary">
         Ambil <span className="text-primary">JEDA</span> dan mulai membaca
       </h1>
-      <p className="font-sans mb-6 text-2xl font-medium leading-7 text-text-muted">
+      <p className="font-sans mb-hero-mb-desc text-desc font-medium leading-7 text-text-muted">
         Ayo bergabung untuk mendapatkan pengalaman lebih lengkap dengan{' '}
         <span className="font-bold text-text-primary">JEDA</span> dan mulai bacaanmu
       </p>

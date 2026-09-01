@@ -3,78 +3,93 @@
 @import "tailwindcss";
 
 /* =====================================================================
-   Design tokens Jeda.
-   Setiap `--color-*` dan `--font-*` di sini OTOMATIS jadi utility class
-   Tailwind (v4 CSS-first theming) — tidak perlu tailwind.config.js.
-   Contoh: --color-primary  -> bg-primary, text-primary, border-primary
-           --color-text-muted -> text-text-muted
-           --font-sans      -> font-sans
+    Design tokens Jeda.
+    Setiap `--color-*` dan `--font-*` di sini OTOMATIS jadi utility class
+    Tailwind (v4 CSS-first theming) — tidak perlu tailwind.config.js.
    ===================================================================== */
 @theme {
-  /* ===== Background ===== */
+  /* ===== Colors: Background & General ===== */
   --color-background: #FBF8F2;
-  --color-header-bg: rgb(242, 243, 237);
+  --color-white: #FFFFFF;
+  --color-placeholder: #6B7280;
 
-  /* ===== Primary ===== */
+  /* ===== Colors: Header & Layout ===== */
+  --color-header-bg: rgb(242, 243, 237);
+  --color-header-bg-alt: rgba(25, 136, 118, 0.04);
+  --color-swatch-border: #E5E1D5;
+  --color-sidebar-border: rgba(27, 78, 70, 0.2);
+
+  /* ===== Colors: Primary ===== */
   --color-primary: #187A6B;
   --color-primary-hover: #147364;
   --color-primary-active: #10584D;
+  --color-primary-border: #147364;
+  --color-card-border: rgba(27, 78, 70, 0.52);
 
-  /* ===== Success =====
-     NOTE: nilai di bawah ini SENGAJA lebih gelap dari #10B981.
-     Teks putih di atas #10B981 cuma dapet kontras 2.53:1 (gagal WCAG AA,
-     butuh 4.5:1) — dites axe/Storybook a11y addon sebelumnya. */
+  /* ===== Colors: Success ===== */
   --color-success: #0E7A5A;
   --color-success-hover: #0B5F46;
   --color-success-active: #083F2F;
 
-  /* ===== Danger =====
-     NOTE: sama kayak Success — #F87171 + teks putih cuma 2.76:1 (gagal).
-     Dasar baru ini saya ambil dari nilai `danger-active` versi kamu
-     (#CB1E1E), yang di kalkulasi kontrasnya sendiri sudah aman (5.6:1). */
+  /* ===== Colors: Danger ===== */
   --color-danger: #CB1E1E;
   --color-danger-hover: #A81818;
   --color-danger-active: #7A1212;
 
-  /* ===== Primary Overlay ===== */
+  /* ===== Colors: Overlays ===== */
   --color-primary-overlay-hover: rgba(24, 122, 107, 0.16);
   --color-primary-overlay-active: rgba(24, 122, 107, 0.32);
-
-  /* ===== Success Overlay ===== */
   --color-success-overlay-hover: rgba(14, 122, 90, 0.16);
   --color-success-overlay-active: rgba(14, 122, 90, 0.32);
-
-  /* ===== Danger Overlay ===== */
   --color-danger-overlay-hover: rgba(203, 30, 30, 0.16);
   --color-danger-overlay-active: rgba(203, 30, 30, 0.32);
 
-  /* ===== Border ===== */
-  --color-primary-border: #147364;
-  --color-card-border: rgba(27, 78, 70, 0.52);
-
-  /* ===== Text ===== */
+  /* ===== Colors: Text ===== */
   --color-text-primary: #1B4E46;
   --color-text-muted: rgba(27, 78, 70, 0.75);
+  --color-text-subtle: #6f6a5e;
 
-  /* ===== Other =====
-     NOTE: placeholder digelapin dari #C2C7D0 (kontras cuma 1.7:1 di atas
-     putih, jauh di bawah WCAG) ke #6B7280 (4.83:1, lolos AA). */
-  --color-white: #FFFFFF;
-  --color-placeholder: #6B7280;
-
-  /* ===== Badge Tren =====
-     Dipakai badge "+X%" di ArticleCard (tab Populer). Bukan token danger
-     karena secara makna ini bukan status error, cuma indikator tren.
-     Teks #B71C1C di atas bg #FEEAEA = kontras 5.69:1 (lolos AA teks kecil). */
+  /* ===== Colors: Badge & Components ===== */
   --color-badge-trend-bg: #FEEAEA;
   --color-badge-trend-text: #B71C1C;
+  --color-sort-accent: #198876;
+  --color-sort-selected-bg: #E6F4F1;
+  --color-tab-inactive-border: #187A6B;
+  --color-tab-inactive-text: #187A6B;
+  --color-btn-daftar-border: #147364;
+  --color-btn-daftar-text: #147364;
 
-  /* ===== Font ===== */
+  /* ===== Fonts ===== */
   --font-sans: 'Poppins', sans-serif;
   --font-serif: 'IBM Plex Serif', serif;
   --font-nunito: 'Nunito', sans-serif;
 
-  /* ===== Spacing ===== */
+  /* ===== Font Sizes ===== */
+  --font-size-sm: 14px;
+  --font-size-base: 16px;
+  --font-size-btn: 16px;
+  --font-size-desc: 24px;
+  --font-size-2xl: 24px;
+  --font-size-title: 36px;
+  --font-size-4xl: 36px;
+
+  --text-btn: 16px;
+  --text-desc: 24px;
+  --text-title: 36px;
+
+  /* ===== Font Weights ===== */
+  --font-weight-medium: 500;
+
+  /* ===== Line Heights ===== */
+  --leading-tight: 32px;
+  --leading-normal: 28px;
+  --leading-loose: 24px;
+  --leading-hero-title: 1.3;
+  --leading-6: 24px;
+  --leading-6-5: 26px;
+  --leading-7: 28px;
+
+  /* ===== Spacing & Layout ===== */
   --spacing-xs: 11px;
   --spacing-sm: 13px;
   --spacing-md: 10px;
@@ -86,26 +101,91 @@
   --spacing-top: 35px;
   --spacing-banner: 47px;
   --spacing-btn-h: 40px;
+  --spacing-content: 46px;
+  
+  --spacing-container-x: 46px;
+  --spacing-container-y: 24px;
 
-  /* ===== Font Size ===== */
-  --font-size-btn: 16px;
-  --font-size-desc: 24px;
-  --font-size-title: 36px;
+  --spacing-header-h: 84px;
+  --spacing-header-gap: 31px;
+  --spacing-header-px: 21px;
 
-  /* ===== Line Height ===== */
-  --leading-tight: 32px;
-  --leading-normal: 28px;
-  --leading-loose: 24px;
+  --spacing-hero-px: 21px;
+  --spacing-hero-pb: 25px;
+  --spacing-hero-pt: 56px;
+  --spacing-hero-mb-title: 22px;
+  --spacing-hero-mb-desc: 24px;
+  --spacing-hero-gap: 10px;
+  --spacing-py-story: 24px;
 
-  /* ===== Radius ===== */
+  --spacing-sidebar-collapsed: 87px;
+  --spacing-tabs-top: 31px;
+  --spacing-indicator-w: 122px;
+  --spacing-indicator-h: 3px;
+  --spacing-tag-container-h: 42px;
+
+  --spacing-section-mb: 48px;
+  --spacing-loading-px: 46px;
+  --spacing-tabs-pt: 31px;
+  --height-indicator-line: 3px;
+
+  /* ===== Additional Spacing (Explore & Custom) ===== */
+  --spacing-17-5: 70px;
+  --spacing-12-5: 50px;
+  --spacing-4-25: 17px;
+  --spacing-7-25: 29px;
+  --spacing-10-5: 42px;
+  --spacing-2-5: 10px;
+
+  /* ===== Sizing & Dimensions (Cards, Widths, etc.) ===== */
+  --spacing-card-min-h: 197px;
+  --spacing-card-pr: 315px;
+  --spacing-card-max-w: 712px;
+  --spacing-card-img-h: 165px;
+  --spacing-card-img-w: 299px;
+
+  --spacing-story-w: 1154px;
+  --height-story-scroll: 350px;
+
+  --spacing-skeleton-img-h: 165px;
+  --spacing-skeleton-img-w: 299px;
+  --size-skeleton-img-h: 165px;
+  --size-skeleton-img-w: 299px;
+
+  --spacing-skeleton-author: 28px;
+  --spacing-skeleton-title: 26px;
+  --spacing-card-img-mobile-h: 200px;
+  --spacing-skeleton-list-gap: 24px;
+
+  --width-explore-btn: 140px;
+  --width-register-btn: 105px;
+  --width-input-default: 320px;
+  --width-btn-login: 100px;
+  --width-sort: 233px;
+  --spacing-select-w: 233px;
+  --width-search-wrapper: 500px;
+
+  --icon-size-search: 20px;
+
+  /* ===== Border Radius ===== */
   --radius-pill: 24px;
   --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-search: 8px;
 
-  /* ===== Max Width ===== */
+  /* ===== Max Widths ===== */
   --max-w-page: 1305px;
   --max-w-section: 858px;
   --max-w-card: 1283px;
   --max-w-content: 1036px;
+  --max-w-search: 1062px;
+  --max-w-loading: 1364px;
+  --max-w-explore: 1155px;
+
+  --max-width-page: 1305px;
+  --max-width-section: 858px;
+  --max-width-card: 1283px;
+  --max-width-content: 1036px;
 }
 
 /* ===== Scrollbar Hide ===== */
@@ -116,6 +196,7 @@
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
 @layer base {
   html,
   body {

@@ -23,9 +23,9 @@ export const WithoutLogo: Story = {
 
 export const StickyOnScroll: Story = {
   render: (args) => (
-    <div className="h-350 bg-background">
+    <div className="h-height-story-scroll bg-background">
       <Header {...args} />
-      <div className="p-10">
+      <div className="p-md">
         <p className="font-sans text-text-muted">
           Scroll ke bawah — header ini tetap menempel di atas (sticky).
         </p>

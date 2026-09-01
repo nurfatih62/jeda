@@ -19,5 +19,5 @@ export const Avatar: Story = {
 };
 
 export const Image: Story = {
-  render: () => <Skeleton className="h-41.25 w-74.75 rounded-lg" />,
+  render: () => <Skeleton className="h-skeleton-img-h w-skeleton-img-w rounded-lg" />,
 };

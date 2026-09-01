@@ -14,10 +14,10 @@ export interface HeaderProps {
 
 export function Header({ onLoginClick, searchProps, showLogo = true }: HeaderProps) {
   return (
-    <header className="sticky top-0 z-50 flex h-21 items-center gap-7.75 border-b border-primary-border bg-header-bg px-5.25">
+    <header className="sticky top-0 z-50 flex h-header-h items-center gap-header-gap border-b border-primary-border bg-header-bg px-header-px">
       {showLogo && <Logo />}
       <SearchBar {...searchProps} />
-      <Button variant="primary" onClick={onLoginClick} className="w-25 shrink-0">
+      <Button variant="primary" onClick={onLoginClick} className="w-btn-login shrink-0">
         Masuk
       </Button>
     </header>

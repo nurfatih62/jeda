@@ -22,7 +22,7 @@ export function TabsLink({ activeTab, basePath = '/' }: TabsLinkProps) {
   const activeIndex = items.findIndex((item) => item.key === activeTab);
 
   return (
-    <div className="pt-7.75">
+    <div className="pt-tabs-top">
       <div className="flex items-center gap-2.5">
         {items.map((item) => (
           <Link
@@ -39,7 +39,7 @@ export function TabsLink({ activeTab, basePath = '/' }: TabsLinkProps) {
       </div>
       <div className="relative mb-6 h-px bg-primary-border">
         <div
-          className="absolute -top-px h-0.75 w-30.5 bg-primary transition-all"
+          className="absolute -top-px h-indicator-h w-indicator-w bg-primary transition-all"
           style={{ left: activeIndex * 106 }}
         />
       </div>

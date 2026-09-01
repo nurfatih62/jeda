@@ -27,3 +27,4 @@ type Story = StoryObj<typeof Avatar>;
 export const Medium: Story = {};
 export const Small: Story = { args: { size: 'sm' } };
 export const Large: Story = { args: { size: 'lg' } };
+ 

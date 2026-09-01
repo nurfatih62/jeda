@@ -4,10 +4,10 @@ export interface AvatarProps {
   size?: 'sm' | 'md' | 'lg';
 }
 
-const sizeMap: Record<NonNullable<AvatarProps['size']>, number> = {
-  sm: 32,
-  md: 40,
-  lg: 48,
+const sizeMap: Record<NonNullable<AvatarProps['size']>, string> = {
+  sm: 'w-[32px] h-[32px]',   // Menggunakan token/nilai konsisten
+  md: 'w-[40px] h-[40px]', 
+  lg: 'w-[48px] h-[48px]',
 };
 
 const DEFAULT_AVATAR_SRC =
@@ -15,15 +15,13 @@ const DEFAULT_AVATAR_SRC =
 const DEFAULT_AVATAR_ALT = 'Nuf';
 
 export function Avatar({ src = DEFAULT_AVATAR_SRC, alt = DEFAULT_AVATAR_ALT, size = 'md' }: AvatarProps) {
-  const px = sizeMap[size];
+  const sizeClass = sizeMap[size];
+  
   return (
     <img
       src={src}
       alt={alt}
-      width={px}
-      height={px}
-      className="shrink-0 rounded-full object-cover"
-      style={{ width: px, height: px }}
+      className={`shrink-0 rounded-full object-cover ${sizeClass}`}
     />
   );
 }

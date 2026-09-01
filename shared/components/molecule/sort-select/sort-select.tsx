@@ -44,7 +44,7 @@ export function SortSelect({
   };
 
   return (
-    <div className="relative inline-flex w-58.25 select-none" ref={dropdownRef}>
+    <div className="relative inline-flex w-(--width-sort) select-none" ref={dropdownRef}>
       <span className="sr-only">{label}</span>
       
       {/* Tombol Utama Dropdown */}
@@ -53,19 +53,19 @@ export function SortSelect({
         onClick={() => setIsOpen(!isOpen)}
         aria-expanded={isOpen}
         aria-label={label}
-        className="font-nunito font-medium text-[14px] leading-5 h-8 w-58.25 flex items-center justify-between rounded-[6px] border border-[#198876] bg-white py-0 pl-gap-lg pr-3 text-[#198876] shadow-[0px_4px_6px_rgba(0,0,0,0.09)] transition-colors hover:bg-primary-overlay-hover focus:outline-none focus:ring-2 focus:ring-[#198876]"
+        className="font-nunito font-medium text-(length:--font-size-sm) leading-5 h-8 w-(--width-sort) flex items-center justify-between rounded-sm border border-sort-accent bg-background py-0 pl-gap-lg pr-3 text-sort-accent shadow-[0px_4px_6px_rgba(0,0,0,0.09)] transition-colors hover:bg-primary-overlay-hover focus:outline-none focus:ring-2 focus:ring-sort-accent"
       >
         <span>{currentValue}</span>
         <ChevronDown
           size={16}
           strokeWidth={2}
-          className={`text-[#198876] transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+          className={`text-sort-accent transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
         />
       </button>
 
-      {/* Menu Dropdown List (100% kustom, bersih dari warna abu-abu browser) */}
+      {/* Menu Dropdown List */}
       {isOpen && (
-        <div className="absolute left-0 top-full mt-1.5 w-58.25 overflow-hidden rounded-[6px] border border-[#198876] bg-white shadow-[0px_4px_6px_rgba(0,0,0,0.09)] z-50 flex flex-col">
+        <div className="absolute left-0 top-full mt-1.5 w-(--width-sort) overflow-hidden rounded-sm border border-sort-accent bg-background shadow-[0px_4px_6px_rgba(0,0,0,0.09)] z-50 flex flex-col">
           {options.map((opt) => {
             const isSelected = currentValue === opt;
             return (
@@ -73,10 +73,10 @@ export function SortSelect({
                 key={opt}
                 type="button"
                 onClick={() => handleSelect(opt)}
-                className={`font-nunito font-medium text-[14px] leading-5 h-8 w-full text-left px-gap-lg flex items-center transition-colors ${
+                className={`font-nunito font-medium text-(length:--font-size-sm) leading-5 h-8 w-full text-left px-gap-lg flex items-center transition-colors ${
                   isSelected
-                    ? 'bg-[#E6F4F1] text-[#198876]' 
-                    : 'bg-white text-[#198876] hover:bg-primary-overlay-hover'
+                    ? 'bg-sort-selected-bg text-sort-accent' 
+                    : 'bg-background text-sort-accent hover:bg-primary-overlay-hover'
                 }`}
               >
                 {opt}

@@ -17,7 +17,7 @@ type Story = StoryObj<typeof Input>;
 
 export const Default: Story = {
   render: (args) => (
-    <div className="flex h-10 w-80 items-center rounded-lg border border-primary bg-white px-4">
+    <div className="flex h-(--spacing-btn-h) w-80 items-center rounded-sm border border-(--color-primary-border) bg-white px-(--spacing-px-btn)">
       <Input {...args} />
     </div>
   ),

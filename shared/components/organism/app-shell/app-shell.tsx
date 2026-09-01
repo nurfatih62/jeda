@@ -41,3 +41,4 @@ export function AppShell({ activeSidebarKey = 'home', children }: AppShellProps)
     </div>
   );
 }
+ 

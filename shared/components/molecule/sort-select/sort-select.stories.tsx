@@ -28,4 +28,4 @@ export default meta;
 
 type Story = StoryObj<typeof SortSelect>;
 
-export const Default: Story = {};
+export const Default: Story = {}; 
