@@ -16,12 +16,18 @@ export interface ArticleFromAPI {
 export interface CommentFromAPI {
   id: string;
   articleId: string;
+  parentId: string | null; // ✅ BARU: null = komentar utama, ada isi = balasan untuk komentar lain
   author: string;
   avatarUrl: string;
   content: string;
   likes: number;
   comments: number;
   createdAt: number; // Unix timestamp dalam detik
+}
+
+// ✅ BARU: tipe untuk komentar yang sudah disusun jadi nested tree (dengan balasannya)
+export interface CommentWithReplies extends CommentFromAPI {
+  replies: CommentFromAPI[];
 }
 
 const BASE_URL = 'https://6a9659bafa33b37f821b2961.mockapi.io';
@@ -50,7 +56,7 @@ export async function fetchArticleById(id: string): Promise<ArticleFromAPI | nul
   }
 }
 
-// Mengambil komentar berdasarkan article ID
+// Mengambil komentar berdasarkan article ID (data mentah, belum disusun nested)
 export async function fetchCommentsByArticleId(articleId: string): Promise<CommentFromAPI[]> {
   try {
     // 1. Coba ambil dari endpoint nested standard MockAPI (/articles/:articleId/comments)
@@ -73,4 +79,24 @@ export async function fetchCommentsByArticleId(articleId: string): Promise<Comme
     console.error('Error mengambil komentar, mengembalikan array kosong:', error);
     return [];
   }
+}
+
+// ✅ BARU: Mengambil komentar SUDAH disusun jadi nested (komentar utama + reply-nya)
+export async function fetchNestedCommentsByArticleId(
+  articleId: string
+): Promise<CommentWithReplies[]> {
+  const allComments = await fetchCommentsByArticleId(articleId);
+
+  const topLevel = allComments.filter((c) => !c.parentId);
+  const getReplies = (parentId: string) =>
+    allComments
+      .filter((c) => c.parentId === parentId)
+      .sort((a, b) => a.createdAt - b.createdAt); // reply lama duluan
+
+  return topLevel
+    .map((c) => ({
+      ...c,
+      replies: getReplies(c.id),
+    }))
+    .sort((a, b) => b.createdAt - a.createdAt); // komentar utama terbaru duluan
 }

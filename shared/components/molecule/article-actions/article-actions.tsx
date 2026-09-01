@@ -9,10 +9,13 @@ export interface ArticleActionsProps {
   comments: number;
   liked?: boolean;
   onLikeClick?: () => void;
+  onCommentClick?: (e: React.MouseEvent<HTMLButtonElement>) => void; // Tambahan prop comment click
   bookmarked?: boolean;
   onBookmarkClick?: () => void;
   onShare?: () => void;
   onReport?: () => void;
+  isLoggedIn?: boolean; 
+  onRequireLogin?: () => void; 
 }
 
 const ghostIconClass =
@@ -23,15 +26,37 @@ export function ArticleActions({
   comments,
   liked,
   onLikeClick,
+  onCommentClick,
   bookmarked = false,
   onBookmarkClick,
   onShare,
   onReport,
+  isLoggedIn = false,
+  onRequireLogin,
 }: ArticleActionsProps) {
+  
+  const handleProtectedAction = (action?: () => void) => {
+    if (!isLoggedIn) {
+      if (onRequireLogin) onRequireLogin();
+      else alert('Silakan masuk terlebih dahulu untuk melakukan aksi ini.');
+      return;
+    }
+    if (action) action();
+  };
+
   return (
     <div className="flex items-center gap-gap">
-      <Engagement likes={likes} comments={comments} liked={liked} onLikeClick={onLikeClick} />
+      {/* Engagement mencakup Like dan Komentar */}
+      <Engagement 
+        likes={likes} 
+        comments={comments} 
+        liked={liked} 
+        onLikeClick={() => handleProtectedAction(onLikeClick)} 
+        onCommentClick={onCommentClick}
+      />
       <span className="flex-1" />
+      
+      {/* Bookmark */}
       <IconButton
         icon={
           <Bookmark
@@ -43,8 +68,10 @@ export function ArticleActions({
         aria-label={bookmarked ? 'Batalkan simpan artikel' : 'Simpan artikel'}
         variant="ghost"
         className={ghostIconClass}
-        onClick={onBookmarkClick}
+        onClick={() => handleProtectedAction(onBookmarkClick)}
       />
+      
+      {/* Share (Bisa diakses tanpa login) */}
       <IconButton
         icon={<Share2 size={24} strokeWidth={2} />}
         aria-label="Bagikan"
@@ -52,12 +79,14 @@ export function ArticleActions({
         className={ghostIconClass}
         onClick={onShare}
       />
+
+      {/* Report */}
       <IconButton
         icon={<Flag size={24} strokeWidth={2} />}
         aria-label="Laporkan"
         variant="ghost"
         className={ghostIconClass}
-        onClick={onReport}
+        onClick={() => handleProtectedAction(onReport)}
       />
     </div>
   );

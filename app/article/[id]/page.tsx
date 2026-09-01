@@ -172,7 +172,7 @@ export default async function ArticleDetailPage({ params, searchParams }: Articl
             />
           </div>
 
-          {/* Komentar */}
+          {/* Komentar (Menampilkan maksimal 2 komentar teratas) */}
           <div className="flex flex-col gap-4 mt-4 w-full">
             <Typography variant="heading" className="text-xl font-bold">
               Komentar ({comments.length})
@@ -180,15 +180,18 @@ export default async function ArticleDetailPage({ params, searchParams }: Articl
             <ArticleCommentsWrapper comments={comments.slice(0, 2)} />
           </div>
 
+          {/* Tombol Lihat Lebih Banyak Komentar (Mengarahkan ke /article/[id]/comments) */}
           {comments.length > 2 && (
             <div className="flex justify-center pb-12 w-full pt-4">
-              <Button
-                variant="primary"
-                colorState="default"
-                className="w-full md:w-auto px-6 py-2.5 cursor-pointer"
-              >
-                Lihat lebih banyak komentar
-              </Button>
+              <Link href={`/article/${id}/comments`} className="w-full md:w-auto">
+                <Button
+                  variant="primary"
+                  colorState="default"
+                  className="w-full md:w-auto px-6 py-2.5 cursor-pointer"
+                >
+                  Lihat lebih banyak komentar ({comments.length})
+                </Button>
+              </Link>
             </div>
           )}
 

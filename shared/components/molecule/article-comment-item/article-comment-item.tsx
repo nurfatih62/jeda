@@ -7,32 +7,21 @@ import { ArticleActions } from '../article-actions/article-actions';
 import { Typography } from '../../typography/typography';
 
 export interface ArticleCommentItemProps {
-  /** URL foto profil penulis */
   avatarSrc?: string;
-  /** Nama penulis */
   author: string;
-  /** Tanggal postingan */
   date: string;
-  /** Isi teks atau komentar */
   content: string;
-  /** Jumlah likes */
   likes: number;
-  /** Jumlah komentar */
   comments: number;
-  /** Status like */
   liked?: boolean;
-  /** Status bookmark */
   bookmarked?: boolean;
-  /** Callback like */
   onLikeClick?: () => void;
-  /** Callback bookmark */
+  onCommentClick?: () => void;
   onBookmarkClick?: () => void;
-  /** Callback share */
   onShare?: () => void;
-  /** Callback report */
   onReport?: () => void;
-  /** Kelas tambahan opsional */
   className?: string;
+  isReply?: boolean; // Penanda apakah ini komentar balasan
 }
 
 export function ArticleCommentItem({
@@ -45,35 +34,46 @@ export function ArticleCommentItem({
   liked,
   bookmarked,
   onLikeClick,
+  onCommentClick,
   onBookmarkClick,
   onShare,
   onReport,
   className = '',
+  isReply = false,
 }: ArticleCommentItemProps) {
   return (
-    <div className={`flex flex-col gap-4 w-full p-4 bg-background rounded-lg border border-swatch-border ${className}`}>
-      {/* Bagian Atas: Avatar & AuthorMeta */}
-      <div className="flex items-center gap-3">
-        <Avatar src={avatarSrc} size="md" />
-        <AuthorMeta author={author} date={date} />
+    <div 
+      className={`flex flex-col w-full ${
+        isReply 
+          ? 'ml-8 sm:ml-12 border-l-2 border-swatch-border pl-4 mt-3' 
+          : 'mb-4'
+      }`}
+    >
+      <div className={`flex flex-col gap-4 w-full p-4 bg-background rounded-lg border border-swatch-border ${className}`}>
+        {/* Bagian Atas: Avatar & AuthorMeta */}
+        <div className="flex items-center gap-3">
+          <Avatar src={avatarSrc} size="md" />
+          <AuthorMeta author={author} date={date} />
+        </div>
+
+        {/* Bagian Tengah: Isi Teks Komentar */}
+        <Typography variant="body" className="text-text-primary">
+          {content}
+        </Typography>
+
+        {/* Bagian Bawah: Aksi (Like, Comment, Bookmark, Share, Report) */}
+        <ArticleActions
+          likes={likes}
+          comments={comments}
+          liked={liked}
+          onLikeClick={onLikeClick}
+          onCommentClick={onCommentClick}
+          bookmarked={bookmarked}
+          onBookmarkClick={onBookmarkClick}
+          onShare={onShare}
+          onReport={onReport}
+        />
       </div>
-
-      {/* Bagian Tengah: Isi Teks Komentar / Artikel */}
-      <Typography variant="body" className="text-text-primary">
-        {content}
-      </Typography>
-
-      {/* Bagian Bawah: Aksi (Like, Comment, Bookmark, Share, Report) */}
-      <ArticleActions
-        likes={likes}
-        comments={comments}
-        liked={liked}
-        onLikeClick={onLikeClick}
-        bookmarked={bookmarked}
-        onBookmarkClick={onBookmarkClick}
-        onShare={onShare}
-        onReport={onReport}
-      />
     </div>
   );
 }
