@@ -5,12 +5,7 @@ const COVER_TOPICS = ['nature', 'business', 'technology', 'people', 'city', 'fit
 
 /**
  * Bank judul + deskripsi Bahasa Indonesia (tema reflektif/wellness sesuai
- * brand Jeda). `faker.lorem` SENGAJA tidak dipakai untuk judul/deskripsi
- * karena dia selalu generate teks Latin acak ("Solvo cribro terra..."),
- * gak peduli locale di-set apa — hasilnya gak pernah kebaca Bahasa
- * Indonesia yang masuk akal. Jadi title+description di-pair manual di
- * sini, dan faker cuma dipakai buat MILIH salah satu secara acak
- * (faker.helpers.arrayElement), bukan buat generate teks-nya sendiri.
+ * brand Jeda).
  */
 const ARTICLE_TOPICS: { title: string; description: string }[] = [
   {
@@ -121,7 +116,6 @@ function randomAvatar(): string {
 function randomCover(): string {
   const topic = faker.helpers.arrayElement(COVER_TOPICS);
   const seed = faker.string.alphanumeric(10);
-  // lock=<seed acak> supaya tiap generate dapat gambar berbeda, bukan cache yang sama
   return `https://loremflickr.com/600/400/${topic}?lock=${seed}`;
 }
 
@@ -176,4 +170,91 @@ export function generateLatestArticles(count = 6): ArticleCardData[] {
       ...rest,
       date: formatDateID(dateObj),
     }));
+}
+
+/**
+ * Mengambil satu artikel spesifik berdasarkan ID untuk halaman Detail Artikel.
+ * Memastikan artikel yang diklik di Homepage cocok dengan data detail yang dibuka.
+ */
+export function getArticleById(id: string, page = 1): ArticleCardData & { contentParagraphs?: string[] } {
+  const allArticles = [...generatePopularArticles(30), ...generateLatestArticles(30)];
+  const found = allArticles.find((art) => art.id === id);
+
+  const baseData = found || {
+    id: id,
+    author: "Asya mc",
+    avatarUrl: randomAvatar(),
+    date: "15 Agustus 2026",
+    title: "Artikel Pilihan",
+    description: "Pembahasan mendalam mengenai pentingnya menjaga keseimbangan hidup dan kesehatan mental di era modern.",
+    imageUrl: randomCover(),
+    likes: 237,
+    comments: 12,
+  };
+
+  // Variasi paragraf berdasarkan halaman (page 1, 2, atau 3)
+  let paragraphs: string[] = [];
+  if (page === 1) {
+    paragraphs = [
+      `${baseData.description} Hal ini sering kali menjadi topik perbincangan hangat di kalangan pemerhati kesehatan mental dan pengembangan diri.`,
+      `Dalam praktiknya, topik mengenai "${baseData.title}" membutuhkan konsistensi serta pemahaman mendalam tentang batasan diri sendiri. Banyak orang mengabaikan tanda-tanda kecil hingga akhirnya berdampak pada produktivitas harian.`,
+      `Melalui langkah-langkah kecil yang konsisten, kita dapat membangun kebiasaan baru yang lebih positif. Mulailah dari hari ini dan rasakan perubahan signifikan pada kesejahteraan hidupmu secara menyeluruh.`
+    ];
+  } else if (page === 2) {
+    paragraphs = [
+      `Bagian kedua dari pembahasan "${baseData.title}" ini akan mengupas lebih dalam mengenai faktor-faktor pemicu eksternal yang sering kali luput dari perhatian kita sehari-hari.`,
+      `Menurut berbagai penelitian psikologi modern, pendekatan yang fleksibel jauh lebih efektif daripada memaksakan standar yang terlalu ketat pada diri sendiri.`,
+      `Luangkan waktu sejenak untuk melakukan refleksi diri. Tanyakan pada diri sendiri: apa hal kecil yang bisa diperbaiki mulai minggu ini?`
+    ];
+  } else {
+    paragraphs = [
+      `Sebagai kesimpulan dari ulasan mengenai "${baseData.title}", penting untuk diingat bahwa proses pemulihan atau pengembangan diri bukanlah perlombaan yang harus dimenangkan dengan cepat.`,
+      `Konsistensi kecil setiap hari jauh lebih bermakna daripada perubahan drastis yang hanya bertahan sementara waktu. Tetaplah berbelas kasih pada diri sendiri.`,
+      `Terima kasih telah membaca artikel ini sampai selesai. Jangan lupa bagikan kepada orang terdekat yang mungkin membutuhkan sudut pandang serupa!`
+    ];
+  }
+
+  return {
+    ...baseData,
+    contentParagraphs: paragraphs,
+  };
+}
+export interface CommentItemData {
+  id: string;
+  author: string;
+  avatarUrl: string;
+  date: string;
+  content: string;
+  likes: number;
+  comments: number;
+}
+
+/**
+ * Menghasilkan daftar komentar unik berdasarkan ID artikel agar komentarnya berbeda-beda tiap artikel.
+ */
+export function getCommentsByArticleId(id: string): CommentItemData[] {
+  // Gunakan ID atau string acak untuk variasi jumlah & isi komentar
+  const commentPool = [
+    "Artikel yang sangat membuka pikiran! Terima kasih sudah berbagi tips bermanfaat ini.",
+    "Sangat relate dengan kondisi yang sedang aku alami sekarang. Izin share ya!",
+    "Penjelasannya sangat padat dan mudah dipahami. Ditunggu artikel-artikel menarik lainnya.",
+    "Wah, poin nomor dua bener banget sih. Sering banget nggak sadar kalau lagi di posisi itu.",
+    "Makasih infonya min, sangat membantu buat manajemen stres harian.",
+    "Keren banget pembahasannya,, jadi lebih paham cara menghadapinya.",
+  ];
+
+  // Tentukan jumlah komentar secara konsisten berdasarkan panjang ID atau random terkontrol
+  const commentCount = 2 + (id.length % 3); // Menghasilkan 2 sampai 4 komentar unik per artikel
+
+  return Array.from({ length: commentCount }, (_, index) => {
+    return {
+      id: `${id}-comment-${index}`,
+      author: faker.person.fullName(),
+      avatarUrl: randomAvatar(),
+      date: `${faker.number.int({ min: 1, max: 28 })} Agustus 2026`,
+      content: commentPool[(id.charCodeAt(index % id.length) + index) % commentPool.length],
+      likes: faker.number.int({ min: 1, max: 45 }),
+      comments: faker.number.int({ min: 0, max: 5 }),
+    };
+  });
 }

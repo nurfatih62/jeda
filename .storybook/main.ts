@@ -34,6 +34,7 @@ const config: StorybookConfig = {
         alias: {
           ...(typeof config.resolve?.alias === 'object' && !Array.isArray(config.resolve?.alias) ? config.resolve.alias : {}),
           'next/navigation': mockPath,
+          '@/': path.resolve(__dirname, '../shared'),
         },
       },
       optimizeDeps: {

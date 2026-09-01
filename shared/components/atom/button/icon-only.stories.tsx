@@ -1,15 +1,17 @@
 import type { ReactElement } from 'react';
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { IconButton, IconButtonVariant, IconButtonColorState } from './icon-button';
-import { Menu, ThumbsUp, Share2, Flag, Search } from 'lucide-react';
+import { Menu, ThumbsUp, Share2, Flag, Search, ArrowLeft, ArrowRight } from 'lucide-react';
 
-const iconOptions = ['Menu', 'Like', 'Share', 'Flag', 'Search'] as const;
+const iconOptions = ['Menu', 'Like', 'Share', 'Flag', 'Search', 'ArrowLeft', 'ArrowRight'] as const;
 const iconMapping: Record<(typeof iconOptions)[number], ReactElement> = {
   Menu: <Menu size={24} strokeWidth={2} />,
   Like: <ThumbsUp size={24} strokeWidth={2} />,
   Share: <Share2 size={24} strokeWidth={2} />,
   Flag: <Flag size={24} strokeWidth={2} />,
   Search: <Search size={24} strokeWidth={2} />,
+  ArrowLeft: <ArrowLeft size={24} strokeWidth={2} />,
+  ArrowRight: <ArrowRight size={24} strokeWidth={2} />,
 };
 
 const meta: Meta<typeof IconButton> = {
