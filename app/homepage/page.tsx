@@ -5,6 +5,7 @@ import type { TabsLinkKey } from '../../shared/components/organism/tabs/tabs-lin
 import { ArticleList } from '../../shared/components/organism/article-list/article-list';
 import { HomepagePagination } from './homepage-pagination';
 import { fetchArticles } from '../../lib/api';
+import { redirect } from 'next/navigation';
 
 export interface HomepageProps {
   searchParams: Promise<{ tab?: string; page?: string; keyword?: string }>;
@@ -28,9 +29,8 @@ export default async function Homepage({ searchParams }: HomepageProps) {
     id: art.id,
     author: art.author,
     avatarUrl: art.avatarUrl,
-    // ✅ Diperbaiki: Kalikan dengan 1000 agar timestamp detik dari MockAPI terbaca benar oleh JavaScript
     date: new Date(art.createdAt * 1000).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }),
-    rawTimestamp: art.createdAt, // Disimpan untuk kebutuhan sorting agar lebih akurat
+    rawTimestamp: art.createdAt,
     title: art.title,
     description: art.description,
     imageUrl: art.imageUrl,
@@ -39,7 +39,7 @@ export default async function Homepage({ searchParams }: HomepageProps) {
     trendPercent: art.trendPercent,
   }));
 
-  // 1. Filter berdasarkan Keyword Pencarian (jika ada yang diketik di SearchBar)
+  // 1. Filter berdasarkan Keyword Pencarian
   if (keyword) {
     articles = articles.filter(
       (art) =>
@@ -60,7 +60,6 @@ export default async function Homepage({ searchParams }: HomepageProps) {
       trendPercent: index === 0 ? (article.trendPercent || 15) : undefined,
     }));
   } else {
-    // ✅ Diperbaiki: Urutkan berdasarkan rawTimestamp terbesar (terbaru ke terlama)
     articles = articles
       .sort((a, b) => b.rawTimestamp - a.rawTimestamp)
       .map((article) => ({
@@ -74,9 +73,20 @@ export default async function Homepage({ searchParams }: HomepageProps) {
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const paginatedArticles = articles.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
+  // Server Actions untuk navigasi tombol Hero
+  async function handleExplore() {
+    'use server';
+    redirect('/explore');
+  }
+
+  async function handleRegister() {
+    'use server';
+    redirect('/login');
+  }
+
   return (
     <AppShell activeSidebarKey="home">
-      <Hero />
+      <Hero onExplore={handleExplore} onRegister={handleRegister} />
       <div className="flex flex-col w-full px-(--spacing-container-x) py-(--spacing-container-y) gap-gap">
         <div className="w-full">
           <TabsLink activeTab={activeTab} basePath="/homepage" />

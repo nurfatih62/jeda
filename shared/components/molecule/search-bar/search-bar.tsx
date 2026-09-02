@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from 'react';
-import type { InputHTMLAttributes, FormEvent } from 'react';
+import React, { useState, KeyboardEvent } from 'react';
+import type { FormEvent, InputHTMLAttributes } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Search } from 'lucide-react';
 import { Input } from '../../atom/input/input';
@@ -10,7 +10,7 @@ export type SearchBarProps = InputHTMLAttributes<HTMLInputElement> & {
   basePath?: string;
 };
 
-export function SearchBar({ className = '', basePath = '/homepage', ...rest }: SearchBarProps) {
+export function SearchBar({ className = '', basePath = '/homepage', placeholder, ...rest }: SearchBarProps) {
   let router: ReturnType<typeof useRouter> | null = null;
   let searchParams: URLSearchParams | null = null;
   let initialKeyword = '';
@@ -39,8 +39,13 @@ export function SearchBar({ className = '', basePath = '/homepage', ...rest }: S
       params.delete('page');
 
       router.push(`${basePath}?${params.toString()}`);
-    } else {
-      console.log('Search submitted:', keyword);
+    }
+  };
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSubmit(e);
     }
   };
 
@@ -56,11 +61,11 @@ export function SearchBar({ className = '', basePath = '/homepage', ...rest }: S
       >
         <Search className="h-(--icon-size-search) w-(--icon-size-search)" strokeWidth={1.7} />
       </button>
-      <Input 
-        placeholder="Cari artikel..." 
+      <Input
+        placeholder={placeholder || "Cari artikel..."}
         value={keyword}
         onChange={(e) => setKeyword(e.target.value)}
-        {...rest} 
+        onKeyDown={handleKeyDown}
       />
     </form>
   );

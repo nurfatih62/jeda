@@ -6,7 +6,7 @@ const meta: Meta<typeof Button> = {
   component: Button,
   tags: ['autodocs'],
   args: {
-    children: 'Click Me!',
+    children: 'Masuk',
     variant: 'primary',
     colorState: 'default',
     arrow: 'none',
@@ -16,7 +16,7 @@ const meta: Meta<typeof Button> = {
     children: { control: 'text', description: 'Teks di dalam tombol' },
     variant: {
       control: 'select',
-      options: ['primary', 'outline', 'ghost'],
+      options: ['primary', 'outline', 'ghost', 'brand'],
       description: 'Gaya tampilan tombol',
     },
     colorState: {
@@ -42,12 +42,44 @@ export const Default: Story = {};
 
 export const Outline: Story = { args: { variant: 'outline' } };
 export const Ghost: Story = { args: { variant: 'ghost' } };
+export const Brand: Story = { args: { variant: 'brand' } };
 export const Success: Story = { args: { colorState: 'success' } };
 export const Danger: Story = { args: { colorState: 'danger' } };
 export const WithLeftArrow: Story = { args: { arrow: 'left' } };
 export const WithRightArrow: Story = { args: { arrow: 'right' } };
-export const Loading: Story = { args: { loading: true } };
+export const Loading: Story = { args: { loading: true, children: 'Memproses..' } };
 export const Disabled: Story = { args: { disabled: true } };
+
+// Menampilkan seluruh state dari desain Figma (Brand Variant) secara statis dan akurat
+export const BrandFigmaStates: Story = {
+  render: () => (
+    <div 
+      className="flex flex-col gap-4 p-6 border border-dashed border-[#8A38F5] rounded-[5px]" 
+      style={{ maxWidth: '602px' }}
+    >
+      <div className="flex flex-col gap-1">
+        <span className="text-xs font-semibold text-gray-500">Disable</span>
+        <Button variant="brand" disabled>Masuk</Button>
+      </div>
+      <div className="flex flex-col gap-1">
+        <span className="text-xs font-semibold text-gray-500">Default</span>
+        <Button variant="brand">Masuk</Button>
+      </div>
+      <div className="flex flex-col gap-1">
+        <span className="text-xs font-semibold text-gray-500">Hover</span>
+        <Button variant="brand" className="bg-[#13574C]">Masuk</Button>
+      </div>
+      <div className="flex flex-col gap-1">
+        <span className="text-xs font-semibold text-gray-500">Clicked</span>
+        <Button variant="brand" className="bg-[#0B3F37]">Masuk</Button>
+      </div>
+      <div className="flex flex-col gap-1">
+        <span className="text-xs font-semibold text-gray-500">Loading</span>
+        <Button variant="brand" loading>Memproses..</Button>
+      </div>
+    </div>
+  ),
+};
 
 const variants: ButtonVariant[] = ['primary', 'outline', 'ghost'];
 const arrows: { key: ButtonArrow; label: string }[] = [
@@ -80,14 +112,13 @@ function ColorSection({
             disabled={disabled}
             loading={loading}
           >
-            Click Me!
+            {loading ? 'Memproses..' : 'Masuk'}
           </Button>
         ))}
       </div>
       {!loading &&
         arrows.map(({ key, label: arrowLabel }) => (
           <div key={key} className="flex flex-col gap-2">
-            {/* Diubah dari text-2.5 (tidak valid) ke text-xs agar konsisten dengan token global */}
             <p className="font-sans text-xs uppercase tracking-wide text-text-muted/70">
               {label} + {arrowLabel}
             </p>
@@ -100,7 +131,7 @@ function ColorSection({
                   arrow={key}
                   disabled={disabled}
                 >
-                  Click Me!
+                  Masuk
                 </Button>
               ))}
             </div>
