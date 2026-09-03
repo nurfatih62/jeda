@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { AppShell } from '../../../../shared/components/organism/app-shell/app-shell';
 import { Typography } from '../../../../shared/components/typography/typography';
 import { IconButton } from '../../../../shared/components/atom/button/icon-button';
-import { CommentInputBox } from '../../../../shared/components/molecule/comment-input-box/comment-input-box';
+import { AuthenticatedCommentInput } from './authenticated-comment-input';
 import { SortSelect } from '../../../../shared/components/molecule/sort-select/sort-select';
 import { ArticleCommentsWrapper } from '../article-comments-wrapper';
 import { fetchArticleById, fetchCommentsByArticleId } from '../../../../lib/api';
@@ -14,18 +14,12 @@ export interface ArticleCommentsPageProps {
   searchParams: Promise<{ commentSort?: string }>;
 }
 
-async function getAuthStatus() {
-  const isLoggedIn = false; 
-  return isLoggedIn;
-}
-
 export default async function ArticleCommentsPage({ params }: ArticleCommentsPageProps) {
   const resolvedParams = await params;
   const id = resolvedParams?.id || '';
 
   const article = await fetchArticleById(id);
   const comments = await fetchCommentsByArticleId(id);
-  const isLoggedIn = await getAuthStatus();
 
   if (!article) {
     return (
@@ -62,7 +56,7 @@ export default async function ArticleCommentsPage({ params }: ArticleCommentsPag
               Komentar ({comments.length})
             </Typography>
 
-            <CommentInputBox placeholder="Note" isLoggedIn={isLoggedIn} />
+            <AuthenticatedCommentInput articleId={id} />
 
             <div className="flex items-center justify-between w-full">
               <SortSelect 

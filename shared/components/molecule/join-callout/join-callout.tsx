@@ -1,6 +1,7 @@
 "use client";
 
 import React from 'react';
+import Link from 'next/link';
 import { Button } from '../../atom/button/button';
 import { Typography } from '../../typography/typography';
 
@@ -24,33 +25,27 @@ export function JoinCallout({ onRegister, onLogin, className = '' }: JoinCallout
         
         {/* Frame 13: Judul & Deskripsi */}
         <div className="flex flex-col justify-center items-center gap-3 w-full text-center">
-          <Typography variant="heading" className="text-[32px] leading-8 font-bold text-text-primary">
+          <Typography variant="heading" className="text-heading leading-8 font-bold text-text-primary">
             Bergabung untuk mendapat pengalaman lebih
           </Typography>
 
-          <Typography variant="subheading" className="text-[20px] leading-7 font-medium text-text-muted">
+          <Typography variant="subheading" className="text-subheading leading-7 font-medium text-text-muted">
             Bergabung untuk mendapat artikel terkait lainnya dan interaksi dengan artikel
           </Typography>
         </div>
 
         {/* Frame 50: Baris Tombol Aksi */}
         <div className="flex flex-row justify-center items-center gap-3 mt-3">
-          <Button
-            variant="outline"
-            colorState="default"
-            onClick={onRegister}
-            className="w-register-btn"
-          >
-            Daftar
-          </Button>
-          <Button
-            variant="primary"
-            colorState="default"
-            onClick={onLogin}
-            className="w-btn-login"
-          >
-            Masuk
-          </Button>
+          <Link href="/login" onClick={onRegister}>
+            <Button variant="outline" colorState="default" className="w-register-btn">
+              Daftar
+            </Button>
+          </Link>
+          <Link href="/login" onClick={onLogin}>
+            <Button variant="primary" colorState="default" className="w-btn-login">
+              Masuk
+            </Button>
+          </Link>
         </div>
 
       </div>

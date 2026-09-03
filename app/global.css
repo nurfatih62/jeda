@@ -12,6 +12,8 @@
   --color-background: #FBF8F2;
   --color-white: #FFFFFF;
   --color-placeholder: #6B7280;
+  --color-border-default: #C2C7D0;
+  --color-border-input: #CCCCCC;
 
   /* ===== Colors: Header & Layout ===== */
   --color-header-bg: rgb(242, 243, 237);
@@ -30,11 +32,19 @@
   --color-success: #0E7A5A;
   --color-success-hover: #0B5F46;
   --color-success-active: #083F2F;
+  --color-success-surface: #ECFDF3;
+  --color-success-border: #CEFBDA;
+  --color-success-text: #408836;
+  --color-success-soft: #75BF85;
 
   /* ===== Colors: Danger ===== */
   --color-danger: #CB1E1E;
   --color-danger-hover: #A81818;
   --color-danger-active: #7A1212;
+  --color-danger-surface: #FDECEC;
+  --color-danger-border: #FBCECE;
+  --color-danger-text: #D02A11;
+  --color-danger-soft: #F08181;
 
   /* ===== Colors: Overlays ===== */
   --color-primary-overlay-hover: rgba(24, 122, 107, 0.16);
@@ -48,6 +58,7 @@
   --color-text-primary: #1B4E46;
   --color-text-muted: rgba(27, 78, 70, 0.75);
   --color-text-subtle: #6f6a5e;
+  --color-surface-muted: #F7F7F7;
 
   /* ===== Colors: Badge & Components ===== */
   --color-badge-trend-bg: #FEEAEA;
@@ -76,6 +87,10 @@
   --text-btn: 16px;
   --text-desc: 24px;
   --text-title: 36px;
+  --text-otp: 48px;
+  --text-button-brand: 20px;
+  --text-heading: 32px;
+  --text-subheading: 20px;
 
   /* ===== Font Weights ===== */
   --font-weight-medium: 500;
@@ -85,6 +100,8 @@
   --leading-normal: 28px;
   --leading-loose: 24px;
   --leading-hero-title: 1.3;
+  --leading-otp: 58px;
+  --leading-button-brand: 24px;
   --leading-6: 24px;
   --leading-6-5: 26px;
   --leading-7: 28px;
@@ -98,6 +115,9 @@
   --spacing-tab-y: 8px;
   --spacing-gap: 18px;
   --spacing-gap-lg: 22px;
+  --spacing-otp-gap: 22px;
+  --spacing-otp-width: 72px;
+  --spacing-otp-height: 81px;
   --spacing-top: 35px;
   --spacing-banner: 47px;
   --spacing-btn-h: 40px;
@@ -165,6 +185,8 @@
   --width-sort: 233px;
   --spacing-select-w: 233px;
   --width-search-wrapper: 500px;
+  --width-button-brand: 562px;
+  --height-button-brand: 54px;
 
   --icon-size-search: 20px;
 

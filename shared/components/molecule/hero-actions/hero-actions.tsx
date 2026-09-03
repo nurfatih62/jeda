@@ -7,6 +7,7 @@ export interface HeroActionsProps {
   onRegister?: () => void;
   exploreLabel?: string;
   registerLabel?: string;
+  hideRegister?: boolean;
 }
 
 export function HeroActions({
@@ -14,15 +15,18 @@ export function HeroActions({
   onRegister,
   exploreLabel = 'Jelajahi dulu',
   registerLabel = 'Daftar',
+  hideRegister = false,
 }: HeroActionsProps) {
   return (
     <div className="flex items-center justify-center gap-(--spacing-hero-gap)">
       <Button variant="outline" onClick={onExplore} className="w-explore-btn">
         {exploreLabel}
       </Button>
-      <Button variant="primary" onClick={onRegister} className="w-register-btn">
-        {registerLabel}
-      </Button>
+      {!hideRegister && (
+        <Button variant="primary" onClick={onRegister} className="w-register-btn">
+          {registerLabel}
+        </Button>
+      )}
     </div>
   );
 }

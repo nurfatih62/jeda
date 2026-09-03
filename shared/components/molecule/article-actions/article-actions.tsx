@@ -16,6 +16,8 @@ export interface ArticleActionsProps {
   onReport?: () => void;
   isLoggedIn?: boolean; 
   onRequireLogin?: () => void; 
+  hideBookmark?: boolean;
+  hideReport?: boolean;
 }
 
 const ghostIconClass =
@@ -33,6 +35,8 @@ export function ArticleActions({
   onReport,
   isLoggedIn = false,
   onRequireLogin,
+  hideBookmark = false,
+  hideReport = false,
 }: ArticleActionsProps) {
   
   const handleProtectedAction = (action?: () => void) => {
@@ -57,7 +61,7 @@ export function ArticleActions({
       <span className="flex-1" />
       
       {/* Bookmark */}
-      <IconButton
+      {!hideBookmark && <IconButton
         icon={
           <Bookmark
             size={24}
@@ -69,7 +73,7 @@ export function ArticleActions({
         variant="ghost"
         className={ghostIconClass}
         onClick={() => handleProtectedAction(onBookmarkClick)}
-      />
+      />}
       
       {/* Share (Bisa diakses tanpa login) */}
       <IconButton
@@ -81,13 +85,14 @@ export function ArticleActions({
       />
 
       {/* Report */}
-      <IconButton
+      {!hideReport && <IconButton
         icon={<Flag size={24} strokeWidth={2} />}
         aria-label="Laporkan"
         variant="ghost"
+        colorState={isLoggedIn ? 'danger' : 'default'}
         className={ghostIconClass}
         onClick={() => handleProtectedAction(onReport)}
-      />
+      />}
     </div>
   );
 }

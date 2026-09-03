@@ -21,4 +21,10 @@ type Story = StoryObj<typeof Tabs>;
 
 export const Default: Story = {};
 export const TerbaruActive: Story = { args: { defaultActiveKey: 'terbaru' } };
+export const LoggedIn: Story = {
+  args: {
+    variant: 'logged-in',
+    defaultActiveKey: 'untukmu',
+  },
+};
  

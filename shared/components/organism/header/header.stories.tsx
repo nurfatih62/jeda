@@ -5,31 +5,40 @@ const meta: Meta<typeof Header> = {
   title: 'Organism/Header',
   component: Header,
   tags: ['autodocs'],
-  parameters: { layout: 'fullscreen' },
+  args: {
+    showLogo: true,
+  },
   argTypes: {
-    onLoginClick: { action: 'login-click' },
-    showLogo: { control: 'boolean' },
+    isLoggedIn: { 
+      control: 'boolean', 
+      description: 'Mengubah state header antara sebelum/sesudah login' 
+    },
+    userName: { 
+      control: 'text', 
+      description: 'Nama pengguna (digunakan untuk fallback inisial avatar)' 
+    },
+    userAvatar: { 
+      control: 'text', 
+      description: 'URL foto profil (kosongkan jika ingin menampilkan inisial)' 
+    },
   },
 };
 export default meta;
 
 type Story = StoryObj<typeof Header>;
 
-export const Default: Story = {};
-
-export const WithoutLogo: Story = {
-  args: { showLogo: false },
+/** Tampilan Header sebelum login (menampilkan tombol Masuk) */
+export const Default: Story = {
+  args: {
+    isLoggedIn: false,
+  },
 };
 
-export const StickyOnScroll: Story = {
-  render: (args) => (
-    <div className="h-height-story-scroll bg-background">
-      <Header {...args} />
-      <div className="p-md">
-        <p className="font-sans text-text-muted">
-          Scroll ke bawah — header ini tetap menempel di atas (sticky).
-        </p>
-      </div>
-    </div>
-  ),
+/** Tampilan Header setelah login (menampilkan teks JEDA, icon button, dan avatar inisial JD) */
+export const LoggedIn: Story = {
+  args: {
+    isLoggedIn: true,
+    userName: 'John Doe', // Otomatis merender inisial "JD" jika userAvatar kosong
+    userAvatar: undefined,
+  },
 };

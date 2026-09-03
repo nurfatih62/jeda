@@ -19,6 +19,7 @@ const meta: Meta<typeof Login> = {
         'forgot-password',
         'forgot-password-verification',
         'reset-password',
+        'terms',
       ],
       description: 'Menentukan varian tampilan komponen Login',
     },
@@ -54,6 +55,15 @@ export const LoginError: Story = {
 export const Register: Story = {
   args: {
     variant: 'register',
+    onTermsClick: () => window.alert('Navigasi ke halaman syarat dan ketentuan'),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Menampilkan checkbox persetujuan syarat dan ketentuan. Checkbox harus dicentang sebelum tombol Daftar aktif.',
+      },
+    },
   },
 };
 
@@ -93,5 +103,13 @@ export const ForgotPasswordVerification: Story = {
 export const ResetPassword: Story = {
   args: {
     variant: 'reset-password',
+  },
+};
+
+// 9. Tampilan Syarat dan Ketentuan
+export const Terms: Story = {
+  args: {
+    variant: 'terms',
+    onBack: () => undefined,
   },
 };

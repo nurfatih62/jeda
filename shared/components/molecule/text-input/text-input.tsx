@@ -24,16 +24,16 @@ export function TextInput({
 }: TextInputProps) {
   const borderClass =
     variant === 'secondary'
-      ? 'border-[#1B4E46]'
-      : 'border-[#C2C7D0] hover:border-[#1B4E46] focus:border-[#1B4E46]';
-      
+      ? 'border-primary'
+      : 'border-border-default hover:border-primary focus:border-primary';
+
   const placeholderClass =
     variant === 'secondary'
-      ? 'placeholder:text-[#146C5D] text-[#146C5D]'
-      : 'placeholder:text-[#CCCCCC] text-[#146C5D] focus:placeholder:text-text-primary';
+      ? 'placeholder:text-text-primary text-text-primary'
+      : 'placeholder:text-text-subtle text-primary focus:placeholder:text-text-primary';
 
   const helperColorClass =
-    helperType === 'success' ? 'text-[#408836]' : 'text-[#FF4040]';
+    helperType === 'success' ? 'text-success' : 'text-danger';
 
   return (
     <div className="flex flex-col gap-[10px] w-full">

@@ -7,7 +7,7 @@ import { Input } from '../../atom/input/input';
 
 export interface CommentInputBoxProps {
   placeholder?: string;
-  onSubmit?: (content: string) => void;
+  onSubmit?: (content: string) => void | Promise<void>;
   className?: string;
   isLoggedIn?: boolean; // Status login
 }
@@ -19,6 +19,24 @@ export function CommentInputBox({
   isLoggedIn = false,
 }: CommentInputBoxProps) {
   const [value, setValue] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  async function submit() {
+    const content = value.trim();
+    if (!content || !onSubmit || isSubmitting) return;
+
+    setErrorMessage('');
+    setIsSubmitting(true);
+    try {
+      await onSubmit(content);
+      setValue('');
+    } catch (error) {
+      setErrorMessage(error instanceof Error ? error.message : 'Gagal mengirim komentar. Coba lagi');
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
 
   // Jika belum login, tampilkan pesan peringatan / tombol login
   if (!isLoggedIn) {
@@ -37,8 +55,15 @@ export function CommentInputBox({
           placeholder={placeholder}
           value={value}
           onChange={(e) => setValue(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+              e.preventDefault();
+              void submit();
+            }
+          }}
         />
       </div>
+      {errorMessage && <p className="text-sm text-red-500">{errorMessage}</p>}
     </div>
   );
 }

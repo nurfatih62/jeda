@@ -1,15 +1,23 @@
 import Link from 'next/link';
 
-export type TabsLinkKey = 'populer' | 'terbaru';
+export type TabsLinkKey = 'untukmu' | 'populer' | 'terbaru';
 
 export interface TabsLinkProps {
   activeTab: TabsLinkKey;
   /** Path dasar buat bikin href, default "/" */
   basePath?: string;
+  /** Varian tab untuk pengguna publik atau pengguna yang sudah login. */
+  variant?: 'default' | 'logged-in';
 }
 
-const items: { key: TabsLinkKey; label: string; query: string }[] = [
+const defaultItems: { key: TabsLinkKey; label: string; query: string }[] = [
   { key: 'populer', label: 'Populer', query: '' },
+  { key: 'terbaru', label: 'Terbaru', query: '?tab=terbaru' },
+];
+
+const loggedInItems: { key: TabsLinkKey; label: string; query: string }[] = [
+  { key: 'untukmu', label: 'Untukmu', query: '?tab=untukmu' },
+  { key: 'populer', label: 'Populer', query: '?tab=populer' },
   { key: 'terbaru', label: 'Terbaru', query: '?tab=terbaru' },
 ];
 
@@ -18,7 +26,8 @@ const items: { key: TabsLinkKey; label: string; query: string }[] = [
  * Ganti tab = navigasi <Link> ke query string baru, server re-render dengan
  * data faker baru. Tidak pakai useState/onClick, jadi tidak perlu "use client".
  */
-export function TabsLink({ activeTab, basePath = '/' }: TabsLinkProps) {
+export function TabsLink({ activeTab, basePath = '/', variant = 'default' }: TabsLinkProps) {
+  const items = variant === 'logged-in' ? loggedInItems : defaultItems;
   const activeIndex = items.findIndex((item) => item.key === activeTab);
 
   return (
@@ -40,7 +49,7 @@ export function TabsLink({ activeTab, basePath = '/' }: TabsLinkProps) {
       <div className="relative mb-6 h-px bg-primary-border">
         <div
           className="absolute -top-px h-indicator-h w-indicator-w bg-primary transition-all"
-          style={{ left: activeIndex * 106 }}
+          style={{ left: activeIndex * (variant === 'logged-in' ? 106 : 106) }}
         />
       </div>
     </div>

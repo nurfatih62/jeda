@@ -16,7 +16,7 @@ export default async function ExplorePage({ searchParams }: ExplorePageProps) {
   const activeTopic = topic ?? 'Semua';
   const activeSort = sort === 'Terbaru' ? 'Terbaru' : 'Populer';
 
-  // 1. Ambil data asli langsung dari MockAPI
+  // 1. Ambil data asli langsung dari Supabase
   const rawArticles = await fetchArticles();
 
   // 2. Mapping data dari API (trendPercent sengaja dikosongkan/undefined agar badge tidak muncul)
@@ -24,7 +24,7 @@ export default async function ExplorePage({ searchParams }: ExplorePageProps) {
     id: art.id,
     author: art.author,
     avatarUrl: art.avatarUrl,
-    date: new Date(art.createdAt).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }),
+    date: new Date(art.createdAt * 1000).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }),
     title: art.title,
     description: art.description,
     imageUrl: art.imageUrl,
@@ -47,7 +47,11 @@ export default async function ExplorePage({ searchParams }: ExplorePageProps) {
   if (activeSort === 'Populer') {
     articles = articles.sort((a, b) => b.likes - a.likes);
   } else {
-    articles = articles.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    articles = articles.sort((a, b) => {
+      const articleA = rawArticles.find((article) => article.id === a.id);
+      const articleB = rawArticles.find((article) => article.id === b.id);
+      return (articleB?.createdAt ?? 0) - (articleA?.createdAt ?? 0);
+    });
   }
 
   return (

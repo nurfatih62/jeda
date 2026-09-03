@@ -31,25 +31,25 @@ export function PasswordInput({
 
   const borderClass =
     variant === 'secondary'
-      ? 'border-[#1B4E46]'
-      : 'border-[#C2C7D0] hover:border-[#1B4E46] focus:border-[#1B4E46]';
-      
+      ? 'border-primary'
+      : 'border-border-default hover:border-primary focus:border-primary';
+
   const placeholderClass =
     variant === 'secondary'
-      ? 'placeholder:text-[#146C5D] text-[#146C5D]'
-      : 'placeholder:text-[#CCCCCC] text-[#146C5D] focus:placeholder:text-text-primary';
+      ? 'placeholder:text-text-primary text-text-primary'
+      : 'placeholder:text-text-subtle text-primary focus:placeholder:text-text-primary';
 
   const iconColorClass =
     variant === 'secondary'
-      ? 'text-[#146C5D]'
-      : 'text-[#146C5D] group-hover:text-[#146C5D] group-focus-within:text-[#146C5D]';
+      ? 'text-primary'
+      : 'text-primary group-hover:text-primary group-focus-within:text-primary';
 
   const barColor = (index: number) => {
     if (strengthValue > 0 && strengthValue < 3) {
-      return 'bg-[#F08181]';
+      return 'bg-danger';
     }
-    if (strengthValue === 0) return 'bg-[#F08181]';
-    return index < strengthValue ? 'bg-[#75BF85]' : 'bg-[rgba(204,204,204,0.8)]';
+    if (strengthValue === 0) return 'bg-danger';
+    return index < strengthValue ? 'bg-success-soft' : 'bg-border-default';
   };
 
   const hasStrength = strengthValue > 0;
@@ -93,7 +93,7 @@ export function PasswordInput({
       )}
 
       {errorText && (
-        <span className="font-poppins text-[12px] font-normal leading-[24px] text-[#FF4040]">
+        <span className="font-poppins text-[12px] font-normal leading-[24px] text-danger">
           {errorText}
         </span>
       )}
@@ -101,7 +101,7 @@ export function PasswordInput({
       {matchStatus && (
         <span
           className={`font-nunito text-[14px] font-medium leading-5 ${
-            matchStatus === 'match' ? 'text-[#408836]' : 'text-[#D02A11]'
+            matchStatus === 'match' ? 'text-success' : 'text-danger'
           }`}
         >
           {matchStatus === 'match' ? 'Password cocok' : 'Password belum cocok'}

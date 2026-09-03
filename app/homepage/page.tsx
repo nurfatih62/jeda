@@ -1,6 +1,6 @@
 import { AppShell } from '../../shared/components/organism/app-shell/app-shell';
 import { Hero } from '../../shared/components/organism/hero/hero';
-import { TabsLink } from '../../shared/components/organism/tabs/tabs-link';
+import { PersonalizedTabs } from '../../shared/components/organism/tabs/personalized-tabs';
 import type { TabsLinkKey } from '../../shared/components/organism/tabs/tabs-link';
 import { ArticleList } from '../../shared/components/organism/article-list/article-list';
 import { HomepagePagination } from './homepage-pagination';
@@ -17,17 +17,18 @@ export default async function Homepage({ searchParams }: HomepageProps) {
   const pageParam = resolvedParams?.page;
   const keyword = resolvedParams?.keyword?.toLowerCase() || '';
 
-  const activeTab: TabsLinkKey = tab === 'terbaru' ? 'terbaru' : 'populer';
+  const activeTab: TabsLinkKey = tab === 'terbaru' ? 'terbaru' : tab === 'populer' ? 'populer' : 'untukmu';
   const currentPage = Math.max(1, parseInt(pageParam || '1', 10));
   const ITEMS_PER_PAGE = 5;
 
-  // Ambil data asli dari MockAPI
+  // Ambil data asli dari Supabase
   const rawArticles = await fetchArticles();
 
   // Mapping data dasar dari API dengan mengalikan createdAt * 1000 agar menjadi milidetik yang valid
   let articles = rawArticles.map((art) => ({
     id: art.id,
     author: art.author,
+    authorUsername: art.authorUsername,
     avatarUrl: art.avatarUrl,
     date: new Date(art.createdAt * 1000).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }),
     rawTimestamp: art.createdAt,
@@ -50,9 +51,8 @@ export default async function Homepage({ searchParams }: HomepageProps) {
   }
 
   // 2. Filter atau Urutkan Berdasarkan Tab (Populer / Terbaru)
-  if (activeTab === 'populer') {
+  if (activeTab === 'populer' || activeTab === 'untukmu') {
     articles = articles
-      .filter((a: any) => a.trendPercent || a.likes > 100)
       .sort((a, b) => b.likes - a.likes);
 
     articles = articles.map((article, index) => ({
@@ -89,7 +89,7 @@ export default async function Homepage({ searchParams }: HomepageProps) {
       <Hero onExplore={handleExplore} onRegister={handleRegister} />
       <div className="flex flex-col w-full px-(--spacing-container-x) py-(--spacing-container-y) gap-gap">
         <div className="w-full">
-          <TabsLink activeTab={activeTab} basePath="/homepage" />
+          <PersonalizedTabs activeTab={activeTab} basePath="/homepage" />
         </div>
 
         {/* Jika hasil pencarian kosong */}
@@ -99,7 +99,11 @@ export default async function Homepage({ searchParams }: HomepageProps) {
           </div>
         ) : (
           <>
-            <ArticleList articles={paginatedArticles} showTrendBadge={activeTab === 'populer' && currentPage === 1} />
+            <ArticleList
+              articles={paginatedArticles}
+              showTrendBadge={activeTab === 'populer' && currentPage === 1}
+              isRecommended={activeTab === 'untukmu'}
+            />
 
             {totalPages > 1 && (
               <HomepagePagination

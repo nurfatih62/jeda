@@ -48,9 +48,9 @@ const colorClass: Record<ButtonVariant, Record<ButtonColorState, string>> = {
       'h-10 rounded-md px-4 text-base font-medium leading-6 bg-transparent text-danger hover:bg-danger-overlay-hover active:bg-danger-overlay-active',
   },
   brand: {
-    default: 'w-[562px] h-[54px] px-[16px] py-[8px] bg-[#146C5D] text-white hover:bg-[#13574C] active:bg-[#0B3F37] disabled:bg-[rgba(20,108,93,0.5)] text-[20px] font-medium leading-[24px] rounded-[6px]',
-    success: 'w-[562px] h-[54px] px-[16px] py-[8px] bg-[#146C5D] text-white hover:bg-[#13574C] active:bg-[#0B3F37] disabled:bg-[rgba(20,108,93,0.5)] text-[20px] font-medium leading-[24px] rounded-[6px]',
-    danger: 'w-[562px] h-[54px] px-[16px] py-[8px] bg-[#146C5D] text-white hover:bg-[#13574C] active:bg-[#0B3F37] disabled:bg-[rgba(20,108,93,0.5)] text-[20px] font-medium leading-[24px] rounded-[6px]',
+    default: 'w-button-brand h-button-brand px-4 py-2 bg-primary text-white hover:bg-primary-hover active:bg-primary-active disabled:bg-primary/50 text-button-brand font-medium leading-button-brand rounded-sm',
+    success: 'w-button-brand h-button-brand px-4 py-2 bg-primary text-white hover:bg-primary-hover active:bg-primary-active disabled:bg-primary/50 text-button-brand font-medium leading-button-brand rounded-sm',
+    danger: 'w-button-brand h-button-brand px-4 py-2 bg-primary text-white hover:bg-primary-hover active:bg-primary-active disabled:bg-primary/50 text-button-brand font-medium leading-button-brand rounded-sm',
   },
 };
 

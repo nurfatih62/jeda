@@ -46,25 +46,17 @@ export function OtpInput({
   };
 
   const isGreyBorder = status === 'sent';
-  const borderColor = isGreyBorder ? '#C2C7D0' : '#1B4E46';
-
-  const messageColor = 
-    status === 'success' || status === 'sent' ? '#408836' : '#D02A11';
+  const borderClass = isGreyBorder ? 'border-border-default' : 'border-text-primary';
+  const messageClass =
+    status === 'success' || status === 'sent' ? 'text-success' : 'text-danger';
 
   return (
     <div className={`flex flex-col items-center gap-3 ${className}`}>
-      <div className="flex flex-row items-center gap-[22px]">
+      <div className="flex flex-row items-center gap-otp-gap">
         {Array.from({ length }).map((_, index) => (
           <div
             key={index}
-            style={{
-              width: '72px',
-              height: '81px',
-              backgroundColor: '#FFFFFF',
-              border: `1px solid ${borderColor}`,
-              borderRadius: '6px',
-            }}
-            className="relative flex items-center justify-center shadow-sm"
+            className={`relative flex h-otp-height w-otp-width items-center justify-center rounded-sm border bg-white shadow-sm ${borderClass}`}
           >
             <input
               ref={(el) => {
@@ -75,26 +67,14 @@ export function OtpInput({
               value={otpValues[index] || ''}
               onChange={(e) => handleChange(e, index)}
               onKeyDown={(e) => handleKeyDown(e, index)}
-              style={{
-                fontFamily: 'Inter, sans-serif',
-                fontSize: '48px',
-                lineHeight: '58px',
-                color: '#146C5D',
-              }}
-              className="w-full h-full text-center bg-transparent focus:outline-none font-normal"
+              className="h-full w-full bg-transparent text-center font-sans text-otp font-normal leading-otp text-primary focus:outline-none"
             />
           </div>
         ))}
       </div>
       {message && (
         <span
-          style={{
-            fontFamily: 'Nunito, sans-serif',
-            fontSize: '14px',
-            lineHeight: '20px',
-            color: messageColor,
-          }}
-          className="font-medium text-center"
+          className={`text-center font-nunito text-sm font-medium leading-5 ${messageClass}`}
         >
           {message}
         </span>

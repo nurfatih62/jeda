@@ -11,6 +11,7 @@ export interface TabsProps {
   items?: TabItem[];
   defaultActiveKey?: string;
   onChange?: (key: string) => void;
+  variant?: 'default' | 'logged-in';
 }
 
 const defaultItems: TabItem[] = [
@@ -18,20 +19,27 @@ const defaultItems: TabItem[] = [
   { key: 'terbaru', label: 'Terbaru' },
 ];
 
-export function Tabs({ items = defaultItems, defaultActiveKey, onChange }: TabsProps) {
-  const [active, setActive] = useState(defaultActiveKey ?? items[0]?.key);
+const loggedInItems: TabItem[] = [
+  { key: 'untukmu', label: 'Untukmu' },
+  { key: 'populer', label: 'Populer' },
+  { key: 'terbaru', label: 'Terbaru' },
+];
+
+export function Tabs({ items, defaultActiveKey, onChange, variant = 'default' }: TabsProps) {
+  const tabItems = items ?? (variant === 'logged-in' ? loggedInItems : defaultItems);
+  const [active, setActive] = useState(defaultActiveKey ?? tabItems[0]?.key);
 
   const handleClick = (key: string) => {
     setActive(key);
     onChange?.(key);
   };
 
-  const activeIndex = items.findIndex((item) => item.key === active);
+  const activeIndex = tabItems.findIndex((item) => item.key === active);
 
   return (
     <div className="pt-tabs-top">
       <div className="flex items-center gap-2.5">
-        {items.map((item) => (
+        {tabItems.map((item) => (
           <button
             key={item.key}
             onClick={() => handleClick(item.key)}

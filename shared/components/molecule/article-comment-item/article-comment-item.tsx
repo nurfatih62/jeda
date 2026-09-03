@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Avatar } from '../../atom/avatar/avatar';
 import { AuthorMeta } from '../author-meta/author-meta';
 import { ArticleActions } from '../article-actions/article-actions';
@@ -22,6 +22,7 @@ export interface ArticleCommentItemProps {
   onReport?: () => void;
   className?: string;
   isReply?: boolean; // Penanda apakah ini komentar balasan
+  isLoggedIn?: boolean;
 }
 
 export function ArticleCommentItem({
@@ -40,7 +41,10 @@ export function ArticleCommentItem({
   onReport,
   className = '',
   isReply = false,
+  isLoggedIn = false,
 }: ArticleCommentItemProps) {
+  const [localLikes, setLocalLikes] = useState(likes);
+  const [localLiked, setLocalLiked] = useState(liked);
   return (
     <div 
       className={`flex flex-col w-full ${
@@ -63,15 +67,27 @@ export function ArticleCommentItem({
 
         {/* Bagian Bawah: Aksi (Like, Comment, Bookmark, Share, Report) */}
         <ArticleActions
-          likes={likes}
+          likes={localLikes}
           comments={comments}
-          liked={liked}
-          onLikeClick={onLikeClick}
+          liked={localLiked}
+          onLikeClick={() => {
+            if (isLoggedIn) {
+              setLocalLikes((value) => value + (localLiked ? -1 : 1));
+              setLocalLiked((value) => !value);
+            }
+            onLikeClick?.();
+          }}
           onCommentClick={onCommentClick}
           bookmarked={bookmarked}
           onBookmarkClick={onBookmarkClick}
           onShare={onShare}
           onReport={onReport}
+          isLoggedIn={isLoggedIn}
+          hideBookmark
+          hideReport={!isLoggedIn}
+          onRequireLogin={() => {
+            window.location.href = '/login';
+          }}
         />
       </div>
     </div>

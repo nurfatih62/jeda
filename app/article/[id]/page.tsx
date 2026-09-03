@@ -2,8 +2,7 @@ import React from 'react';
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import { AppShell } from '../../../shared/components/organism/app-shell/app-shell';
-import { Avatar } from '../../../shared/components/atom/avatar/avatar';
-import { AuthorMeta } from '../../../shared/components/molecule/author-meta/author-meta';
+import { AuthorProfileLink } from '../../../shared/components/molecule/author-profile-link/author-profile-link';
 import { ArticleFooterWrapper } from './article-footer-wrapper';
 import { ArticleCommentsWrapper } from './article-comments-wrapper';
 import { JoinCallout } from '../../../shared/components/molecule/join-callout/join-callout';
@@ -122,9 +121,10 @@ export default async function ArticleDetailPage({ params, searchParams }: Articl
           {/* Header Artikel */}
           <div className="flex flex-col gap-4 w-full">
             <div className="flex items-center gap-3">
-              <Avatar src={article.avatarUrl} size="md" />
-              <AuthorMeta 
-                author={article.author} 
+              <AuthorProfileLink
+                author={article.author}
+                username={article.authorUsername}
+                avatarUrl={article.avatarUrl}
                 date={new Date(article.createdAt * 1000).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })} 
               />
             </div>

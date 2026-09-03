@@ -15,6 +15,7 @@ export interface ArticleFooterActionsProps {
   onShare?: () => void;
   onReport?: () => void;
   className?: string;
+  isLoggedIn?: boolean;
 }
 
 const ghostIconClass =
@@ -30,6 +31,7 @@ export function ArticleFooterActions({
   onShare,
   onReport,
   className = '',
+  isLoggedIn = false,
 }: ArticleFooterActionsProps) {
   return (
     <div className={`flex flex-col items-center w-full gap-[28px] ${className}`}>
@@ -41,7 +43,7 @@ export function ArticleFooterActions({
         <Engagement likes={likes} comments={comments} liked={liked} onLikeClick={onLikeClick} />
         
         <div className="flex items-center gap-6-75">
-          <IconButton
+          {isLoggedIn ? <IconButton
             icon={
               <Bookmark
                 size={24}
@@ -53,7 +55,7 @@ export function ArticleFooterActions({
             variant="ghost"
             className={ghostIconClass}
             onClick={onBookmarkClick}
-          />
+          /> : null}
           <IconButton
             icon={<Share2 size={24} strokeWidth={2} />}
             aria-label="Bagikan"
@@ -61,13 +63,13 @@ export function ArticleFooterActions({
             className={ghostIconClass}
             onClick={onShare}
           />
-          <IconButton
+          {isLoggedIn ? <IconButton
             icon={<Flag size={24} strokeWidth={2} />}
             aria-label="Laporkan"
             variant="ghost"
             className={ghostIconClass}
             onClick={onReport}
-          />
+          /> : null}
         </div>
       </div>
 

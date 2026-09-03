@@ -52,7 +52,7 @@ export function SearchBar({ className = '', basePath = '/homepage', placeholder,
   return (
     <form
       onSubmit={handleSubmit}
-      className={`flex h-(--spacing-btn-h) max-w-(--max-w-search) flex-1 items-center gap-(--spacing-hero-gap) rounded-(--radius-search) bg-white px-(--spacing-px-btn) transition-colors duration-200 border border-primary hover:border-text-primary focus-within:border-text-primary focus-within:bg-[#F7F7F7] ${className}`}
+      className={`flex h-(--spacing-btn-h) max-w-(--max-w-search) flex-1 items-center gap-(--spacing-hero-gap) rounded-(--radius-search) bg-white px-(--spacing-px-btn) transition-colors duration-200 border border-primary hover:border-text-primary focus-within:border-text-primary focus-within:bg-surface-muted ${className}`}
     >
       <button
         type="submit"
