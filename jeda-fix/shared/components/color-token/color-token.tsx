@@ -1,0 +1,41 @@
+export const colorTokens = {
+  background: '#FBF8F2',
+  headerBackground: 'rgba(25, 136, 118, 0.04)',
+  primary: '#187A6B',
+  primaryBorder: '#147364',
+  textPrimary: '#1B4E46',
+  textMuted: 'rgba(27, 78, 70, 0.75)',
+  placeholder: '#C2C7D0',
+  borderDefault: '#C2C7D0',
+  borderInput: '#CCCCCC',
+  cardBorder: 'rgba(27, 78, 70, 0.52)',
+  dangerSurface: '#FDECEC',
+  dangerBorder: '#FBCECE',
+  dangerText: '#D02A11',
+  successSurface: '#ECFDF3',
+  successBorder: '#CEFBDA',
+  successText: '#408836',
+  white: '#FFFFFF',
+} as const;
+
+export type ColorTokenName = keyof typeof colorTokens;
+
+export interface ColorSwatchProps {
+  name: string;
+  value: string;
+}
+
+export function ColorSwatch({ name, value }: ColorSwatchProps) {
+  return (
+    <div className="flex items-center gap-3">
+      <div
+        className="h-12 w-12 shrink-0 rounded-lg border border-swatch-border"
+        style={{ background: value }}
+      />
+      <div>
+        <p className="font-sans text-sm font-semibold text-text-primary">{name}</p>
+        <p className="font-sans text-xs text-text-subtle">{value}</p>
+      </div>
+    </div>
+  );
+}

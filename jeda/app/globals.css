@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+@theme {
+  /* Font */
+  --font-poppins: var(--font-poppins, "Poppins", sans-serif);
+  --font-sans: var(--font-poppins, "Poppins", sans-serif);
+
+  /* Button Utama (Umum) */
+  --color-btn-default: #146C5D;
+  --color-btn-hover: #1B4E46;
+  --color-btn-active: #0B3F37;
+
+  /* Sidebar Button */
+  --color-sidebar-btn-default: transparent;
+  --color-sidebar-btn-hover: #146C5D;
+  --color-sidebar-btn-active: #146C5D;
+
+  /* Sidebar Teks & Ikon */
+  --color-sidebar-text-default: #146C5D;
+  --color-sidebar-text-hover: #FFFFFF;
+
+  /* Icon Default */
+  --color-icon-default: #146C5D;
+
+  /* Icon Like / General */
+  --color-icon-active: #146C5D;
+  --color-icon-active-fill: #146C5D;
+
+  /* Icon Save */
+  --color-icon-save-default: #146C5D;
+  --color-icon-save-active: #FCBA33;
+  --color-icon-save-active-fill: #FCBA33;
+
+  /* Icon Report */
+  --color-icon-report-default: #DC2626;
+  --color-icon-report-active: #A91919;
+  --color-icon-report-active-fill: #DC2626;
+}
+
+@layer base {
+  body {
+    font-family: var(--font-poppins);
+  }
+}

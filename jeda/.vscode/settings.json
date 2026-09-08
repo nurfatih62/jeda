@@ -1,0 +1,68 @@
+{
+    "folder-color.pathColors": [
+        {
+            "folderPath": "jeda\\stories\\componen\\atom\\button\\button",
+            "color": "foldercolorizer.color_0000ff"
+        },
+        {
+            "folderPath": "jeda\\stories\\componen\\atom\\button\\button-send-outline\\",
+            "color": "foldercolorizer.color_005fd7"
+        },
+        {
+            "folderPath": "jeda\\stories\\componen\\atom\\button\\google-login-button\\",
+            "color": "foldercolorizer.color_005fd7"
+        },
+        {
+            "folderPath": "jeda\\stories\\componen\\atom\\button\\pagination-button\\",
+            "color": "foldercolorizer.color_005fd7"
+        },
+        {
+            "folderPath": "jeda\\stories\\componen\\atom\\button\\pagination-number-button\\",
+            "color": "foldercolorizer.color_005fd7"
+        },
+        {
+            "folderPath": "jeda\\stories\\componen\\atom\\button\\send-login-button\\",
+            "color": "foldercolorizer.color_005fd7"
+        },
+        {
+            "folderPath": "jeda\\stories\\componen\\atom\\button\\sidebar-button\\",
+            "color": "foldercolorizer.color_005fd7"
+        },
+        {
+            "folderPath": "jeda\\stories\\componen\\atom\\",
+            "color": "foldercolorizer.color_00ffff"
+        },
+        {
+            "folderPath": "jeda\\stories\\componen\\molekul\\",
+            "color": "foldercolorizer.color_d7afff"
+        },
+        {
+            "folderPath": "jeda\\stories\\componen\\organism\\sidebar-header\\sidebar",
+            "color": "foldercolorizer.color_afffd7"
+        },
+        {
+            "folderPath": "jeda\\storybook-static\\",
+            "color": "foldercolorizer.color_d7005f"
+        },
+        {
+            "folderPath": "jeda\\stories\\componen\\atom\\button\\button\\",
+            "color": "foldercolorizer.color_005fd7"
+        },
+        {
+            "folderPath": "jeda\\stories\\componen\\atom\\button\\button-tags\\",
+            "color": "foldercolorizer.color_005fd7"
+        },
+        {
+            "folderPath": "jeda\\stories\\componen\\molecule\\",
+            "color": "foldercolorizer.color_d7afff"
+        },
+        {
+            "folderPath": "jeda\\stories\\componen\\organism\\",
+            "color": "foldercolorizer.color_005f87"
+        },
+        {
+            "folderPath": "jeda\\stories\\componen\\template\\",
+            "color": "foldercolorizer.color_008787"
+        }
+    ]
+}
