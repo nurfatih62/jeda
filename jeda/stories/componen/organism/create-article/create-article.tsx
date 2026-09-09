@@ -1,18 +1,10 @@
 "use client";
 
-import React, { useState, useRef, ChangeEvent } from "react";
-import {
-  ArrowLeft,
-  ImagePlus,
-  X,
-  Bold,
-  Italic,
-  Underline,
-  Link,
-  Quote,
-  Code,
-  Image as ImageIcon,
-} from "lucide-react";
+import React, { useState, useRef } from "react";
+import { ArrowLeft } from "lucide-react";
+import { CoverImageUploader } from "../../molecule/cover-image-uploader/cover-image-uploader";
+import { CategorySelector } from "../../molecule/category-selector/category-selector";
+import { RichTextToolbar } from "../../molecule/rich-text-toolbar/rich-text-toolbar";
 
 export interface CategoryOption {
   id: string;
@@ -58,32 +50,21 @@ export const CreateArticle: React.FC<CreateArticleProps> = ({
   const [coverImage, setCoverImage] = useState<File | null>(null);
   const [coverImagePreview, setCoverImagePreview] = useState<string | null>(null);
 
-  const fileInputRef = useRef<HTMLInputElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   // Maximum character limits
   const maxTitleLength = 100;
   const maxDescLength = 150;
 
-  // Handle Cover Image Upload
-  const handleImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      if (file.size > 5 * 1024 * 1024) {
-        alert("Ukuran berkas melebihi 5 MB.");
-        return;
-      }
-      setCoverImage(file);
-      setCoverImagePreview(URL.createObjectURL(file));
-    }
+  // Handle Cover Image Upload (dipicu oleh molecule CoverImageUploader)
+  const handleImageUpload = (file: File) => {
+    setCoverImage(file);
+    setCoverImagePreview(URL.createObjectURL(file));
   };
 
   const handleRemoveImage = () => {
     setCoverImage(null);
     setCoverImagePreview(null);
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-    }
   };
 
   // Handle Category Selection (Min 1, Max 3)
@@ -175,49 +156,12 @@ export const CreateArticle: React.FC<CreateArticleProps> = ({
         </div>
       </div>
 
-      {/* Cover Image Upload Section */}
-      <div className="w-full flex flex-col gap-1">
-        <div className="w-full h-[525px] rounded-md bg-[rgba(16,29,19,0.16)] flex flex-col items-center justify-center relative overflow-hidden group">
-          {coverImagePreview ? (
-            <>
-              <img
-                src={coverImagePreview}
-                alt="Sampul Artikel"
-                className="w-full h-full object-cover"
-              />
-              <button
-                type="button"
-                onClick={handleRemoveImage}
-                className="absolute top-4 right-4 bg-black/60 text-white p-2 rounded-full hover:bg-black/80 transition-colors"
-                title="Hapus gambar"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </>
-          ) : (
-            <button
-              type="button"
-              onClick={() => fileInputRef.current?.click()}
-              className="flex flex-col items-center justify-center gap-4 cursor-pointer w-full h-full"
-            >
-              <ImagePlus className="w-[91px] h-[91px] text-[#1B4E46]" />
-              <span className="font-['Nunito'] text-2xl font-medium text-[#1B4E46]">
-                Tambah gambar sampul (16:9)
-              </span>
-            </button>
-          )}
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept="image/jpeg,image/png,image/webp"
-            onChange={handleImageUpload}
-            className="hidden"
-          />
-        </div>
-        <span className="text-sm font-medium text-[#1B4E46]/75">
-          JPG, PNG, atau WebP. Maks. 5 MB.
-        </span>
-      </div>
+      {/* Cover Image Upload Section → molecule CoverImageUploader */}
+      <CoverImageUploader
+        previewUrl={coverImagePreview}
+        onFileSelect={handleImageUpload}
+        onRemove={handleRemoveImage}
+      />
 
       {/* Title Input Section */}
       <div className="w-full flex flex-col gap-2.5">
@@ -255,107 +199,19 @@ export const CreateArticle: React.FC<CreateArticleProps> = ({
         </div>
       </div>
 
-      {/* Category Selection Section */}
-      <div className="w-full flex flex-col gap-3 py-4 border-t border-[#1B4E46]">
-        <h2 className="text-2xl font-bold text-[#1B4E46]">Kategori:</h2>
-        <div className="flex flex-wrap items-center gap-2.5">
-          {categories.map((cat) => {
-            const isSelected = selectedCategories.includes(cat.id);
-            return (
-              <button
-                key={cat.id}
-                type="button"
-                onClick={() => toggleCategory(cat.id)}
-                className={`px-4 py-2 rounded-full text-base font-medium flex items-center gap-1.5 transition-all cursor-pointer ${
-                  isSelected
-                    ? "bg-[#146C5D] text-white"
-                    : "border border-[#1B4E46]/30 text-[#1B4E46] hover:border-[#1B4E46]"
-                }`}
-              >
-                <span>{cat.name}</span>
-                {isSelected && <X className="w-4 h-4 rotate-45" />}
-              </button>
-            );
-          })}
-        </div>
-        <span className="text-sm font-medium text-[#1B4E46]/75">
-          Pilih minimal 1 dan maksimal 3 untuk kategori
-        </span>
-      </div>
+      {/* Category Selection Section → molecule CategorySelector */}
+      <CategorySelector
+        categories={categories}
+        selectedIds={selectedCategories}
+        onToggle={toggleCategory}
+      />
 
       {/* Article Content & Formatting Toolbar */}
       <div className="w-full flex flex-col gap-3">
         <h2 className="text-2xl font-bold text-[#1B4E46]">Isi</h2>
 
-        {/* Text Formatting Tools */}
-        <div className="flex items-center gap-8 py-2">
-          {/* Bold, Italic, Underline */}
-          <div className="flex items-center gap-6">
-            <button
-              type="button"
-              onClick={() => applyFormat("**", "**")}
-              className="text-[#1B4E46] hover:opacity-75 font-bold"
-              title="Cetak Tebal"
-            >
-              <Bold className="w-5 h-5" />
-            </button>
-            <button
-              type="button"
-              onClick={() => applyFormat("*", "*")}
-              className="text-[#1B4E46] hover:opacity-75 italic"
-              title="Cetak Miring"
-            >
-              <Italic className="w-5 h-5" />
-            </button>
-            <button
-              type="button"
-              onClick={() => applyFormat("<u>", "</u>")}
-              className="text-[#1B4E46] hover:opacity-75 underline"
-              title="Garis Bawah"
-            >
-              <Underline className="w-5 h-5" />
-            </button>
-          </div>
-
-          {/* Separator Line */}
-          <div className="w-px h-6 bg-[#1B4E46]" />
-
-          {/* Link, Quote, Code, Image Insertion */}
-          <div className="flex items-center gap-6 text-[#1B4E46]">
-            <button
-              type="button"
-              onClick={() => applyFormat("[judul link](", ")")}
-              className="hover:opacity-75"
-              title="Tambah Tautan"
-            >
-              <Link className="w-5 h-5" />
-            </button>
-            <button
-              type="button"
-              onClick={() => applyFormat("> ")}
-              className="hover:opacity-75"
-              title="Kutipan"
-            >
-              <Quote className="w-5 h-5" />
-            </button>
-            <button
-              type="button"
-              onClick={() => applyFormat("`", "`")}
-              className="hover:opacity-75"
-              title="Kode"
-            >
-              <Code className="w-5 h-5" />
-            </button>
-            <button
-              type="button"
-              onClick={() => applyFormat("![alt text](", ")")}
-              className="hover:opacity-75"
-              title="Sisipkan Gambar"
-            >
-              <ImageIcon className="w-5 h-5" />
-            </button>
-          </div>
-        </div>
+        {/* Text Formatting Tools → molecule RichTextToolbar (atom ToolbarButton) */}
+        <RichTextToolbar onFormat={applyFormat} />
 
         {/* Main Content Area */}
         <textarea

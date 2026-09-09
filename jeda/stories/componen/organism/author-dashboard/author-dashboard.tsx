@@ -1,7 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
-import { ChevronDown, ArrowUp, ArrowDown, Edit3 } from "lucide-react";
+import { Edit3 } from "lucide-react";
+import { StatCard } from "../../molecule/stat-card/stat-card";
+import { TimeRangeDropdown } from "../../molecule/time-range-dropdown/time-range-dropdown";
+import { StatusBadge } from "../../atom/status-badge/status-badge";
 
 export interface ArticleItem {
   id: string;
@@ -93,7 +96,6 @@ export const AuthorDashboard: React.FC<AuthorDashboardProps> = ({
   className = "",
 }) => {
   const [selectedTimeRange, setSelectedTimeRange] = useState("7 hari terakhir");
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<"Semua" | "Publikasi" | "Draft">("Semua");
 
   const filteredArticles = articles.filter((article) => {
@@ -112,81 +114,35 @@ export const AuthorDashboard: React.FC<AuthorDashboardProps> = ({
             Dashboard
           </h1>
 
-          {/* Time Range Selector Dropdown */}
-          <div className="relative">
-            <button
-              type="button"
-              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-              className="w-[280px] md:w-[368px] h-10 px-6 border border-[#1B4E46] rounded-md flex items-center justify-between text-[#1B4E46] font-bold text-base bg-white hover:bg-gray-50 transition-colors cursor-pointer"
-            >
-              <span className="flex-1 text-center">{selectedTimeRange}</span>
-              <ChevronDown
-                className={`w-5 h-5 text-[#146C5D] transition-transform duration-200 ${
-                  isDropdownOpen ? "rotate-180" : ""
-                }`}
-              />
-            </button>
-
-            {isDropdownOpen && (
-              <div className="absolute right-0 top-12 w-[280px] md:w-[368px] bg-white border border-gray-200 rounded-lg shadow-lg z-10 p-1 flex flex-col gap-1">
-                {timeRanges.map((range) => (
-                  <button
-                    key={range}
-                    type="button"
-                    onClick={() => {
-                      setSelectedTimeRange(range);
-                      setIsDropdownOpen(false);
-                    }}
-                    className={`w-full h-10 px-4 rounded-md font-bold text-base text-left hover:bg-gray-100 transition-colors cursor-pointer ${
-                      selectedTimeRange === range
-                        ? "text-[#146C5D] bg-[#146C5D]/10"
-                        : "text-[#1B4E46]"
-                    }`}
-                  >
-                    {range}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
+          {/* Time Range Selector Dropdown → molecule TimeRangeDropdown */}
+          <TimeRangeDropdown
+            value={selectedTimeRange}
+            onChange={setSelectedTimeRange}
+            options={timeRanges}
+            className="w-[280px] md:w-[368px] max-w-full"
+            triggerClassName="bg-white hover:bg-gray-50 border-[#1B4E46]"
+            labelClassName="text-[#1B4E46]"
+            menuClassName="right-0 top-12 bg-white border-gray-200 rounded-lg"
+            itemClassName={(option, isSelected) =>
+              `w-full h-10 px-4 rounded-md font-bold text-base text-left hover:bg-gray-100 transition-colors cursor-pointer ${
+                isSelected ? "text-[#146C5D] bg-[#146C5D]/10" : "text-[#1B4E46]"
+              }`
+            }
+          />
         </div>
 
-        {/* Stats Cards Grid */}
+        {/* Stats Cards Grid → molecule StatCard */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
           {stats.map((stat, idx) => (
-            <div
+            <StatCard
               key={idx}
-              className="w-full h-[186px] p-4 border border-gray-300 rounded-md flex flex-col justify-between bg-white shadow-sm"
-            >
-              <span className="text-base font-normal text-[#1B4E46]">
-                {stat.label}
-              </span>
-
-              <div className="text-4xl md:text-[48px] font-bold text-[#1B4E46] leading-none">
-                {stat.value}
-              </div>
-
-              <div className="h-8 flex items-center">
-                {stat.change ? (
-                  <div
-                    className={`flex items-center gap-1 text-base font-normal ${
-                      stat.isPositive ? "text-[#1B4E46]" : "text-[#D97706]"
-                    }`}
-                  >
-                    {stat.isPositive ? (
-                      <ArrowUp className="w-5 h-5 text-[#1B4E46]" />
-                    ) : (
-                      <ArrowDown className="w-5 h-5 text-[#D97706]" />
-                    )}
-                    <span>{stat.change}</span>
-                  </div>
-                ) : (
-                  <span className="text-base font-normal text-[#1B4E46]">
-                    {stat.subtitle}
-                  </span>
-                )}
-              </div>
-            </div>
+              variant="author"
+              label={stat.label}
+              value={stat.value}
+              change={stat.change}
+              isPositive={stat.isPositive}
+              subtitle={stat.subtitle}
+            />
           ))}
         </div>
 
@@ -252,15 +208,10 @@ export const AuthorDashboard: React.FC<AuthorDashboardProps> = ({
                       {article.title}
                     </td>
                     <td className="px-4 py-3 text-center">
-                      <span
-                        className={`inline-block px-3 py-0.5 rounded-full text-sm font-normal ${
-                          article.status === "Publikasi"
-                            ? "bg-[#146C5D]/50 text-[#1B4E46]"
-                            : "bg-[rgba(16,29,19,0.16)] text-[#162D13]/75"
-                        }`}
-                      >
-                        {article.status}
-                      </span>
+                      <StatusBadge
+                        label={article.status}
+                        tone={article.status === "Publikasi" ? "teal-solid" : "muted"}
+                      />
                     </td>
                     <td className="px-4 py-3 text-base font-normal text-[#1B4E46] text-center">
                       {article.views}

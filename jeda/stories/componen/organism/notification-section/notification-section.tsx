@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { Heart, CheckCheck, UserPlus } from "lucide-react";
 import { ButtonTags } from "../../atom/button/button-tags/button-tags";
+import { NotificationItem } from "../../molecule/notification-item/notification-item";
 
 export type NotificationType = "like" | "follow" | "comment";
 
@@ -82,29 +82,6 @@ export const NotificationSection: React.FC<NotificationSectionProps> = ({
     "Minggu lalu",
   ];
 
-  const renderIcon = (type: NotificationType) => {
-    switch (type) {
-      case "like":
-        return (
-          <div className="w-11.5 h-11.5 rounded-full bg-[#FBCECE] flex items-center justify-center shrink-0">
-            <Heart className="w-5 h-5 text-[#D02A11] fill-[#D02A11]" />
-          </div>
-        );
-      case "follow":
-        return (
-          <div className="w-11.5 h-11.5 rounded-full bg-[#B4EEC1] flex items-center justify-center shrink-0">
-            <CheckCheck className="w-5 h-5 text-[#408836]" />
-          </div>
-        );
-      case "comment":
-        return (
-          <div className="w-11 h-11.5 rounded-full bg-[#BCE0FF] flex items-center justify-center shrink-0">
-            <UserPlus className="w-5 h-5 text-[#0088FF]" />
-          </div>
-        );
-    }
-  };
-
   return (
     <div
       className={`w-full max-w-311.5 mx-auto flex flex-col gap-9.75 font-['Poppins'] ${className}`}
@@ -159,40 +136,14 @@ export const NotificationSection: React.FC<NotificationSectionProps> = ({
                   </span>
                 </div>
 
-                {/* Items List */}
+                {/* Items List → molecule NotificationItem */}
                 <div className="flex flex-col gap-2.5 w-full">
                   {groupNotifications.map((item) => (
-                    <div
+                    <NotificationItem
                       key={item.id}
-                      onClick={() => onItemClick?.(item)}
-                      className={`w-full h-auto min-h-20.25 px-6 md:px-10 py-3 rounded-lg flex items-center justify-between transition-all cursor-pointer hover:opacity-90 ${
-                        item.isUnread ? "bg-[#F2F4ED]" : "bg-[#FBF8F2]"
-                      }`}
-                    >
-                      <div className="flex items-center gap-5.5 flex-1">
-                        {/* Dynamic Notif Icon */}
-                        {renderIcon(item.type)}
-
-                        {/* Message & Timestamp */}
-                        <div className="flex flex-col justify-center">
-                          <p
-                            className={`text-base text-btn-hover leading-relaxed ${
-                              item.isUnread ? "font-bold" : "font-normal"
-                            }`}
-                          >
-                            {item.message}
-                          </p>
-                          <span className="text-xs font-medium text-btn-hover/60">
-                            {item.timestamp}
-                          </span>
-                        </div>
-                      </div>
-
-                      {/* Unread Indicator Dot */}
-                      {item.isUnread && (
-                        <div className="w-4 h-4 rounded-full bg-[#146C5D] shrink-0 ml-4" />
-                      )}
-                    </div>
+                      item={item}
+                      onClick={(data) => onItemClick?.(data as NotificationItem)}
+                    />
                   ))}
                 </div>
               </div>

@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { InputLogin } from "../../atom/input/input-login/input-login";
+import { PasswordStrengthBar } from "../../atom/password-strength-bar/password-strength-bar";
 
 export type InputPasswordVariant = "password" | "confirm" | "current";
 
@@ -132,28 +133,11 @@ export const InputPassword: React.FC<InputPasswordProps> = ({
       )}
 
       {variant === "password" && (
-        <>
-          <div className="flex gap-3.25 w-141.5 mt-1.25">
-            {[1, 2, 3, 4].map((index) => {
-              const isActive = index <= strength.score;
-              const barColor = isActive ? strength.color : "rgba(204, 204, 204, 0.8)";
-              return (
-                <div
-                  key={index}
-                  className="h-1.75 w-32 rounded-xs transition-colors duration-200"
-                  style={{ backgroundColor: barColor }}
-                />
-              );
-            })}
-          </div>
-
-          <span
-            className="mt-1 font-['Poppins'] font-normal text-[14px] leading-6 text-left transition-colors duration-200"
-            style={{ color: currentValue.length === 0 ? "#1B4E46" : strength.color }}
-          >
-            {strength.text}
-          </span>
-        </>
+        <PasswordStrengthBar
+          score={strength.score}
+          text={strength.text}
+          color={strength.color}
+        />
       )}
     </div>
   );

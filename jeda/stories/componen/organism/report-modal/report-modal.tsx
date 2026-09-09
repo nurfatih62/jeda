@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { X } from "lucide-react";
+import { RadioOption } from "../../atom/radio-option/radio-option";
 
 export interface ReportOption {
   id: string;
@@ -66,36 +67,16 @@ export const ReportModal: React.FC<ReportModalProps> = ({
 
         {/* Form Laporan */}
         <form onSubmit={handleSubmit} className="flex flex-col gap-8 w-full">
-          {/* Radio Options List */}
+          {/* Radio Options List → atom RadioOption */}
           <div className="flex flex-col gap-4 pl-2 md:pl-12">
-            {options.map((option) => {
-              const isSelected = selectedReason === option.id;
-              return (
-                <label
-                  key={option.id}
-                  onClick={() => setSelectedReason(option.id)}
-                  className="flex items-center gap-4 cursor-pointer w-fit group"
-                >
-                  {/* Custom Radio Circle */}
-                  <div
-                    className={`w-8 h-8 rounded-full border-2 flex items-center justify-center transition-colors ${
-                      isSelected
-                        ? "border-[#146C5D] bg-white"
-                        : "border-[#146C5D]/60 group-hover:border-[#146C5D]"
-                    }`}
-                  >
-                    {isSelected && (
-                      <div className="w-4 h-4 rounded-full bg-[#146C5D]" />
-                    )}
-                  </div>
-
-                  {/* Option Label */}
-                  <span className="text-lg font-medium text-[#146C5D]">
-                    {option.label}
-                  </span>
-                </label>
-              );
-            })}
+            {options.map((option) => (
+              <RadioOption
+                key={option.id}
+                label={option.label}
+                selected={selectedReason === option.id}
+                onSelect={() => setSelectedReason(option.id)}
+              />
+            ))}
           </div>
 
           {/* Area Input Detail Tambahan */}

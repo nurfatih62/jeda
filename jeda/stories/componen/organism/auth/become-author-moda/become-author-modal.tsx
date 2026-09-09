@@ -10,6 +10,7 @@ import {
   MessageSquareMore,
   TriangleAlert,
 } from "lucide-react";
+import { BenefitListItem } from "../../../molecule/benefit-list-item/benefit-list-item";
 
 export interface BecomeAuthorModalProps {
   onClose?: () => void;
@@ -69,20 +70,16 @@ export const BecomeAuthorModal: React.FC<BecomeAuthorModalProps> = ({
                 YANG TETAP SAMA
               </h2>
               <div className="flex flex-col gap-3">
-                <div className="flex items-start gap-3">
-                  <Check className="text-[#1B4E46] shrink-0 mt-1" size={20} />
-                  <span className="text-lg font-medium text-[#1B4E46]">
-                    Membaca, menyukai, komentar, dan bookmark tetap jalan
-                    seperti biasa
-                  </span>
-                </div>
-                <div className="flex items-start gap-3">
-                  <Check className="text-[#1B4E46] shrink-0 mt-1" size={20} />
-                  <span className="text-lg font-medium text-[#1B4E46]">
-                    Riwayat baca dan seluruh aktivitasmu sebagai Reader tetap
-                    tersimpan
-                  </span>
-                </div>
+                <BenefitListItem
+                  align="start"
+                  icon={<Check size={20} />}
+                  text="Membaca, menyukai, komentar, dan bookmark tetap jalan seperti biasa"
+                />
+                <BenefitListItem
+                  align="start"
+                  icon={<Check size={20} />}
+                  text="Riwayat baca dan seluruh aktivitasmu sebagai Reader tetap tersimpan"
+                />
               </div>
             </div>
 
@@ -92,31 +89,22 @@ export const BecomeAuthorModal: React.FC<BecomeAuthorModalProps> = ({
                 YANG KAMU DAPAT
               </h2>
               <div className="flex flex-col gap-4">
-                <div className="flex items-center gap-3">
-                  <PenLine className="text-[#1B4E46] shrink-0" size={22} />
-                  <span className="text-lg font-medium text-[#1B4E46]">
-                    Tulis artikel dengan editor kaya fitur
-                  </span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <BookOpenText className="text-[#1B4E46] shrink-0" size={22} />
-                  <span className="text-lg font-medium text-[#1B4E46]">
-                    Simpan sebagai draft dengan auto-save, atau publikasikan
-                    langsung
-                  </span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <ChartColumnBig className="text-[#1B4E46] shrink-0" size={22} />
-                  <span className="text-lg font-medium text-[#1B4E46]">
-                    Dashboard performa: views, likes, komentar, dan simpan
-                  </span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <MessageSquareMore className="text-[#1B4E46] shrink-0" size={22} />
-                  <span className="text-lg font-medium text-[#1B4E46]">
-                    Kelola komentar yang masuk ke artikelmu sendiri
-                  </span>
-                </div>
+                <BenefitListItem
+                  icon={<PenLine size={22} />}
+                  text="Tulis artikel dengan editor kaya fitur"
+                />
+                <BenefitListItem
+                  icon={<BookOpenText size={22} />}
+                  text="Simpan sebagai draft dengan auto-save, atau publikasikan langsung"
+                />
+                <BenefitListItem
+                  icon={<ChartColumnBig size={22} />}
+                  text="Dashboard performa: views, likes, komentar, dan simpan"
+                />
+                <BenefitListItem
+                  icon={<MessageSquareMore size={22} />}
+                  text="Kelola komentar yang masuk ke artikelmu sendiri"
+                />
               </div>
             </div>
 

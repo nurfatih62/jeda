@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { StatusBadge, StatusBadgeTone } from "../../../atom/status-badge/status-badge";
 
 export interface ReportItem {
   id: string;
@@ -77,17 +78,17 @@ export const AdminLaporan: React.FC<AdminLaporanProps> = ({
     onTabChange?.(tabId);
   };
 
-  // Helper untuk menentukan gaya Badge Status
-  const getStatusBadgeStyle = (status: string) => {
+  // Helper: status laporan → tone atom StatusBadge
+  const getStatusTone = (status: string): StatusBadgeTone => {
     switch (status.toLowerCase()) {
       case "ditindak":
-        return "bg-[#146C5D]/16 text-[#146C5D]";
+        return "teal-soft";
       case "ditolak":
-        return "bg-[#000000]/10 text-[#000000]/60";
+        return "neutral";
       case "pending":
       case "publikasi":
       default:
-        return "bg-[#D97706]/16 text-[#D97706]";
+        return "amber";
     }
   };
 
@@ -166,13 +167,11 @@ export const AdminLaporan: React.FC<AdminLaporanProps> = ({
                     {item.tanggal}
                   </td>
                   <td className="px-4 text-center">
-                    <span
-                      className={`inline-block px-3 py-0.5 font-normal text-[14px] leading-[26px] rounded-[16px] whitespace-nowrap ${getStatusBadgeStyle(
-                        item.status
-                      )}`}
-                    >
-                      {item.status}
-                    </span>
+                    <StatusBadge
+                      label={item.status}
+                      tone={getStatusTone(item.status)}
+                      className="font-normal text-[14px] leading-[26px] rounded-[16px]"
+                    />
                   </td>
                 </tr>
               ))

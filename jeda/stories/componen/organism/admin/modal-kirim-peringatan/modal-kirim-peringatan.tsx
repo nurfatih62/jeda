@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { AdminConfirmModal } from "../../../molecule/admin-confirm-modal/admin-confirm-modal";
 
 export interface ModalKirimPeringatanProps {
   /** Controlling status terbuka modal */
@@ -31,47 +32,18 @@ export const ModalKirimPeringatan: React.FC<ModalKirimPeringatanProps> = ({
   onConfirm,
   className = "",
 }) => {
-  if (!isOpen) return null;
-
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
-      {/* Modal Box */}
-      <div
-        className={`relative w-full max-w-[689px] h-auto min-h-[396px] bg-white rounded-[6px] shadow-[2px_4px_4px_rgba(0,0,0,0.2)] font-['Poppins'] flex flex-col justify-center items-center px-8 py-[53px] ${className}`}
-      >
-        <div className="flex flex-col items-center w-full max-w-[425px] gap-[91px]">
-          {/* Header & Description */}
-          <div className="flex flex-col items-center w-full gap-[29px] text-center">
-            <h2 className="font-bold text-[36px] leading-[32px] text-[#1B4E46] m-0 max-w-[460px]">
-              {title}
-            </h2>
-            <p className="font-medium text-[20px] leading-[28px] text-[#1B4E46]/75 m-0 max-w-[395px]">
-              {description}
-            </p>
-          </div>
-
-          {/* Action Buttons */}
-          <div className="flex flex-row items-center justify-center gap-6 w-full">
-            {/* Tombol Batal */}
-            <button
-              type="button"
-              onClick={onCancel}
-              className="w-[181px] h-[40px] px-4 py-2 border border-[#146C5D] rounded-[6px] bg-transparent text-[#146C5D] font-medium text-[16px] leading-[24px] flex items-center justify-center hover:bg-[#146C5D]/10 transition-colors cursor-pointer"
-            >
-              {cancelLabel}
-            </button>
-
-            {/* Tombol Konfirmasi (Warning Theme) */}
-            <button
-              type="button"
-              onClick={onConfirm}
-              className="w-[165px] h-[40px] px-4 py-2 bg-[#D97706] border-none rounded-[6px] text-white font-medium text-[16px] leading-[24px] flex items-center justify-center hover:bg-[#b45309] transition-colors cursor-pointer"
-            >
-              {confirmLabel}
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+    <AdminConfirmModal
+      isOpen={isOpen}
+      title={title}
+      description={description}
+      confirmLabel={confirmLabel}
+      cancelLabel={cancelLabel}
+      confirmTone="warning"
+      cancelStyle="teal"
+      onCancel={onCancel}
+      onConfirm={onConfirm}
+      className={className}
+    />
   );
 };

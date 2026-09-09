@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { ProgressBar } from '../../../atom/progress-bar/progress-bar';
 
 export interface CategoryItem {
   id: string;
@@ -133,13 +134,8 @@ export const CategoryManagementSection: React.FC<CategoryManagementSectionProps>
                     <span className="font-normal text-gray-800">{tag.count}</span>
                   </div>
 
-                  {/* Progress Bar Container */}
-                  <div className="relative w-full h-[9px] bg-[#146C5D]/16 rounded-[16px] overflow-hidden">
-                    <div
-                      className="h-full bg-[#146C5D] rounded-[16px] transition-all duration-300"
-                      style={{ width: `${percentage}%` }}
-                    />
-                  </div>
+                  {/* Progress Bar → atom ProgressBar */}
+                  <ProgressBar value={percentage} />
                 </div>
               );
             })}

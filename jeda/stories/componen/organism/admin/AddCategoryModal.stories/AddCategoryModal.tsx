@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { CategoryNameField } from "../../../molecule/category-name-field/category-name-field";
+import { StatusSegmentedControl } from "../../../molecule/status-segmented-control/status-segmented-control";
 
 export interface AddCategoryModalProps {
   isOpen?: boolean;
@@ -56,58 +58,15 @@ export const AddCategoryModal: React.FC<AddCategoryModalProps> = ({
 
         {/* Form Body */}
         <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-6">
-          {/* Input Nama Kategori */}
-          <div className="flex flex-col gap-2">
-            <label
-              htmlFor="categoryName"
-              className="text-[16px] font-medium text-[#1B4E46]"
-            >
-              Nama Kategori
-            </label>
-            <input
-              id="categoryName"
-              type="text"
-              placeholder="Masukkan nama kategori"
-              value={categoryName}
-              onChange={(e) => setCategoryName(e.target.value)}
-              className="w-full rounded-[6px] border border-[#146C5D]/30 px-4 py-2.5 text-[16px] text-gray-800 outline-none transition-all focus:border-[#146C5D] focus:ring-1 focus:ring-[#146C5D]"
-              required
-            />
-          </div>
+          {/* Input Nama Kategori → molecule CategoryNameField */}
+          <CategoryNameField value={categoryName} onChange={setCategoryName} />
 
-          {/* Status Awal Selection */}
-          <div className="flex flex-col gap-3">
-            <span className="text-[16px] font-medium leading-[24px] text-[#1B4E46]">
-              Status awal
-            </span>
-            <div className="flex items-center gap-6">
-              {/* Button Nonaktif */}
-              <button
-                type="button"
-                onClick={() => setIsActive(false)}
-                className={`h-[40px] w-[181px] rounded-[6px] text-[16px] font-medium transition-all ${
-                  !isActive
-                    ? "bg-[#146C5D] text-white shadow-sm"
-                    : "border border-[#146C5D] bg-white text-[#146C5D] hover:bg-[#146C5D]/5"
-                }`}
-              >
-                Nonaktif
-              </button>
-
-              {/* Button Aktif */}
-              <button
-                type="button"
-                onClick={() => setIsActive(true)}
-                className={`h-[165px] w-[165px] h-[40px] rounded-[6px] text-[16px] font-medium transition-all ${
-                  isActive
-                    ? "bg-[#146C5D] text-white shadow-sm"
-                    : "border border-[#146C5D] bg-white text-[#146C5D] hover:bg-[#146C5D]/5"
-                }`}
-              >
-                Aktif
-              </button>
-            </div>
-          </div>
+          {/* Status Awal Selection → molecule StatusSegmentedControl */}
+          <StatusSegmentedControl
+            value={isActive}
+            onSelectInactive={() => setIsActive(false)}
+            onSelectActive={() => setIsActive(true)}
+          />
 
           {/* Submit Button */}
           <div className="mt-4 flex flex-col items-center">

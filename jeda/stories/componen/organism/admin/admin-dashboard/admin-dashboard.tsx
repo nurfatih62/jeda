@@ -1,6 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
+import { StatCard } from "../../../molecule/stat-card/stat-card";
+import { TimeRangeDropdown } from "../../../molecule/time-range-dropdown/time-range-dropdown";
+import { StatusBadge } from "../../../atom/status-badge/status-badge";
 
 export interface ReportItem {
   id: string;
@@ -73,13 +76,11 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   className = "",
 }) => {
   const [timeRange, setTimeRange] = useState("7 hari terakhir");
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const timeOptions = ["7 hari terakhir", "30 hari terakhir", "1 tahun terakhir"];
 
   const handleSelectTime = (option: string) => {
     setTimeRange(option);
-    setIsDropdownOpen(false);
     onTimeRangeChange?.(option);
   };
 
@@ -95,61 +96,38 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
             {title}
           </h1>
 
-          {/* Custom Dropdown Rentang Waktu */}
-          <div className="relative w-[368px]">
-            <button
-              type="button"
-              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-              className="flex flex-row justify-between items-center w-full h-[40px] px-6 border border-[#146C5D] rounded-[6px] bg-transparent cursor-pointer"
-            >
-              <span className="font-['Poppins'] font-bold text-[16px] leading-[32px] text-[#146C5D] mx-auto">
-                {timeRange}
-              </span>
+          {/* Custom Dropdown Rentang Waktu → molecule TimeRangeDropdown */}
+          <TimeRangeDropdown
+            value={timeRange}
+            onChange={handleSelectTime}
+            options={timeOptions}
+            triggerClassName="bg-transparent border-[#146C5D]"
+            menuClassName="top-[44px] left-0 bg-[#F2F4ED] border-[#146C5D]"
+            itemClassName="w-full h-[40px] rounded-[6px] font-['Poppins'] font-bold text-[16px] text-[#146C5D] hover:bg-[#146C5D]/10 text-center transition-colors"
+            icon={
               <svg
-                className={`w-[14px] h-[12px] text-[#146C5D] transition-transform duration-200 ${
-                  isDropdownOpen ? "rotate-180" : ""
-                }`}
+                className="w-[14px] h-[12px] text-[#146C5D]"
                 fill="currentColor"
                 viewBox="0 0 14 12"
               >
                 <path d="M7 12L0 0h14L7 12z" />
               </svg>
-            </button>
-
-            {isDropdownOpen && (
-              <div className="absolute top-[44px] left-0 w-full bg-[#F2F4ED] border border-[#146C5D] rounded-[8px] flex flex-col p-1 gap-1 z-10 shadow-lg">
-                {timeOptions.map((option) => (
-                  <button
-                    key={option}
-                    type="button"
-                    onClick={() => handleSelectTime(option)}
-                    className="w-full h-[40px] rounded-[6px] font-['Poppins'] font-bold text-[16px] text-[#146C5D] hover:bg-[#146C5D]/10 text-center transition-colors"
-                  >
-                    {option}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
+            }
+          />
         </div>
 
         {/* Section Dashboard Main */}
         <div className="flex flex-col w-full gap-8">
           
-          {/* Card Stats */}
+          {/* Card Stats → molecule StatCard (varian admin) */}
           <div className="flex flex-row items-center gap-[36px] w-full flex-wrap">
             {stats.map((stat, idx) => (
-              <div
+              <StatCard
                 key={idx}
-                className="flex flex-col justify-center items-start w-[274px] h-[148px] p-4 border border-[#146C5D] rounded-[6px] bg-[#F2F4ED] box-border"
-              >
-                <span className="font-['Poppins'] font-normal text-[16px] leading-[32px] text-black">
-                  {stat.title}
-                </span>
-                <span className="font-['Poppins'] font-bold text-[48px] leading-[32px] text-[#1B4E46] mt-2">
-                  {stat.value}
-                </span>
-              </div>
+                variant="admin"
+                label={stat.title}
+                value={String(stat.value)}
+              />
             ))}
           </div>
 
@@ -219,9 +197,11 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                         {item.tanggal}
                       </td>
                       <td className="px-4 text-center">
-                        <span className="inline-block px-3 py-0.5 bg-[#D97706]/16 text-[#D97706] font-['Poppins'] font-normal text-[14px] leading-[26px] rounded-[16px]">
-                          {item.status}
-                        </span>
+                        <StatusBadge
+                          label={item.status}
+                          tone="amber"
+                          className="font-['Poppins'] text-[14px] leading-[26px] rounded-[16px]"
+                        />
                       </td>
                     </tr>
                   ))}

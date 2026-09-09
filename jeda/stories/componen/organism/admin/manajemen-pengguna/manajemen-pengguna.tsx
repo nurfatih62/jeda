@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { StatusBadge, StatusBadgeTone } from "../../../atom/status-badge/status-badge";
 
 export interface UserItem {
   id: string;
@@ -69,25 +70,25 @@ export const ManajemenPengguna: React.FC<ManajemenPenggunaProps> = ({
     return user.peran.toLowerCase() === selectedRole.toLowerCase();
   });
 
-  // Helper badge Peran
-  const getRoleBadgeStyle = (role: string) => {
+  // Helper: peran → tone atom StatusBadge
+  const getRoleTone = (role: string): StatusBadgeTone => {
     switch (role.toLowerCase()) {
       case "author":
-        return "bg-[#0088FF]/16 text-[#0088FF]";
+        return "blue-soft";
       case "reader":
       default:
-        return "bg-[#999999]/16 text-[#6B7280]";
+        return "gray-soft";
     }
   };
 
-  // Helper badge Status
-  const getStatusBadgeStyle = (status: string) => {
+  // Helper: status → tone atom StatusBadge
+  const getStatusTone = (status: string): StatusBadgeTone => {
     switch (status.toLowerCase()) {
       case "disuspend":
-        return "bg-[#DC2626]/16 text-[#DC2626]";
+        return "red-soft";
       case "aktif":
       default:
-        return "bg-[#146C5D]/16 text-[#146C5D]";
+        return "teal-soft";
     }
   };
 
@@ -189,25 +190,21 @@ export const ManajemenPengguna: React.FC<ManajemenPenggunaProps> = ({
                       {user.email}
                     </td>
                     <td className="px-4 text-center">
-                      <span
-                        className={`inline-block px-3 py-0.5 font-normal text-[14px] leading-[26px] rounded-[16px] min-w-[80px] text-center ${getRoleBadgeStyle(
-                          user.peran
-                        )}`}
-                      >
-                        {user.peran}
-                      </span>
+                      <StatusBadge
+                        label={user.peran}
+                        tone={getRoleTone(user.peran)}
+                        className="font-normal text-[14px] leading-[26px] rounded-[16px] min-w-[80px]"
+                      />
                     </td>
                     <td className="font-normal text-[16px] leading-[26px] text-black px-4 text-center whitespace-nowrap">
                       {user.bergabung}
                     </td>
                     <td className="px-4 text-center">
-                      <span
-                        className={`inline-block px-3 py-0.5 font-normal text-[14px] leading-[26px] rounded-[16px] min-w-[80px] text-center ${getStatusBadgeStyle(
-                          user.status
-                        )}`}
-                      >
-                        {user.status}
-                      </span>
+                      <StatusBadge
+                        label={user.status}
+                        tone={getStatusTone(user.status)}
+                        className="font-normal text-[14px] leading-[26px] rounded-[16px] min-w-[80px]"
+                      />
                     </td>
                     <td className="px-4 text-center">
                       {isSuspended ? (
